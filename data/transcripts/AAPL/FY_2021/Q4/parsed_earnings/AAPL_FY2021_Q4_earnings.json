@@ -1,0 +1,194 @@
+{
+  "company_name": "Apple Inc.",
+  "quarter": "Q4",
+  "fiscal_year": "2021",
+  "total_revenue": {
+    "value": 83.4,
+    "unit": "billion",
+    "context": "September quarter record, up 29% year-over-year",
+    "period": "Q4 FY2021"
+  },
+  "fiscal_year_performance": {
+    "total_revenue": {
+      "value": 366.0,
+      "unit": "billion",
+      "growth_yoy": 33.0,
+      "context": "Annual growth across all product categories and geographic segments"
+    },
+    "key_achievements": [
+      "20%+ growth across all product categories",
+      "Growth in every geographic segment",
+      "Services revenue reached $68 billion",
+      "One-third of revenue from emerging markets",
+      "Doubled business in India and Vietnam"
+    ]
+  },
+  "segments": [
+    {
+      "name": "iPhone",
+      "revenue": {
+        "value": 38.9,
+        "unit": "billion",
+        "context": "September quarter record, up 47% year-over-year",
+        "period": "Q4 FY2021"
+      },
+      "growth_yoy": 47.0,
+      "key_points": [
+        "98% customer satisfaction",
+        "Strong iPhone 12 family performance",
+        "Double-digit growth in all geographic segments",
+        "New all-time high in active installed base",
+        "Records in both developed and emerging markets",
+        "Launch of iPhone 13 lineup"
+      ]
+    },
+    {
+      "name": "Services",
+      "revenue": {
+        "value": 18.3,
+        "unit": "billion",
+        "context": "All-time record revenue, up 26% year-over-year",
+        "period": "Q4 FY2021"
+      },
+      "growth_yoy": 26.0,
+      "key_points": [
+        "Over 745 million paid subscriptions",
+        "Up 160 million paid subscriptions year-over-year",
+        "All-time records in all services categories",
+        "11 Emmy wins including Outstanding Comedy Series",
+        "Apple Card wins J.D. Power award",
+        "Launch of Apple Music Voice subscription tier"
+      ]
+    },
+    {
+      "name": "Mac",
+      "revenue": {
+        "value": 9.2,
+        "unit": "billion",
+        "context": "All-time record revenue",
+        "period": "Q4 FY2021"
+      },
+      "growth_yoy": null,
+      "key_points": [
+        "Best five quarters ever for Mac",
+        "97% customer satisfaction rating",
+        "Around half of purchases from new-to-Mac customers",
+        "Strong demand for M1 MacBook Air",
+        "Introduction of M1 Pro and M1 Max MacBook Pro",
+        "Strong enterprise adoption"
+      ]
+    },
+    {
+      "name": "iPad",
+      "revenue": {
+        "value": 8.3,
+        "unit": "billion",
+        "context": "September quarter record, up 21% year-over-year",
+        "period": "Q4 FY2021"
+      },
+      "growth_yoy": 21.0,
+      "key_points": [
+        "97% customer satisfaction rating",
+        "Around half of purchases from new-to-iPad customers",
+        "Strong demand for M1 iPad Pro",
+        "Launch of new iPad and iPad mini",
+        "Success in enterprise deployments",
+        "Supply constraints impacting sales"
+      ]
+    },
+    {
+      "name": "Wearables, Home and Accessories",
+      "revenue": {
+        "value": 8.8,
+        "unit": "billion",
+        "context": "September quarter record",
+        "period": "Q4 FY2021"
+      },
+      "growth_yoy": null,
+      "key_points": [
+        "Introduction of new AirPods",
+        "Launch of Apple Watch Series 7",
+        "New HomePod mini colors",
+        "Integration across products and services",
+        "Strong ecosystem benefits",
+        "Continued product expansion"
+      ]
+    }
+  ],
+  "operational_metrics": {
+    "gross_margin": {
+      "value": 42.2,
+      "unit": "percentage",
+      "context": "Down 110 basis points from last quarter",
+      "period": "Q4 FY2021"
+    },
+    "products_gross_margin": {
+      "value": 34.3,
+      "unit": "percentage",
+      "context": "Down 170 basis points sequentially",
+      "period": "Q4 FY2021"
+    },
+    "services_gross_margin": {
+      "value": 70.5,
+      "unit": "percentage",
+      "context": "Up 70 basis points sequentially",
+      "period": "Q4 FY2021"
+    },
+    "cash_position": {
+      "cash_and_securities": 191.0,
+      "total_debt": 125.0,
+      "net_cash": 66.0,
+      "unit": "billion"
+    }
+  },
+  "future_guidance": {
+    "no_formal_guidance": true,
+    "expectations": {
+      "revenue": "Expect to achieve very solid year-over-year growth and new record",
+      "supply_constraints": "Impact expected to be larger than $6 billion in December quarter",
+      "product_categories": "Growth expected in all categories except iPad",
+      "services": "Strong but decelerating growth",
+      "gross_margin": "Between 41.5% and 42.5%",
+      "operating_expenses": {
+        "range": "Between $12.4-12.6 billion"
+      },
+      "tax_rate": 16.0
+    }
+  },
+  "capital_return": {
+    "total_returned": {
+      "value": 24.0,
+      "unit": "billion",
+      "details": {
+        "dividends": 3.6,
+        "share_repurchases": {
+          "amount": 20.0,
+          "shares": 137.0,
+          "unit": "million"
+        }
+      }
+    },
+    "dividend": {
+      "amount": 0.22,
+      "declaration_date": "2021-11-11",
+      "record_date": "2021-11-08"
+    }
+  },
+  "strategic_initiatives": [
+    "$130 million Racial Equity and Justice Initiative",
+    "Carbon neutrality progress and supply chain commitments",
+    "New Apple Developer Academy in Detroit",
+    "Everyone Can Code Early Learners program",
+    "Environmental progress with recycled materials",
+    "New retail store openings globally",
+    "Education and coding initiatives expansion",
+    "Supply chain sustainability improvements"
+  ],
+  "metadata": {
+    "parsed_date": "2024-12-16T18:54:38.739259",
+    "company_ticker": "AAPL",
+    "installed_base": "New all-time high across each geographic segment",
+    "source": "earnings_call_transcript",
+    "supply_constraints": "$6 billion impact in Q4 FY2021"
+  }
+}

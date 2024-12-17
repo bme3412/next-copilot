@@ -1,0 +1,200 @@
+{
+  "company_name": "Apple Inc.",
+  "quarter": "Q2",
+  "fiscal_year": "2022",
+  "total_revenue": {
+    "value": 97.3,
+    "unit": "billion",
+    "context": "March quarter record, up 9% year-over-year",
+    "period": "Q2 FY2022"
+  },
+  "first_half_performance": {
+    "total_revenue": {
+      "value": 220.0,
+      "unit": "billion",
+      "growth_yoy": 10.0,
+      "context": "Record first half of fiscal year"
+    },
+    "key_achievements": [
+      "All-time records for iPhone, Mac, Wearables, and Services",
+      "Strong double-digit growth in operating income",
+      "Strong double-digit growth in earnings per share",
+      "Record performance despite challenging environment"
+    ]
+  },
+  "segments": [
+    {
+      "name": "iPhone",
+      "revenue": {
+        "value": 50.6,
+        "unit": "billion",
+        "context": "March quarter record, up 5% year-over-year",
+        "period": "Q2 FY2022"
+      },
+      "growth_yoy": 5.0,
+      "key_points": [
+        "99% customer satisfaction for iPhone 13 family",
+        "Strong demand for iPhone 13 lineup",
+        "New green finishes added",
+        "Launch of 5G-enabled iPhone SE",
+        "Records in developed and emerging markets",
+        "New all-time high active installed base"
+      ]
+    },
+    {
+      "name": "Services",
+      "revenue": {
+        "value": 19.8,
+        "unit": "billion",
+        "context": "All-time record revenue, up 17% year-over-year",
+        "period": "Q2 FY2022"
+      },
+      "growth_yoy": 17.0,
+      "key_points": [
+        "Over 825 million paid subscriptions",
+        "Up 165 million paid subscriptions year-over-year",
+        "All-time records for App Store, Music, Cloud Services, Apple Care",
+        "March quarter records for video, advertising, payment services",
+        "Apple TV+ wins Academy Award for Best Picture",
+        "Launch of Friday Night Baseball",
+        "Introduction of Apple Business Essentials"
+      ]
+    },
+    {
+      "name": "Mac",
+      "revenue": {
+        "value": 10.4,
+        "unit": "billion",
+        "context": "March quarter record, up 15% year-over-year",
+        "period": "Q2 FY2022"
+      },
+      "growth_yoy": 15.0,
+      "key_points": [
+        "Introduction of M1 Ultra chip",
+        "Launch of Mac Studio and Studio Display",
+        "Best seven quarters ever for Mac",
+        "Strong demand for M1 MacBook Pro",
+        "Record number of upgraders",
+        "Nearly half of customers new to Mac"
+      ]
+    },
+    {
+      "name": "iPad",
+      "revenue": {
+        "value": 7.6,
+        "unit": "billion",
+        "context": "Down 2% year-over-year due to supply constraints",
+        "period": "Q2 FY2022"
+      },
+      "growth_yoy": -2.0,
+      "key_points": [
+        "New all-time high installed base",
+        "Over half of customers new to iPad",
+        "Launch of M1-powered iPad Air",
+        "Strong customer response",
+        "Significant supply constraints",
+        "Essential for education and creativity"
+      ]
+    },
+    {
+      "name": "Wearables, Home and Accessories",
+      "revenue": {
+        "value": 8.8,
+        "unit": "billion",
+        "context": "March quarter record, up 12% year-over-year",
+        "period": "Q2 FY2022"
+      },
+      "growth_yoy": 12.0,
+      "key_points": [
+        "Business doubled in three years",
+        "Size of Fortune 100 business",
+        "March quarter records in developed and emerging markets",
+        "Over 2/3 of Apple Watch buyers new to product",
+        "Strong HomePod mini performance",
+        "Success with AirPods spatial audio"
+      ]
+    }
+  ],
+  "operational_metrics": {
+    "gross_margin": {
+      "value": 43.7,
+      "unit": "percentage",
+      "context": "Down 10 basis points from last quarter",
+      "period": "Q2 FY2022"
+    },
+    "products_gross_margin": {
+      "value": 36.4,
+      "unit": "percentage",
+      "context": "Down 200 basis points sequentially",
+      "period": "Q2 FY2022"
+    },
+    "services_gross_margin": {
+      "value": 72.6,
+      "unit": "percentage",
+      "context": "Up 20 basis points sequentially",
+      "period": "Q2 FY2022"
+    },
+    "cash_position": {
+      "cash_and_securities": 193.0,
+      "total_debt": 120.0,
+      "net_cash": 73.0,
+      "unit": "billion"
+    }
+  },
+  "future_guidance": {
+    "no_formal_guidance": true,
+    "expectations": {
+      "supply_constraints": "Expected impact of $4-8 billion",
+      "foreign_exchange": "Nearly 300 basis point headwind year-over-year",
+      "russia_impact": "150 basis point impact from sales pause",
+      "services": "Continue double-digit growth but decelerate from March quarter",
+      "gross_margin": "Between 42% and 43%",
+      "operating_expenses": {
+        "range": "Between $12.7-12.9 billion"
+      },
+      "tax_rate": 16.0
+    }
+  },
+  "capital_return": {
+    "total_returned": {
+      "value": 27.0,
+      "unit": "billion",
+      "details": {
+        "dividends": 3.6,
+        "share_repurchases": {
+          "amount": 22.9,
+          "shares": 137.0,
+          "unit": "million"
+        }
+      }
+    },
+    "dividend": {
+      "amount": 0.23,
+      "increase": "5%",
+      "declaration_date": "2022-05-12",
+      "record_date": "2022-05-12"
+    },
+    "share_repurchase_authorization": {
+      "amount": 90.0,
+      "unit": "billion",
+      "type": "additional"
+    }
+  },
+  "strategic_initiatives": [
+    "Ukraine humanitarian support",
+    "Arizona digital driver's license in Apple Wallet",
+    "Tap to Pay on iPhone announcement",
+    "New retail stores in UAE and Korea",
+    "Green Bonds and low-carbon aluminum initiatives",
+    "Supplier Employee Development Fund",
+    "$50 million for supply chain education",
+    "Inclusion and diversity progress"
+  ],
+  "metadata": {
+    "parsed_date": "2024-12-16T18:54:38.739259",
+    "company_ticker": "AAPL",
+    "installed_base": "All-time high across all major product categories",
+    "source": "earnings_call_transcript",
+    "challenges": "COVID disruptions, silicon shortages, Ukraine conflict"
+  }
+}

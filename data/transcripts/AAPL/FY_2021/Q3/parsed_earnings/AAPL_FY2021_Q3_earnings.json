@@ -1,0 +1,185 @@
+{
+  "company_name": "Apple Inc.",
+  "quarter": "Q3",
+  "fiscal_year": "2021",
+  "total_revenue": {
+    "value": 81.4,
+    "unit": "billion",
+    "context": "June quarter record, up 36% year-over-year",
+    "period": "Q3 FY2021"
+  },
+  "segments": [
+    {
+      "name": "iPhone",
+      "revenue": {
+        "value": 39.6,
+        "unit": "billion",
+        "context": "June quarter record, up 50% year-over-year",
+        "period": "Q3 FY2021"
+      },
+      "growth_yoy": 50.0,
+      "key_points": [
+        "Strong double-digit growth in each geographic segment",
+        "97% customer satisfaction for iPhone 12 family",
+        "Very high demand for iPhone 12 lineup",
+        "New all-time high in active installed base",
+        "June quarter records in most markets",
+        "Early innings of 5G adoption"
+      ]
+    },
+    {
+      "name": "Services",
+      "revenue": {
+        "value": 17.5,
+        "unit": "billion",
+        "context": "All-time record revenue, up 33% year-over-year",
+        "period": "Q3 FY2021"
+      },
+      "growth_yoy": 33.0,
+      "key_points": [
+        "Over 700 million paid subscriptions",
+        "Up 150 million paid subscriptions year-over-year",
+        "All-time records for cloud services, music, video, advertising and payment services",
+        "June quarter records for App Store and Apple Care",
+        "35 Emmy Nominations",
+        "Launch of Spatial Audio for Apple Music",
+        "Introduction of Apple Podcast subscriptions"
+      ]
+    },
+    {
+      "name": "Mac",
+      "revenue": {
+        "value": 8.2,
+        "unit": "billion",
+        "context": "June quarter record, up 16% year-over-year",
+        "period": "Q3 FY2021"
+      },
+      "growth_yoy": 16.0,
+      "key_points": [
+        "Best four quarters ever for Mac",
+        "92% customer satisfaction rating",
+        "Strong response to M1-powered Macs",
+        "Around half of purchases from new-to-Mac customers",
+        "June quarter records in most markets",
+        "Strong enterprise adoption of M1 Macs"
+      ]
+    },
+    {
+      "name": "iPad",
+      "revenue": {
+        "value": 7.4,
+        "unit": "billion",
+        "context": "Up 12% year-over-year despite supply constraints",
+        "period": "Q3 FY2021"
+      },
+      "growth_yoy": 12.0,
+      "key_points": [
+        "Launch of M1-powered iPad Pro",
+        "95% customer satisfaction rating",
+        "Around half of purchases from new-to-iPad customers",
+        "Highest June quarter in nearly a decade",
+        "Supply constraints impacting sales",
+        "Strong response to new iPad Pro"
+      ]
+    },
+    {
+      "name": "Wearables, Home and Accessories",
+      "revenue": {
+        "value": 8.8,
+        "unit": "billion",
+        "context": "June quarter record, up 36% year-over-year",
+        "period": "Q3 FY2021"
+      },
+      "growth_yoy": 36.0,
+      "key_points": [
+        "June quarter records in every geographic segment",
+        "75% of Apple Watch buyers were first-time purchasers",
+        "Strong response to new Apple TV 4K",
+        "Strong customer response to AirTag",
+        "Launch of new Apple TV 4K with redesigned Siri remote",
+        "Continued expansion of Apple Watch reach"
+      ]
+    }
+  ],
+  "operational_metrics": {
+    "gross_margin": {
+      "value": 43.3,
+      "unit": "percentage",
+      "context": "Up 80 basis points from last quarter",
+      "period": "Q3 FY2021"
+    },
+    "products_gross_margin": {
+      "value": 36.0,
+      "unit": "percentage",
+      "context": "Down 10 basis points sequentially",
+      "period": "Q3 FY2021"
+    },
+    "services_gross_margin": {
+      "value": 69.8,
+      "unit": "percentage",
+      "context": "Down 30 basis points sequentially",
+      "period": "Q3 FY2021"
+    },
+    "cash_position": {
+      "cash_and_securities": 194.0,
+      "total_debt": 122.0,
+      "net_cash": 72.0,
+      "unit": "billion"
+    }
+  },
+  "future_guidance": {
+    "no_formal_guidance": true,
+    "expectations": {
+      "revenue": "Very strong double digit year-over-year growth",
+      "foreign_exchange": "3 points less favorable than June quarter",
+      "services": "Return to more typical growth rate",
+      "supply_constraints": "Greater than June quarter, primarily impacting iPhone and iPad",
+      "gross_margin": "Between 41.5% and 42.5%",
+      "operating_expenses": {
+        "range": "Between $11.3-11.5 billion"
+      },
+      "tax_rate": 16.0
+    }
+  },
+  "capital_return": {
+    "total_returned": {
+      "value": 29.0,
+      "unit": "billion",
+      "details": {
+        "dividends": 3.8,
+        "share_repurchases": {
+          "amount": 17.5,
+          "shares": 136.0,
+          "unit": "million"
+        },
+        "accelerated_share_repurchase": {
+          "amount": 5.0,
+          "shares": 32.0,
+          "unit": "billion"
+        }
+      }
+    },
+    "dividend": {
+      "amount": 0.22,
+      "declaration_date": "2021-08-12",
+      "record_date": "2021-08-09"
+    }
+  },
+  "strategic_initiatives": [
+    "Innovation grants to historically black colleges and universities",
+    "Affordable housing initiative in California with $1 billion contribution",
+    "New retail store opening in Los Angeles (Apple Tower Theater)",
+    "Developer support and App Store economy growth",
+    "New accessibility features across products",
+    "Privacy enhancements in iOS 15",
+    "Education and coding initiatives",
+    "Health and wellness features expansion"
+  ],
+  "metadata": {
+    "parsed_date": "2024-12-16T18:54:38.739259",
+    "company_ticker": "AAPL",
+    "installed_base": "New all-time high across product categories",
+    "source": "earnings_call_transcript",
+    "app_economy": "$643 billion in developer billings and sales in 2020"
+  }
+}

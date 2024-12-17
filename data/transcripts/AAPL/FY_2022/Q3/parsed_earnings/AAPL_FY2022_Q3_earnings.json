@@ -1,0 +1,180 @@
+{
+  "company_name": "Apple Inc.",
+  "quarter": "Q3",
+  "fiscal_year": "2022",
+  "total_revenue": {
+    "value": 83.0,
+    "unit": "billion",
+    "context": "June quarter record, up 2% year-over-year",
+    "period": "Q3 FY2022"
+  },
+  "segments": [
+    {
+      "name": "iPhone",
+      "revenue": {
+        "value": 40.7,
+        "unit": "billion",
+        "context": "June quarter record, up 3% year-over-year",
+        "period": "Q3 FY2022"
+      },
+      "growth_yoy": 3.0,
+      "key_points": [
+        "98% customer satisfaction rating",
+        "Record number of switchers",
+        "Strong response to iPhone 13 lineup",
+        "June quarter records in developed and emerging markets",
+        "New all-time high in active installed base",
+        "Strong double-digit switcher growth"
+      ]
+    },
+    {
+      "name": "Services",
+      "revenue": {
+        "value": 19.6,
+        "unit": "billion",
+        "context": "June quarter record, up 12% year-over-year",
+        "period": "Q3 FY2022"
+      },
+      "growth_yoy": 12.0,
+      "key_points": [
+        "Over 860 million paid subscriptions",
+        "Up 160 million paid subscriptions year-over-year",
+        "All-time revenue records for Music, Cloud Services, Apple Care, Payment Services",
+        "June quarter records in all major services categories",
+        "52 Emmy Award nominations",
+        "Apple TV+ reaches 250 wins and 1,100 nominations",
+        "New 10-year Major League Soccer deal"
+      ]
+    },
+    {
+      "name": "Mac",
+      "revenue": {
+        "value": 7.4,
+        "unit": "billion",
+        "context": "Impacted by supply constraints and foreign exchange",
+        "period": "Q3 FY2022"
+      },
+      "growth_yoy": null,
+      "key_points": [
+        "All-time high installed base",
+        "Nearly half of customers new to Mac",
+        "Launch of M2-powered MacBook Air and MacBook Pro",
+        "Strong enterprise adoption",
+        "Supply constraints continuing",
+        "Strong customer response to lineup"
+      ]
+    },
+    {
+      "name": "iPad",
+      "revenue": {
+        "value": 7.2,
+        "unit": "billion",
+        "context": "Down 2% year-over-year",
+        "period": "Q3 FY2022"
+      },
+      "growth_yoy": -2.0,
+      "key_points": [
+        "New all-time high installed base",
+        "Over half of customers new to iPad",
+        "Strong customer response",
+        "Supply constraints impact",
+        "Negative foreign exchange impact",
+        "Strong demand across consumer, education, and enterprise"
+      ]
+    },
+    {
+      "name": "Wearables, Home and Accessories",
+      "revenue": {
+        "value": 8.1,
+        "unit": "billion",
+        "context": "Down 8% year-over-year",
+        "period": "Q3 FY2022"
+      },
+      "growth_yoy": -8.0,
+      "key_points": [
+        "New all-time high installed base",
+        "Over 2/3 of Apple Watch buyers new to product",
+        "FDA approval for AFib tracking feature",
+        "Impact from foreign exchange headwinds",
+        "Different launch timing effects",
+        "Supply constraints and macro environment impact"
+      ]
+    }
+  ],
+  "operational_metrics": {
+    "gross_margin": {
+      "value": 43.3,
+      "unit": "percentage",
+      "context": "Down 40 basis points from last quarter",
+      "period": "Q3 FY2022"
+    },
+    "products_gross_margin": {
+      "value": 34.5,
+      "unit": "percentage",
+      "context": "Down 190 basis points sequentially",
+      "period": "Q3 FY2022"
+    },
+    "services_gross_margin": {
+      "value": 71.5,
+      "unit": "percentage",
+      "context": "Down 110 basis points sequentially",
+      "period": "Q3 FY2022"
+    },
+    "cash_position": {
+      "cash_and_securities": 179.0,
+      "total_debt": 120.0,
+      "net_cash": 60.0,
+      "unit": "billion"
+    }
+  },
+  "future_guidance": {
+    "no_formal_guidance": true,
+    "expectations": {
+      "revenue_growth": "Accelerate compared to June quarter",
+      "foreign_exchange": "600 basis points negative impact year-over-year",
+      "supply_constraints": "Lower than June quarter",
+      "services": "Growth but decelerate from June quarter",
+      "gross_margin": "Between 41.5% and 42.5%",
+      "operating_expenses": {
+        "range": "Between $12.9-13.1 billion"
+      },
+      "tax_rate": 16.0
+    }
+  },
+  "capital_return": {
+    "total_returned": {
+      "value": 28.0,
+      "unit": "billion",
+      "details": {
+        "dividends": 3.8,
+        "share_repurchases": {
+          "amount": 21.7,
+          "shares": 143.0,
+          "unit": "million"
+        }
+      }
+    },
+    "dividend": {
+      "amount": 0.23,
+      "declaration_date": "2022-08-11",
+      "record_date": "2022-08-11"
+    }
+  },
+  "strategic_initiatives": [
+    "New stores in China and London",
+    "Creative Studios expansion",
+    "Global Equity Innovation Hub initiatives",
+    "Detroit Developer Academy first graduation",
+    "Introduction of Passkey technology",
+    "Lockdown Mode for high-risk users",
+    "$1.3 billion deployed for California housing",
+    "App Store security preventing $1.5 billion in fraud"
+  ],
+  "metadata": {
+    "parsed_date": "2024-12-16T18:54:38.739259",
+    "company_ticker": "AAPL",
+    "installed_base": "All-time high across all major product categories",
+    "source": "earnings_call_transcript",
+    "geographic_highlights": "Records in Americas, Europe, and rest of Asia Pacific"
+  }
+}

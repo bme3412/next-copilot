@@ -1,0 +1,185 @@
+{
+  "company_name": "Apple Inc.",
+  "quarter": "Q1",
+  "fiscal_year": "2022",
+  "total_revenue": {
+    "value": 123.9,
+    "unit": "billion",
+    "context": "All-time record revenue, up 11% year-over-year",
+    "period": "Q1 FY2022"
+  },
+  "segments": [
+    {
+      "name": "iPhone",
+      "revenue": {
+        "value": 71.6,
+        "unit": "billion",
+        "context": "All-time record revenue, up 9% year-over-year",
+        "period": "Q1 FY2022"
+      },
+      "growth_yoy": 9.0,
+      "key_points": [
+        "98% customer satisfaction rating",
+        "Strong response to iPhone 13 lineup",
+        "All-time records in developed and emerging markets",
+        "Growth despite supply constraints",
+        "All-time high in active installed base",
+        "15th anniversary of original iPhone"
+      ]
+    },
+    {
+      "name": "Services",
+      "revenue": {
+        "value": 19.5,
+        "unit": "billion",
+        "context": "All-time record revenue, up 24% year-over-year",
+        "period": "Q1 FY2022"
+      },
+      "growth_yoy": 24.0,
+      "key_points": [
+        "Over 785 million paid subscriptions",
+        "Up 165 million paid subscriptions year-over-year",
+        "Records for cloud, music, video, advertising, payment services",
+        "December quarter record for App Store",
+        "$260 billion paid to developers since launch",
+        "Launch of Apple Business Essentials beta",
+        "200 award wins and 890 nominations for Apple TV+"
+      ]
+    },
+    {
+      "name": "Mac",
+      "revenue": {
+        "value": 10.9,
+        "unit": "billion",
+        "context": "All-time record revenue, up 25% year-over-year",
+        "period": "Q1 FY2022"
+      },
+      "growth_yoy": 25.0,
+      "key_points": [
+        "Strong demand for M1 Pro and M1 Max MacBook Pro",
+        "Majority of Mac sales from M1-powered devices",
+        "Record number of upgraders",
+        "Best six quarters ever for Mac",
+        "Strong enterprise adoption",
+        "Growth despite supply constraints"
+      ]
+    },
+    {
+      "name": "iPad",
+      "revenue": {
+        "value": 7.2,
+        "unit": "billion",
+        "context": "Down 14% year-over-year due to supply constraints",
+        "period": "Q1 FY2022"
+      },
+      "growth_yoy": -14.0,
+      "key_points": [
+        "New all-time high installed base",
+        "Around half of purchases from new-to-iPad customers",
+        "Strong demand across all models",
+        "Significant supply constraints",
+        "Launch of ninth generation iPad",
+        "New iPad Mini introduction"
+      ]
+    },
+    {
+      "name": "Wearables, Home and Accessories",
+      "revenue": {
+        "value": 14.7,
+        "unit": "billion",
+        "context": "All-time record revenue, up 13% year-over-year",
+        "period": "Q1 FY2022"
+      },
+      "growth_yoy": 13.0,
+      "key_points": [
+        "All-time revenue records in each geographic segment",
+        "Over 2/3 of Apple Watch buyers were first-time purchasers",
+        "Strong response to Apple Watch Series 7",
+        "Success with HomePod mini",
+        "Positive reception to spatial audio on AirPods",
+        "Health and safety features making impact"
+      ]
+    }
+  ],
+  "operational_metrics": {
+    "gross_margin": {
+      "value": 43.8,
+      "unit": "percentage",
+      "context": "Up 160 basis points from last quarter",
+      "period": "Q1 FY2022"
+    },
+    "products_gross_margin": {
+      "value": 38.4,
+      "unit": "percentage",
+      "context": "Up 410 basis points sequentially",
+      "period": "Q1 FY2022"
+    },
+    "services_gross_margin": {
+      "value": 72.4,
+      "unit": "percentage",
+      "context": "Up 190 basis points sequentially",
+      "period": "Q1 FY2022"
+    },
+    "cash_position": {
+      "cash_and_securities": 203.0,
+      "total_debt": 123.0,
+      "net_cash": 80.0,
+      "unit": "billion"
+    }
+  },
+  "future_guidance": {
+    "no_formal_guidance": true,
+    "expectations": {
+      "revenue": "Solid year-over-year growth and March quarter record expected",
+      "supply_constraints": "Less than December quarter",
+      "services": "Strong double-digit growth but deceleration from December quarter",
+      "foreign_exchange": "3-point headwind vs December quarter",
+      "gross_margin": "Between 42.5% and 43.5%",
+      "operating_expenses": {
+        "range": "Between $12.5-12.7 billion"
+      },
+      "tax_rate": 16.0
+    }
+  },
+  "capital_return": {
+    "total_returned": {
+      "value": 27.0,
+      "unit": "billion",
+      "details": {
+        "dividends": 3.7,
+        "share_repurchases": {
+          "amount": 14.4,
+          "shares": 93.0,
+          "unit": "million"
+        },
+        "accelerated_share_repurchase": {
+          "amount": 6.0,
+          "shares": 30.0,
+          "unit": "billion"
+        }
+      }
+    },
+    "dividend": {
+      "amount": 0.22,
+      "declaration_date": "2022-02-10",
+      "record_date": "2022-02-07"
+    }
+  },
+  "strategic_initiatives": [
+    "Carbon neutrality progress across operations",
+    "Boys & Girls Club coding partnership",
+    "Employee Giving program reaches $725 million",
+    "Project RED partnership raises $270 million",
+    "Black Unity Apple Watch and initiatives",
+    "Racial equity and justice initiatives",
+    "Record retail performance",
+    "SharePlay feature introduction"
+  ],
+  "metadata": {
+    "parsed_date": "2024-12-16T18:54:38.739259",
+    "company_ticker": "AAPL",
+    "installed_base": "New record of 1.8 billion active devices",
+    "source": "earnings_call_transcript",
+    "retail": "Highest revenue in Apple's history"
+  }
+}

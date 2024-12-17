@@ -1,0 +1,182 @@
+{
+  "company_name": "Apple Inc.",
+  "quarter": "Q2",
+  "fiscal_year": "2021",
+  "total_revenue": {
+    "value": 89.6,
+    "unit": "billion",
+    "context": "March quarter record, up 54% year-over-year",
+    "period": "Q2 FY2021"
+  },
+  "segments": [
+    {
+      "name": "iPhone",
+      "revenue": {
+        "value": 47.9,
+        "unit": "billion",
+        "context": "March quarter record, up 66% year-over-year",
+        "period": "Q2 FY2021"
+      },
+      "growth_yoy": 66.0,
+      "key_points": [
+        "Strong popularity of iPhone 12 family",
+        "Over 99% customer satisfaction for iPhone 12 family",
+        "Strong demand from both upgraders and new customers",
+        "Growth in all geographic segments",
+        "New purple finish for iPhone 12 and 12 Mini",
+        "Supply-demand balance achieved during quarter"
+      ]
+    },
+    {
+      "name": "Services",
+      "revenue": {
+        "value": 16.9,
+        "unit": "billion",
+        "context": "All-time record revenue, up 27% year-over-year",
+        "period": "Q2 FY2021"
+      },
+      "growth_yoy": 27.0,
+      "key_points": [
+        "Over 660 million paid subscriptions",
+        "Added more than 40 million paid subscriptions sequentially",
+        "All-time records for App Store, cloud services, music, video, advertising and payment services",
+        "Launch of Apple Card Family",
+        "Apple Pay expansion to Mexico and South Africa",
+        "New Apple Podcast subscriptions announced"
+      ]
+    },
+    {
+      "name": "Mac",
+      "revenue": {
+        "value": 9.1,
+        "unit": "billion",
+        "context": "All-time record revenue, up 70% year-over-year",
+        "period": "Q2 FY2021"
+      },
+      "growth_yoy": 70.0,
+      "key_points": [
+        "Strong response to M1-powered Macs",
+        "91% customer satisfaction rating",
+        "All-time records in Europe and Rest of Asia Pacific",
+        "March quarter records in Americas, Greater China and Japan",
+        "Around half of purchases from new-to-Mac customers",
+        "Critical tool for remote work and education"
+      ]
+    },
+    {
+      "name": "iPad",
+      "revenue": {
+        "value": 7.8,
+        "unit": "billion",
+        "context": "Up 79% year-over-year",
+        "period": "Q2 FY2021"
+      },
+      "growth_yoy": 79.0,
+      "key_points": [
+        "Strong growth in all geographic segments",
+        "All-time record in Japan",
+        "94% customer satisfaction rating",
+        "Around half of purchases from new-to-iPad customers",
+        "March quarter record in Rest of Asia Pacific",
+        "Critical tool for remote learning and work"
+      ]
+    },
+    {
+      "name": "Wearables, Home and Accessories",
+      "revenue": {
+        "value": 7.8,
+        "unit": "billion",
+        "context": "March quarter record, up 25% year-over-year",
+        "period": "Q2 FY2021"
+      },
+      "growth_yoy": 25.0,
+      "key_points": [
+        "Strong performance from Apple Watch Series 6 and SE",
+        "75% of Apple Watch buyers were first-time purchasers",
+        "March quarter records in all geographic segments",
+        "Launch of next-generation Apple TV 4K",
+        "Introduction of AirTag",
+        "Growth in every geographic segment"
+      ]
+    }
+  ],
+  "operational_metrics": {
+    "gross_margin": {
+      "value": 42.5,
+      "unit": "percentage",
+      "context": "Up 270 basis points from last quarter",
+      "period": "Q2 FY2021"
+    },
+    "products_gross_margin": {
+      "value": 36.1,
+      "unit": "percentage",
+      "context": "Up 100 basis points sequentially",
+      "period": "Q2 FY2021"
+    },
+    "services_gross_margin": {
+      "value": 70.1,
+      "unit": "percentage",
+      "context": "Up 170 basis points sequentially",
+      "period": "Q2 FY2021"
+    },
+    "cash_position": {
+      "cash_and_securities": 204.0,
+      "total_debt": 122.0,
+      "net_cash": 83.0,
+      "unit": "billion"
+    }
+  },
+  "future_guidance": {
+    "no_formal_guidance": true,
+    "expectations": {
+      "revenue": "Strong double digits growth year-over-year",
+      "supply_constraints": "Expected $3-4 billion revenue impact",
+      "gross_margin": "Between 41.5% and 42.5%",
+      "operating_expenses": {
+        "range": "Between $11.1-11.3 billion"
+      },
+      "tax_rate": 14.5
+    }
+  },
+  "capital_return": {
+    "total_returned": {
+      "value": 23.0,
+      "unit": "billion",
+      "details": {
+        "dividends": 3.4,
+        "share_repurchases": {
+          "amount": 19.0,
+          "shares": 147.0,
+          "unit": "million"
+        }
+      }
+    },
+    "dividend": {
+      "amount": 0.22,
+      "increase": "7%",
+      "declaration_date": "2021-05-13",
+      "record_date": "2021-05-10"
+    },
+    "share_repurchase_authorization": {
+      "amount": 90.0,
+      "unit": "billion",
+      "type": "additional"
+    }
+  },
+  "strategic_initiatives": [
+    "$430 billion US investment commitment over 5 years",
+    "20,000 new US jobs planned",
+    "Environmental progress toward 2030 carbon neutral goal",
+    "$4.7 billion in green bonds",
+    "110 suppliers committed to renewable energy",
+    "Launch of Restore Fund",
+    "Entrepreneur Camp for black founders and developers",
+    "COVID-19 response and vaccine site mapping"
+  ],
+  "metadata": {
+    "parsed_date": "2024-12-16T18:54:38.739259",
+    "company_ticker": "AAPL",
+    "installed_base": "New all-time high in each major product category",
+    "source": "earnings_call_transcript"
+  }
+}
