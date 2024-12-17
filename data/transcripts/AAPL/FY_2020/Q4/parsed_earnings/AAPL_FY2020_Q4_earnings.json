@@ -1,0 +1,198 @@
+{
+  "company_name": "Apple Inc.",
+  "quarter": "Q4",
+  "fiscal_year": "2020",
+  "total_revenue": {
+    "value": 64.7,
+    "unit": "billion",
+    "context": "September quarter record despite delayed iPhone launch",
+    "period": "Q4 FY2020"
+  },
+  "fiscal_year_performance": {
+    "total_revenue": {
+      "value": 274.5,
+      "unit": "billion",
+      "growth_yoy": 6.0,
+      "context": "All-time record annual revenue"
+    },
+    "key_achievements": [
+      "Growth every quarter despite COVID-19",
+      "Record revenue in Americas, Europe, and Asia Pacific",
+      "16% growth in non-iPhone business",
+      "10% EPS growth to all-time record",
+      "Growth in active installed base every quarter"
+    ]
+  },
+  "segments": [
+    {
+      "name": "iPhone",
+      "revenue": {
+        "value": 26.4,
+        "unit": "billion",
+        "context": "Performance impacted by delayed launch of iPhone 12",
+        "period": "Q4 FY2020"
+      },
+      "growth_yoy": null,
+      "key_points": [
+        "Double-digit growth through mid-September",
+        "Record active installed base",
+        "98% customer satisfaction for iPhone 11 series",
+        "Strong pre-launch demand",
+        "Delayed availability of new models vs typical September launch"
+      ]
+    },
+    {
+      "name": "Services",
+      "revenue": {
+        "value": 14.5,
+        "unit": "billion",
+        "context": "All-time record revenue, up 16% year-over-year",
+        "period": "Q4 FY2020"
+      },
+      "growth_yoy": 16.0,
+      "key_points": [
+        "Over 585 million paid subscriptions",
+        "All-time records across multiple services categories",
+        "Records in App Store, Cloud Services, Music, Advertising, Payments",
+        "New all-time record for Apple Care",
+        "Up 135 million paid subscriptions year-over-year",
+        "35 million sequential subscription growth",
+        "Launch of Apple One and Apple Fitness+"
+      ]
+    },
+    {
+      "name": "Mac",
+      "revenue": {
+        "value": 9.0,
+        "unit": "billion",
+        "context": "All-time record revenue, up 29% year-over-year",
+        "period": "Q4 FY2020"
+      },
+      "growth_yoy": 29.0,
+      "key_points": [
+        "Strong back-to-school performance",
+        "All-time records in Americas and Rest of Asia Pacific",
+        "September quarter records in Europe and Japan",
+        "93% customer satisfaction rating",
+        "Around half of purchases from new-to-Mac customers",
+        "Record active installed base",
+        "$1.6 billion above previous record"
+      ]
+    },
+    {
+      "name": "iPad",
+      "revenue": {
+        "value": 6.8,
+        "unit": "billion",
+        "context": "Up 46%, highest September quarter in 8 years",
+        "period": "Q4 FY2020"
+      },
+      "growth_yoy": 46.0,
+      "key_points": [
+        "Strong double-digit growth in all regions",
+        "All-time record in Japan",
+        "September quarter record in Americas",
+        "95% customer satisfaction rating",
+        "Around half of purchases from new-to-iPad customers",
+        "Record active installed base",
+        "Strong demand in education and remote work"
+      ]
+    },
+    {
+      "name": "Wearables, Home and Accessories",
+      "revenue": {
+        "value": 7.9,
+        "unit": "billion",
+        "context": "September quarter record, up 21% year-over-year",
+        "period": "Q4 FY2020"
+      },
+      "growth_yoy": 21.0,
+      "key_points": [
+        "Now size of Fortune 130 company",
+        "September quarter records in all regions",
+        "75% of Apple Watch buyers were first-time purchasers",
+        "Records in all three product categories",
+        "Launch of Apple Watch Series 6 and SE",
+        "Introduction of HomePod Mini",
+        "Launch of MagSafe accessories"
+      ]
+    }
+  ],
+  "operational_metrics": {
+    "gross_margin": {
+      "value": 38.2,
+      "unit": "percentage",
+      "context": "Up 20 basis points sequentially",
+      "period": "Q4 FY2020"
+    },
+    "products_gross_margin": {
+      "value": 29.8,
+      "unit": "percentage",
+      "context": "Up 10 basis points sequentially",
+      "period": "Q4 FY2020"
+    },
+    "services_gross_margin": {
+      "value": 66.9,
+      "unit": "percentage",
+      "context": "Down 30 basis points sequentially due to mix",
+      "period": "Q4 FY2020"
+    },
+    "net_cash": {
+      "value": 79.0,
+      "unit": "billion",
+      "context": "Moving toward net cash neutral position",
+      "period": "Q4 FY2020"
+    },
+    "cash_position": {
+      "cash_and_securities": 192.0,
+      "total_debt": 112.0,
+      "unit": "billion"
+    }
+  },
+  "future_guidance": {
+    "no_formal_guidance": true,
+    "expectations": {
+      "iphone": "Expected to grow in December quarter",
+      "other_products": "Expected double-digit growth",
+      "services": "Expected continued double-digit growth",
+      "gross_margin": "Expected similar to recent quarters",
+      "operating_expenses": {
+        "range": "Between $10.7-10.8 billion"
+      },
+      "tax_rate": 16.0
+    }
+  },
+  "capital_return": {
+    "total_returned": {
+      "value": 22.0,
+      "unit": "billion",
+      "details": {
+        "dividends": 3.5,
+        "share_repurchases": {
+          "amount": 18.0,
+          "shares": 168.7,
+          "unit": "million"
+        }
+      }
+    },
+    "dividend": {
+      "amount": 0.205,
+      "declaration_date": "2020-11-12",
+      "record_date": "2020-11-09"
+    }
+  },
+  "strategic_initiatives": [
+    "Launch of iPhone 12 lineup with 5G",
+    "Introduction of HomePod Mini",
+    "Launch of Apple Watch Series 6 and SE",
+    "Singapore LumiHealth program",
+    "Environmental commitment to carbon neutrality",
+    "Educational partnerships and deployments",
+    "COVID-19 response and community support"
+  ],
+  "metadata": {
+    "parsed_date": "2024-12-16T18:54:38.739259",
+    "company_ticker": "AAPL",
+    "source": "earnings_call_transcript"
+  }
+}

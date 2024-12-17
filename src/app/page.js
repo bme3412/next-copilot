@@ -1,9 +1,5 @@
-import ChatInterface from './components/ChatInterface';
+import LandingPage from './components/LandingPage';
 
 export default function Home() {
-  return (
-    <main className="min-h-screen">
-      <ChatInterface />
-    </main>
-  );
+  return <LandingPage />;
 }

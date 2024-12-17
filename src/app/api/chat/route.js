@@ -262,7 +262,7 @@ Analyze these chronologically ordered transcript excerpts:
 ${relevantData.map(d => `[${d.fiscalYear} ${d.quarter}] ${d.content}`).join('\n\n')}`;
 
       const response = await this.openai.chat.completions.create({
-        model: "gpt-4-turbo-preview",
+        model: "gpt-4o-2024-11-20",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt }
