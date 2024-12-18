@@ -26,21 +26,28 @@ export function AnalysisDisplay({ analysis }) {
     );
   }
 
+  // Safely handle analysis text
+  const paragraphs = analysis?.analysis ? analysis.analysis.split('\n') : [];
+
   return (
     <div className="mt-8 space-y-6">
       {/* Main Analysis */}
       <div className="bg-gray-900/30 backdrop-blur-sm border border-gray-800 rounded-xl shadow-lg overflow-hidden">
         <div className="p-6">
-          {analysis.analysis.split('\n').map((paragraph, idx) => (
-            <p 
-              key={idx} 
-              className={`text-gray-200 leading-relaxed ${
-                idx !== 0 ? 'mt-4' : ''
-              }`}
-            >
-              {paragraph}
-            </p>
-          ))}
+          {paragraphs.length > 0 ? (
+            paragraphs.map((paragraph, idx) => (
+              <p 
+                key={idx} 
+                className={`text-gray-200 leading-relaxed ${
+                  idx !== 0 ? 'mt-4' : ''
+                }`}
+              >
+                {paragraph}
+              </p>
+            ))
+          ) : (
+            <p className="text-gray-400">No detailed analysis available.</p>
+          )}
         </div>
 
         {/* Charts Section */}

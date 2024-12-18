@@ -16,7 +16,7 @@ class BaseRetriever {
 }
 
 class BaseAnalyzer {
-  async analyze(data, queryIntent) {
+  async analyze(data, queryIntent, companyName) {
     throw new Error('Must implement analyze method');
   }
 }
@@ -232,7 +232,7 @@ class GPT4Analyzer extends BaseAnalyzer {
     }).join(', ');
   }
 
-  async analyze(data, queryIntent) {
+  async analyze(data, queryIntent, companyName = 'NVIDIA') {
     try {
       const normalizedData = this.normalizeChronologicalData(data);
       const relevantData = this.extractRelevantData(normalizedData, queryIntent);
@@ -242,7 +242,7 @@ class GPT4Analyzer extends BaseAnalyzer {
         return this.generateEmptyResponse(queryIntent);
       }
 
-      const systemPrompt = `You are a financial analyst specializing in NVIDIA's earnings transcripts. 
+      const systemPrompt = `You are a financial analyst specializing in ${companyName}'s earnings transcripts. 
 Analyze the provided data and return a response focusing on ${queryIntent.topics.join(', ')}.
 Your analysis should:
 1. Be thorough but concise
@@ -313,13 +313,18 @@ class RAGPipeline {
     try {
       console.log('Processing query:', query);
       
+      const companyName = this.detectCompanyFromQuery(query);
+      console.log('Detected company:', companyName);
+
       const queryIntent = this.queryIntentAnalyzer.analyze(query);
       console.log('Query intent:', queryIntent);
       
       const embedding = await this.embedder.embed(query);
       console.log('Generated embedding');
       
-      const retrievalResults = await this.retriever.retrieve(embedding);
+      // Use 'company' as the filter field
+      const companyValue = companyName === 'Apple' ? 'AAPL' : 'NVDA';
+      const retrievalResults = await this.retriever.retrieve(embedding, { filters: { company: companyValue } });
       console.log('Retrieved documents:', retrievalResults.matches?.length || 0);
       
       if (!retrievalResults.matches?.length) {
@@ -327,10 +332,22 @@ class RAGPipeline {
         return this.generateEmptyResponse(queryIntent);
       }
 
-      return await this.analyzer.analyze(retrievalResults.matches, queryIntent);
+      return await this.analyzer.analyze(retrievalResults.matches, queryIntent, companyName);
     } catch (error) {
       console.error('Pipeline processing error:', error);
       throw error;
+    }
+  }
+
+  detectCompanyFromQuery(query) {
+    const lowerQuery = query.toLowerCase();
+    if (lowerQuery.includes('apple') || lowerQuery.includes('aapl')) {
+      return 'Apple';
+    } else if (lowerQuery.includes('nvidia') || lowerQuery.includes('nvda')) {
+      return 'NVIDIA';
+    } else {
+      // Default to NVIDIA if none found
+      return 'NVIDIA';
     }
   }
 
