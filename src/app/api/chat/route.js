@@ -323,7 +323,21 @@ class RAGPipeline {
       console.log('Generated embedding');
       
       // Use 'company' as the filter field
-      const companyValue = companyName === 'Apple' ? 'AAPL' : 'NVDA';
+      let companyValue;
+      switch (companyName) {
+        case 'Apple':
+          companyValue = 'AAPL';
+          break;
+        case 'NVIDIA':
+          companyValue = 'NVDA';
+          break;
+        case 'Meta':
+          companyValue = 'META'; // Added Meta/Facebook support
+          break;
+        default:
+          companyValue = 'NVDA'; // Default to NVIDIA if unspecified
+      }
+
       const retrievalResults = await this.retriever.retrieve(embedding, { filters: { company: companyValue } });
       console.log('Retrieved documents:', retrievalResults.matches?.length || 0);
       
@@ -345,6 +359,8 @@ class RAGPipeline {
       return 'Apple';
     } else if (lowerQuery.includes('nvidia') || lowerQuery.includes('nvda')) {
       return 'NVIDIA';
+    } else if (lowerQuery.includes('meta') || lowerQuery.includes('facebook') || lowerQuery.includes('fb') || lowerQuery.includes('META')) {
+      return 'Meta'; // Added detection for Meta/Facebook
     } else {
       // Default to NVIDIA if none found
       return 'NVIDIA';
