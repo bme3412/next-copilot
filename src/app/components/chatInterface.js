@@ -2,16 +2,20 @@
 
 import { useState } from 'react';
 import { AnalysisDisplay } from './AnalysisDisplay';
-import { QueryInput } from './QueryInput';
+import QueryInput from './QueryInput';  // Changed to default import
+import { AlertCircle, Loader2 } from 'lucide-react';
 
 export default function ChatInterface() {
   const [query, setQuery] = useState('');
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [conversationHistory, setConversationHistory] = useState([]);
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (!query.trim()) return;
+
     setLoading(true);
     setError(null);
 
@@ -21,15 +25,29 @@ export default function ChatInterface() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ query }),
+        body: JSON.stringify({ 
+          query,
+          history: conversationHistory // Include conversation history for context
+        }),
       });
 
       if (!response.ok) {
-        throw new Error('Analysis request failed');
+        throw new Error('Analysis request failed. Please try again.');
       }
 
       const result = await response.json();
+      
+      // Update conversation history
+      setConversationHistory(prev => [...prev, {
+        type: 'query',
+        content: query
+      }, {
+        type: 'response',
+        content: result
+      }]);
+      
       setAnalysis(result);
+      setQuery(''); // Clear input after successful submission
     } catch (err) {
       setError(err.message);
     } finally {
@@ -37,42 +55,91 @@ export default function ChatInterface() {
     }
   }
 
-  return (
-    <div className="p-6 space-y-6">
-      <QueryInput
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onSubmit={handleSubmit}
-        disabled={loading}
-      />
+  const handleQueryChange = (e) => {
+    setQuery(e.target.value);
+    // Clear error when user starts typing
+    if (error) setError(null);
+  };
 
+  return (
+    <div className="max-w-5xl mx-auto p-6 space-y-6">
+      {/* Header section */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-white mb-2">
+          Tech Investment Analysis
+        </h1>
+        <p className="text-gray-400">
+          Ask detailed questions about major tech companies' performance and strategies
+        </p>
+      </div>
+
+      {/* Query input section */}
+      <div className="sticky top-0 z-20 bg-gradient-to-b from-gray-900 to-gray-900/95 pt-4 pb-6 -mx-6 px-6">
+        <QueryInput
+          value={query}
+          onChange={handleQueryChange}
+          onSubmit={handleSubmit}
+          disabled={loading}
+        />
+      </div>
+
+      {/* Error display */}
       {error && (
         <div className="mt-6 p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-xl backdrop-blur-sm animate-fadeIn">
-          <div className="flex items-center">
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
+          <div className="flex items-center gap-2">
+            <AlertCircle className="w-5 h-5" />
             {error}
           </div>
         </div>
       )}
 
+      {/* Loading state */}
       {loading && (
         <div className="mt-6 text-center text-gray-400 animate-fadeIn">
-          <div className="inline-flex items-center space-x-2">
-            <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" />
-            <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
-            <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }} />
+          <div className="flex items-center justify-center gap-2">
+            <Loader2 className="w-5 h-5 animate-spin" />
+            <span>Analyzing your query...</span>
           </div>
-          <p className="mt-2">Analyzing your query...</p>
         </div>
       )}
 
+      {/* Analysis results */}
       {analysis && !loading && (
         <div className="mt-6 animate-fadeIn">
           <AnalysisDisplay analysis={analysis} />
         </div>
       )}
+
+      {/* Conversation history */}
+      <div className="mt-8 space-y-6">
+        {conversationHistory.map((item, index) => (
+          <div
+            key={index}
+            className={`p-4 rounded-xl ${
+              item.type === 'query'
+                ? 'bg-blue-500/10 border border-blue-500/20'
+                : 'bg-gray-800/50'
+            }`}
+          >
+            <div className="text-sm text-gray-400 mb-1">
+              {item.type === 'query' ? 'Your Question:' : 'Analysis:'}
+            </div>
+            <div className={item.type === 'query' ? 'text-blue-400' : 'text-white'}>
+              {item.type === 'query' ? item.content : <AnalysisDisplay analysis={item.content} />}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <style jsx global>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out forwards;
+        }
+      `}</style>
     </div>
   );
 }

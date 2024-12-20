@@ -1,6 +1,6 @@
 'use client';
 
-import ChatInterface from '../components/chatInterface';
+import ChatInterface from '../components/ChatInterface';
 import Link from 'next/link';
 
 export default function ChatPage() {

@@ -3,6 +3,45 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+const Particle = ({ index }) => {
+  const [styles, setStyles] = useState({
+    width: '3px',
+    height: '3px',
+    left: '50%',
+    top: '50%',
+    animation: 'float 15s linear infinite'
+  });
+
+  useEffect(() => {
+    setStyles({
+      width: `${Math.random() * 4 + 2}px`,
+      height: `${Math.random() * 4 + 2}px`,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animation: `float ${Math.random() * 10 + 10}s linear infinite`
+    });
+  }, []);
+
+  return (
+    <div
+      className="absolute rounded-full bg-blue-500/20"
+      style={styles}
+    />
+  );
+};
+
+const RippleCircle = ({ index, mounted }) => (
+  <div
+    className={`absolute inset-0 border border-blue-500/20 rounded-full transition-all duration-1000 ${
+      mounted ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+    }`}
+    style={{
+      animation: `ripple 8s infinite ease-out ${index * 1}s`,
+      transform: `scale(${0.5 + index * 0.15})`
+    }}
+  />
+);
+
 const LandingPage = () => {
   const [mounted, setMounted] = useState(false);
 
@@ -14,35 +53,16 @@ const LandingPage = () => {
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 relative overflow-hidden">
       {/* Animated particles */}
       <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-blue-500/20"
-            style={{
-              width: Math.random() * 4 + 2 + 'px',
-              height: Math.random() * 4 + 2 + 'px',
-              left: Math.random() * 100 + '%',
-              top: Math.random() * 100 + '%',
-              animation: `float ${Math.random() * 10 + 10}s linear infinite`,
-            }}
-          />
+        {Array.from({ length: 20 }).map((_, i) => (
+          <Particle key={i} index={i} />
         ))}
       </div>
 
       {/* Main circles background */}
       <div className="absolute inset-0 flex justify-center items-center">
         <div className="w-[800px] h-[800px]">
-          {[...Array(4)].map((_, i) => (
-            <div
-              key={i}
-              className={`absolute inset-0 border border-blue-500/20 rounded-full transition-all duration-1000 ${
-                mounted ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
-              }`}
-              style={{
-                animation: `ripple 8s infinite ease-out ${i * 1}s`,
-                transform: `scale(${0.5 + i * 0.15})`,
-              }}
-            />
+          {Array.from({ length: 4 }).map((_, i) => (
+            <RippleCircle key={i} index={i} mounted={mounted} />
           ))}
         </div>
       </div>
