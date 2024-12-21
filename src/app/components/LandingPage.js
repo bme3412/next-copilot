@@ -100,9 +100,12 @@ const LandingPage = () => {
             <span className="relative z-10">Analyze Now</span>
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 transform transition-transform group-hover:scale-105" />
           </Link>
-          <button className="group px-8 py-4 bg-transparent text-white rounded-full text-lg font-medium border border-gray-700 hover:border-blue-500 transition-all hover:scale-105 hover:shadow-lg hover:shadow-blue-500/10">
+          <Link
+            href="/companies"
+            className="group px-8 py-4 bg-transparent text-white rounded-full text-lg font-medium border border-gray-700 hover:border-blue-500 transition-all hover:scale-105 hover:shadow-lg hover:shadow-blue-500/10"
+          >
             View Companies
-          </button>
+          </Link>
         </div>
 
         {/* Feature Grid */}

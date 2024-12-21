@@ -1,13 +1,13 @@
+// ChatInterface.js
 'use client';
 
 import { useState } from 'react';
 import { AnalysisDisplay } from './AnalysisDisplay';
-import QueryInput from './QueryInput';  // Changed to default import
+import QueryInput from './QueryInput';
 import { AlertCircle, Loader2 } from 'lucide-react';
 
 export default function ChatInterface() {
   const [query, setQuery] = useState('');
-  const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [conversationHistory, setConversationHistory] = useState([]);
@@ -27,7 +27,7 @@ export default function ChatInterface() {
         },
         body: JSON.stringify({ 
           query,
-          history: conversationHistory // Include conversation history for context
+          history: conversationHistory
         }),
       });
 
@@ -37,17 +37,18 @@ export default function ChatInterface() {
 
       const result = await response.json();
       
-      // Update conversation history
+      // Update conversation history with new entry
       setConversationHistory(prev => [...prev, {
         type: 'query',
-        content: query
+        content: query,
+        timestamp: new Date().toISOString()
       }, {
         type: 'response',
-        content: result
+        content: result,
+        timestamp: new Date().toISOString()
       }]);
       
-      setAnalysis(result);
-      setQuery(''); // Clear input after successful submission
+      setQuery('');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -57,13 +58,11 @@ export default function ChatInterface() {
 
   const handleQueryChange = (e) => {
     setQuery(e.target.value);
-    // Clear error when user starts typing
     if (error) setError(null);
   };
 
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-6">
-      {/* Header section */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-white mb-2">
           Tech Investment Analysis
@@ -73,7 +72,6 @@ export default function ChatInterface() {
         </p>
       </div>
 
-      {/* Query input section */}
       <div className="sticky top-0 z-20 bg-gradient-to-b from-gray-900 to-gray-900/95 pt-4 pb-6 -mx-6 px-6">
         <QueryInput
           value={query}
@@ -83,7 +81,6 @@ export default function ChatInterface() {
         />
       </div>
 
-      {/* Error display */}
       {error && (
         <div className="mt-6 p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-xl backdrop-blur-sm animate-fadeIn">
           <div className="flex items-center gap-2">
@@ -93,7 +90,6 @@ export default function ChatInterface() {
         </div>
       )}
 
-      {/* Loading state */}
       {loading && (
         <div className="mt-6 text-center text-gray-400 animate-fadeIn">
           <div className="flex items-center justify-center gap-2">
@@ -103,18 +99,10 @@ export default function ChatInterface() {
         </div>
       )}
 
-      {/* Analysis results */}
-      {analysis && !loading && (
-        <div className="mt-6 animate-fadeIn">
-          <AnalysisDisplay analysis={analysis} />
-        </div>
-      )}
-
-      {/* Conversation history */}
       <div className="mt-8 space-y-6">
         {conversationHistory.map((item, index) => (
           <div
-            key={index}
+            key={item.timestamp}
             className={`p-4 rounded-xl ${
               item.type === 'query'
                 ? 'bg-blue-500/10 border border-blue-500/20'
@@ -125,7 +113,11 @@ export default function ChatInterface() {
               {item.type === 'query' ? 'Your Question:' : 'Analysis:'}
             </div>
             <div className={item.type === 'query' ? 'text-blue-400' : 'text-white'}>
-              {item.type === 'query' ? item.content : <AnalysisDisplay analysis={item.content} />}
+              {item.type === 'query' ? (
+                item.content
+              ) : (
+                <AnalysisDisplay analysis={item.content} />
+              )}
             </div>
           </div>
         ))}
