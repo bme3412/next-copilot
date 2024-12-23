@@ -1,7 +1,9 @@
 {
-  "company_name": "Salesforce",
-  "quarter": "Q2",
-  "fiscal_year": "2023",
+  "company_info": {
+    "company_name": "Salesforce",
+    "quarter": "Q2",
+    "fiscal_year": "2023"
+  },
   "financials": {
     "total_revenue": {
       "value": 7.72,
@@ -12,14 +14,17 @@
       "composition": {
         "Sales_Cloud": {
           "year_over_year_change": "+15%",
+          "constant_currency_growth": "19%",
           "context": "Sales Cloud grew 15% year-over-year and 19% in constant currency."
         },
         "Service_Cloud": {
           "year_over_year_change": "+14%",
+          "constant_currency_growth": "18%",
           "context": "Service Cloud grew 14% year-over-year and 18% in constant currency."
         },
         "Marketing_and_Commerce_Cloud": {
           "year_over_year_change": "+17%",
+          "constant_currency_growth": "22%",
           "context": "Marketing and Commerce Clouds grew 17% year-over-year and 22% in constant currency."
         },
         "Platform_and_Other": {
@@ -122,19 +127,32 @@
       ]
     },
     "acquisitions": {
-      "share_repurchases": {
-        "description": "Authorization of up to $10 billion in share repurchase program.",
-        "initiatives": [
-          "Repurchasing shares to generate shareholder value."
-        ],
-        "goals": [
-          "Enhance shareholder value.",
-          "Offset dilution from stock-based compensation."
-        ],
-        "examples": [
-          "Board of Directors authorized up to $10 billion in share repurchases."
-        ]
-      }
+      "description": "Integration of strategic acquisitions to enhance product offerings.",
+      "initiatives": [
+        "Integrating Slack into the Customer 360 platform.",
+        "Expanding capabilities through MuleSoft and Tableau."
+      ],
+      "goals": [
+        "Enhance product portfolio.",
+        "Drive integrated solutions for customers."
+      ],
+      "examples": [
+        "Integration of Slack to create a Slack-first Customer 360.",
+        "Platform enhancements with MuleSoft and Tableau."
+      ]
+    },
+    "share_repurchases": {
+      "description": "Authorization of up to $10 billion in share repurchase program.",
+      "initiatives": [
+        "Repurchasing shares to generate shareholder value."
+      ],
+      "goals": [
+        "Enhance shareholder value.",
+        "Offset dilution from stock-based compensation."
+      ],
+      "examples": [
+        "Board of Directors authorized up to $10 billion in share repurchases."
+      ]
     },
     "ecosystem_development": {
       "description": "Growth of Salesforce ecosystem through Trailhead, strategic partnerships, and Slack integration.",
@@ -187,41 +205,7 @@
         "Successful integration of acquisitions like Slack and Traction on Demand.",
         "Increased demand for digital transformation and customer experience solutions."
       ],
-      "specifics": {
-        "fy_2023": {
-          "value": 31.0,
-          "unit": "billion USD",
-          "context": "Fiscal year 2023 revenue guidance revised to $30.9 billion to $31.0 billion, representing approximately 17% growth year-over-year."
-        },
-        "fy_2026": {
-          "value": 50,
-          "unit": "billion USD",
-          "context": "Revenue target of $50 billion by fiscal year 2026."
-        },
-        "q3_2023_guidance": {
-          "revenue": {
-            "value": "7.82-7.83",
-            "unit": "billion USD",
-            "context": "Q3 2023 revenue guidance of $7.82 billion to $7.83 billion, up approximately 14% year-over-year."
-          },
-          "crpo_growth": {
-            "value": "12%",
-            "unit": "year-over-year",
-            "context": "Q3 CRPO growth of approximately 12% year-over-year, or 15% in constant currency."
-          },
-          "eps": {
-            "gaap_diluted_eps": {
-              "value": "0.09-0.10",
-              "unit": "USD per share",
-              "context": "Q3 GAAP EPS guidance of $0.09 to $0.10."
-            },
-            "non_gaap_diluted_eps": {
-              "value": "1.20-1.21",
-              "unit": "USD per share",
-              "context": "Q3 non-GAAP EPS guidance of $1.20 to $1.21."
-            }
-          }
-        },
+      "guidance": {
         "fy_2023": {
           "revenue": {
             "value": 31.0,
@@ -260,6 +244,30 @@
             "unit": "year-over-year",
             "context": "Fiscal year 2023 operating cash flow guidance updated to approximately 16% to 17% growth year-over-year."
           }
+        },
+        "q3_2023": {
+          "revenue": {
+            "value": "7.82-7.83",
+            "unit": "billion USD",
+            "context": "Q3 2023 revenue guidance of $7.82 billion to $7.83 billion, up approximately 14% year-over-year."
+          },
+          "crpo_growth": {
+            "value": "12%",
+            "unit": "year-over-year",
+            "context": "Q3 CRPO growth of approximately 12% year-over-year, or 15% in constant currency."
+          },
+          "eps": {
+            "gaap_diluted_eps": {
+              "value": "0.09-0.10",
+              "unit": "USD per share",
+              "context": "Q3 GAAP EPS guidance of $0.09 to $0.10."
+            },
+            "non_gaap_diluted_eps": {
+              "value": "1.20-1.21",
+              "unit": "USD per share",
+              "context": "Q3 non-GAAP EPS guidance of $1.20 to $1.21."
+            }
+          }
         }
       }
     },
@@ -290,71 +298,6 @@
         "Enhancements to network infrastructure."
       ],
       "reason_for_adjustment": "Based on infrastructure spend timing."
-    },
-    "future_guidance": {
-      "q3_2023": {
-        "revenue": {
-          "value": "7.82-7.83",
-          "unit": "billion USD",
-          "context": "Q3 2023 revenue guidance of $7.82 billion to $7.83 billion, up approximately 14% year-over-year."
-        },
-        "crpo_growth": {
-          "value": "12%",
-          "unit": "year-over-year",
-          "context": "Q3 CRPO growth of approximately 12% year-over-year, or 15% in constant currency."
-        },
-        "eps": {
-          "gaap_diluted_eps": {
-            "value": "0.09-0.10",
-            "unit": "USD per share",
-            "context": "Q3 GAAP EPS guidance of $0.09 to $0.10."
-          },
-          "non_gaap_diluted_eps": {
-            "value": "1.20-1.21",
-            "unit": "USD per share",
-            "context": "Q3 non-GAAP EPS guidance of $1.20 to $1.21."
-          }
-        }
-      },
-      "fy_2023": {
-        "revenue": {
-          "value": 31.0,
-          "unit": "billion USD",
-          "context": "Fiscal year 2023 revenue guidance revised to $30.9 billion to $31.0 billion, representing approximately 17% growth year-over-year."
-        },
-        "growth": {
-          "value": "17%",
-          "unit": "year-over-year",
-          "context": "Projected growth year-over-year for FY 2023."
-        },
-        "operating_margin": {
-          "value": 20.4,
-          "unit": "percent",
-          "context": "Fiscal year 2023 non-GAAP operating margin guidance maintained at 20.4%, an increase of 170 basis points year-over-year."
-        },
-        "capex": {
-          "value": "2%",
-          "unit": "percent of revenue",
-          "context": "Fiscal year 2023 CapEx expected to be slightly above 2% of revenue."
-        },
-        "eps": {
-          "gaap_diluted_eps": {
-            "value": "0.38-0.40",
-            "unit": "USD per share",
-            "context": "Fiscal year 2023 GAAP diluted EPS guidance of $0.38 to $0.40."
-          },
-          "non_gaap_diluted_eps": {
-            "value": "4.71-4.73",
-            "unit": "USD per share",
-            "context": "Fiscal year 2023 non-GAAP diluted EPS guidance of $4.71 to $4.73."
-          }
-        },
-        "operating_cash_flow_growth": {
-          "value": "16-17%",
-          "unit": "year-over-year",
-          "context": "Fiscal year 2023 operating cash flow guidance updated to approximately 16% to 17% growth year-over-year."
-        }
-      }
     }
   },
   "metadata": {

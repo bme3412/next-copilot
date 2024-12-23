@@ -1,430 +1,205 @@
 {
-    "company_name": "Salesforce",
-    "quarter": "Q4",
-    "fiscal_year": "2022",
-    "financials": {
-      "total_revenue": {
-        "value": 7.33,
-        "unit": "billion USD",
-        "year_over_year_change": "+26%",
-        "constant_currency_growth": "27%",
-        "context": "Q4 2022 revenue was $7.33 billion, up 26% year-over-year or 27% in constant currency.",
-        "composition": {
-          "Sales_Cloud": {
-            "year_over_year_change": "+17%",
-            "constant_currency_growth": null,
-            "context": "Sales Cloud grew 17% year-over-year, reaching a $6 billion run rate."
-          },
-          "Service_Cloud": {
-            "year_over_year_change": "+18%",
-            "constant_currency_growth": null,
-            "context": "Service Cloud grew 18% year-over-year, achieving nearly $6.5 billion in revenue."
-          },
-          "Marketing_and_Commerce_Cloud": {
-            "year_over_year_change": "+25%",
-            "constant_currency_growth": null,
-            "context": "Commerce and Marketing Clouds grew 25% year-over-year in the third quarter, continuing a 20-month run."
-          },
-          "Platform_and_Other": {
-            "year_over_year_change": "+23.5%",
-            "constant_currency_growth": null,
-            "context": "Platform and Other segments, including Slack, MuleSoft, Tableau, and Acumen, grew 23.5% year-over-year."
-          }
-        }
-      },
-      "profitability": {
-        "eps": {
-          "gaap_diluted_eps": {
-            "value": -0.03,
-            "unit": "USD per share",
-            "context": "Q4 GAAP Earnings Per Share was -$0.03."
-          },
-          "non_gaap_diluted_eps": {
-            "value": 0.84,
-            "unit": "USD per share",
-            "context": "Q4 non-GAAP Earnings Per Share was $0.84."
-          }
-        }
-      },
-      "cash_flow": {
-        "free_cash_flow": {
-          "value": 5.3,
-          "unit": "billion USD",
-          "context": "Free cash flow for the full fiscal year was $5.3 billion, up 29% year-over-year."
+  "company_name": "Salesforce",
+  "quarter": "Q4",
+  "fiscal_year": "2023",
+  "speakers": {
+    "Operator": {
+      "role": "Moderator",
+      "responses": [
+        {
+          "topic": "Introduction",
+          "content": "Your first question comes from the line of Keith Weiss with Morgan Stanley."
         },
-        "operating_cash_flow": {
-          "value": 0.404,
-          "unit": "billion USD",
-          "context": "Operating cash flow for Q4 was $404 million, up 19% year-over-year."
+        {
+          "topic": "Next Question",
+          "content": "Your next question comes from the line of Kirk Materne with Evercore."
+        },
+        {
+          "topic": "Next Question",
+          "content": "Your next question comes from the line of Brad Sills with BofA Securities."
+        },
+        {
+          "topic": "Next Question",
+          "content": "Your next question comes from the line of Kasthuri Rangan with Goldman Sachs."
+        },
+        {
+          "topic": "Next Question",
+          "content": "Your next question comes from the line of Raimo Lenschow with Barclays."
+        },
+        {
+          "topic": "Next Question",
+          "content": "Your next question comes from the line of Sarah Hindlian-Bowler with Macquarie Capital."
+        },
+        {
+          "topic": "Next Question",
+          "content": "Your next question comes from the line of Karl Keirstead with UBS."
+        },
+        {
+          "topic": "Next Question",
+          "content": "Your next question comes from the line of Brent Thill with Jefferies."
         }
-      },
-      "capital_expenditures": {
-        "value": 0.166,
-        "unit": "billion USD",
-        "context": "CapEx for Q4 was $166 million, contributing to free cash flow of $238 million."
-      }
+      ]
     },
-    "operating_metrics": {
-      "ai_predictions": {
-        "value": null,
-        "unit": "billion",
-        "context": "Data not provided in the Q4 2022 earnings call."
-      },
-      "trailhead": {
-        "learners": {
-          "value": null,
-          "unit": "million",
-          "context": "Data not provided in the Q4 2022 earnings call."
+    "marc_benioff": {
+      "role": "Founder, Chairman & Co-Chief Executive Officer",
+      "responses": [
+        {
+          "topic": "Leadership Change and Bret Leaving",
+          "content": "Well thanks Keith, and I think it's a great question, and obviously we're still in a little bit of shock and extremely sad, and feeling a lot of loss for losing Bret. Again, I don't have to tell you, one of the best people I've ever worked with in my life and also just a great person..."
         },
-        "jobs_created": {
-          "value": null,
-          "unit": "million",
-          "context": "Data not provided in the Q4 2022 earnings call."
+        {
+          "topic": "Remote Work and Real Estate Strategy",
+          "content": "Absolutely. First, Mark, I hope that you see that the operating margin in this quarter, which has hit a record level at 22.7%, that we are fulfilling our commitment to you and to others, that we are deeply focused on this..."
         },
-        "business_revenues": {
-          "value": null,
-          "unit": "trillion USD",
-          "context": "Data not provided in the Q4 2022 earnings call."
+        {
+          "topic": "Profitability and M&A Strategy",
+          "content": "Thank you Brad for the question, because I think it's probably what's on my mind every day. First, before I go to the question, I want to go back to Raimo, and Raimo, I want to tell you that our thoughts and prayers are with your CEO for a full recovery..."
+        },
+        {
+          "topic": "Prioritizing Time as Sole CEO",
+          "content": "Thank you very much. I really appreciate everyone's support during the quarter. We really are very grateful for the support we had, especially from the analysts and the shareholders, because, really, through their guidance and enlightenment, we were able to execute a different plan..."
+        },
+        {
+          "topic": "Profitability Focus and Board Changes",
+          "content": "We are really focusing on making sure we have the expertise in the company. And I'll tell you, Dreamforce, you are all sitting in the audience. You know Mason Morfit was there, sitting next to his founder, Jeff Ubben. And we have added new Board members today, including Sachin from Mastercard and Donald from another major firm..."
         }
-      }
+      ]
     },
-    "strategic_updates": {
-      "market_position": {
-        "description": "Salesforce remains the #1 CRM provider by market share for the eighth year in a row.",
-        "initiatives": [
-          "Maintaining leadership in CRM across sales, service, marketing, commerce, communities, integration, and app development.",
-          "Integrating Slack into the Customer 360 platform to enhance collaboration capabilities."
-        ],
-        "goals": [
-          "Maintain CRM market leadership.",
-          "Enhance collaboration and communication through Slack integration."
-        ],
-        "examples": [
-          "Integration of Slack to create a Slack-first Customer 360.",
-          "Continued leadership in CRM as rated by IDC and Gartner."
-        ]
-      },
-      "innovation": {
-        "description": "Focus on Customer 360, AI innovations, and integration of Slack.",
-        "initiatives": [
-          "Enhancing Customer 360 to provide unified customer views with Slack integration.",
-          "Advancing AI capabilities with Einstein to support customer success.",
-          "Expanding Salesforce Blockchain and other innovative solutions to meet customer needs."
-        ],
-        "goals": [
-          "Empower customers with AI and blockchain capabilities.",
-          "Provide unified customer experiences through integrated platforms.",
-          "Drive workforce development and ecosystem growth."
-        ],
-        "examples": [
-          "Integration of Slack in the Customer 360 platform.",
-          "Slack-First Customer 360 making Salesforce products more powerful and effective."
-        ]
-      },
-      "acquisitions": {
-        "tableau": {
-          "description": "Integration of Tableau into Salesforce ecosystem continues to drive data visualization and analytics capabilities.",
-          "initiatives": [
-            "Leveraging Tableau in top deals to enhance business intelligence offerings."
-          ],
-          "goals": [
-            "Expand data analytics offerings.",
-            "Leverage Tableau for advanced business intelligence."
-          ],
-          "examples": [
-            "Tableau featured in 9 of Salesforce's top 10 deals for Q4 2022.",
-            "Integration benefits customers like MillerKnoll and RBC Wealth Management."
-          ]
+    "amy_weaver": {
+      "role": "President, Chief Financial Officer & Member of the Executive Committee",
+      "responses": [
+        {
+          "topic": "Operating Margin Improvement Initiatives",
+          "content": "Okay Keith, turning over to operating margin. As I mentioned, we are very committed to being at 25% or above by FY’26. Now, we're not giving a guide for FY’24 at this moment, so I'm not going to comment on the linearity..."
         },
-        "salesforce_org": {
-          "description": "Integration and support for Salesforce.org enhancing nonprofit and education sectors.",
-          "initiatives": [
-            "Continuing to empower nonprofit and education customers through Salesforce.org."
-          ],
-          "goals": [
-            "Support mission-driven organizations.",
-            "Strengthen corporate social responsibility initiatives."
-          ],
-          "examples": [
-            "Salesforce.org continues to support over 51,000 nonprofits with free services."
-          ]
+        {
+          "topic": "Real Estate Strategy and Margin Expansion",
+          "content": "Yes, on attrition or retention rates, really really pleased to see where we were this quarter. Again, record lows. I think it says so much about our teams who support that, but also our customers and their dedication to us..."
         },
-        "clicksoftware": {
-          "description": "Integration of ClickSoftware to enhance field service capabilities.",
-          "initiatives": [
-            "Delivering greater field service innovation through ClickSoftware integration."
-          ],
-          "goals": [
-            "Expand field service offerings.",
-            "Improve customer service workflows."
-          ],
-          "examples": [
-            "FOX Sports utilizing Field Service Lightning for enhanced service delivery."
-          ]
+        {
+          "topic": "Share Repurchase and Capital Allocation",
+          "content": "Yes, Marc, I think that’s really it. When we look at this, I think this is very much a natural evolution of our capital allocation strategy..."
         },
-        "vlocity": {
-          "description": "Integration of Vlocity to enhance industry-specific solutions.",
-          "initiatives": [
-            "Delivering powerful industry-specific clouds and mobile app solutions through Vlocity."
-          ],
-          "goals": [
-            "Expand industry-specific offerings.",
-            "Enhance customer success across verticals."
-          ],
-          "examples": [
-            "Vlocity contributing to tailored solutions for sectors like telecommunications and healthcare."
-          ]
+        {
+          "topic": "Q4 Revenue and FY '24 Guidance",
+          "content": "Great. Thanks, Brian. So a couple of things. First, just going back to your question on growth and the beat for Q4. I did want to point out that, that was primarily from MuleSoft and Tableau. That license revenue came in very strong in Q4. And as you know, the way that we account for license revenue gives it more of a boost in quarter than our subscription..."
         },
-        "slack": {
-          "description": "Acquisition and integration of Slack to enhance collaboration and communication capabilities.",
-          "initiatives": [
-            "Integrating Slack with Salesforce products to create a Slack-first platform.",
-            "Building new capabilities leveraging Slack's collaboration tools."
-          ],
-          "goals": [
-            "Enhance productivity for customers through integrated collaboration tools.",
-            "Expand Salesforce's presence in the enterprise communication space."
-          ],
-          "examples": [
-            "Slack integrated into Salesforce's Customer 360 to enhance collaboration.",
-            "Slack's revenue accelerated to 39% growth year-over-year on a standalone basis."
-          ]
-        },
-        "traction_on_demand": {
-          "description": "Acquisition of Traction on Demand to enhance professional services offerings.",
-          "initiatives": [
-            "Integrating Traction on Demand's professional services to support customer implementations."
-          ],
-          "goals": [
-            "Enhance professional services capabilities.",
-            "Provide end-to-end customer implementation support."
-          ],
-          "examples": [
-            "Traction on Demand expected to close by the end of the fiscal quarter, contributing $75 million in revenue for fiscal '23."
-          ]
+        {
+          "topic": "Operating Margin and Efficiency",
+          "content": "Great. So we've got great plans for this year. As you know, we guided to 27% for fiscal year '24, and we plan to hit 30% early in the following year. Very excited about what we're doing..."
         }
-      },
-      "ecosystem_development": {
-        "description": "Growth of Salesforce ecosystem through Trailhead, strategic partnerships, and Slack integration.",
-        "initiatives": [
-          "Expanding Trailhead to support continuous learning and reskilling.",
-          "Enhancing My Trailhead for customers to create branded learning experiences.",
-          "Strengthening strategic partnerships with global brands like IBM, Amazon, Microsoft, and Alibaba.",
-          "Integrating Slack to enhance the collaborative ecosystem."
-        ],
-        "goals": [
-          "Create more than 3 million jobs and $860 billion in GDP impact worldwide by 2022.",
-          "Provide over 1 million Americans with Salesforce credentials.",
-          "Contribute to 4.2 million new jobs and $1.2 trillion in new business revenues worldwide from 2019 through 2024."
-        ],
-        "examples": [
-          "Accenture leveraging My Trailhead for employee reskilling.",
-          "Telstra adopting My Trailhead.",
-          "Partnership with Alibaba to support multinational customers.",
-          "IBM building their Customer 360 on Salesforce and Slack integration."
-        ]
-      },
-      "social_initiatives": {
-        "description": "Enhanced support for nonprofits, commitment to sustainability, and integration of Slack.",
-        "initiatives": [
-          "Supporting over 51,000 nonprofits with Salesforce.org.",
-          "Delivering $450 million in grants and 6 million volunteer hours.",
-          "Achieving net zero gas emissions globally and providing a carbon-neutral cloud to customers.",
-          "Committing to 100% renewable energy for global operations by 2022.",
-          "Integrating Slack to support collaborative and sustainable work environments."
-        ],
-        "goals": [
-          "Empower nonprofit, education, and philanthropy customers to fulfill their missions.",
-          "Enhance corporate social responsibility efforts.",
-          "Reduce environmental impact and promote sustainability."
-        ],
-        "examples": [
-          "Salesforce.org supporting 51,000 nonprofits with free services.",
-          "$450 million in grants delivered to various causes.",
-          "Carbon-neutral cloud and commitment to renewable energy initiatives.",
-          "Slack-First Customer 360 promoting sustainable collaboration."
-        ]
-      }
+      ]
     },
-    "outlook": {
-      "revenue_growth": {
-        "expectation": "Robust organic and acquisition-driven growth with continued demand for CRM and integrated solutions.",
-        "constant_currency_growth": "Expected to remain strong or accelerate in upcoming quarters.",
-        "factors": [
-          "Growth in Salesforce platform and cloud services.",
-          "Successful integration of acquisitions like Slack and Traction on Demand.",
-          "Increased demand for digital transformation and customer experience solutions."
-        ],
-        "specifics": {
-          "fy_2022": {
-            "value": 26.4,
-            "unit": "billion USD",
-            "context": "Fiscal year 2022 revenue guidance raised to $26.4 billion, representing approximately 24% growth year-over-year."
-          },
-          "fy_2026": {
-            "value": 50,
-            "unit": "billion USD",
-            "context": "Revenue target of $50 billion by fiscal year 2026."
-          },
-          "q4": {
-            "value": 7.33,
-            "unit": "billion USD",
-            "context": "Q4 revenue was $7.33 billion, up 26% year-over-year."
-          },
-          "q1_fy_2023_guidance": {
-            "revenue": {
-              "value": "7.215-7.25",
-              "unit": "billion USD",
-              "context": "Fiscal year 2023 Q1 revenue guidance of $7.215 billion to $7.25 billion, or approximately 21% to 22% growth year-over-year."
-            }
-          }
+    "bret_taylor": {
+      "role": "Vice Chair and Co-Chief Executive Officer",
+      "responses": [
+        {
+          "topic": "Industry Cloud Strategy",
+          "content": "Yes, thanks, Kirk. We have 12 industry clouds, spanning a wide range of industries, where I think CRM is particularly strategic..."
+        },
+        {
+          "topic": "Capital Allocation and Stock Buybacks",
+          "content": "Yes, I think, Marc, you articulated it well. I mentioned this before, but the pillars of our capital allocation strategy are..."
+        },
+        {
+          "topic": "Farewell Remarks",
+          "content": "The only thing I just want to add is Brian has been running our customer success, professional services and partnership organization for a long time..."
         }
-      },
-      "expenses_and_investments": {
-        "full_year_2022_expense_growth": {
-          "range": "+8%",
-          "drivers": [
-            "Investments in Salesforce.org integration.",
-            "Growth in cloud infrastructure costs.",
-            "Continued investment in AI and commercial sales capacity."
-          ]
-        },
-        "expense_outlook_excluding_accrual": {
-          "note": "Expense outlook essentially unchanged excluding Salesforce.org-related expenses."
-        },
-        "core_trends": [
-          "Continued investment in cloud and AI.",
-          "Expansion of commercial sales capacity.",
-          "Strategic acquisitions to enhance product offerings."
-        ]
-      },
-      "capital_expenditures_guidance": {
-        "value": "In line with Q4",
-        "unit": "billion USD",
-        "focus": [
-          "Investment in cloud infrastructure.",
-          "Expansion of data centers.",
-          "Enhancements to network infrastructure."
-        ],
-        "reason_for_adjustment": "Based on infrastructure spend timing."
-      },
-      "future_guidance": {
-        "fy_2022": {
-          "revenue": {
-            "value": 26.4,
-            "unit": "billion USD",
-            "context": "Fiscal year 2022 revenue guidance raised to $26.4 billion, representing approximately 24% growth year-over-year."
-          },
-          "growth": {
-            "value": "24%",
-            "unit": "year-over-year",
-            "context": "Projected growth year-over-year for FY 2022."
-          },
-          "operating_margin": {
-            "value": 18.7,
-            "unit": "percent",
-            "context": "Fiscal year 2022 non-GAAP operating margin raised to 18.7%, an expansion of 90 basis points year-over-year."
-          },
-          "capex": {
-            "value": "3%",
-            "unit": "percent of revenue",
-            "context": "Fiscal year 2022 CapEx expected to remain at approximately 3% of revenue."
-          },
-          "eps": {
-            "gaap_diluted_eps": {
-              "value": "1.48",
-              "unit": "USD per share",
-              "context": "Fiscal year 2022 GAAP diluted EPS was $1.48."
-            },
-            "non_gaap_diluted_eps": {
-              "value": "4.78",
-              "unit": "USD per share",
-              "context": "Fiscal year 2022 non-GAAP diluted EPS was $4.78."
-            }
-          },
-          "operating_cash_flow_growth": {
-            "value": "18-19%",
-            "unit": "year-over-year",
-            "context": "Fiscal year 2022 operating cash flow guidance raised by 4 points, now expecting 18% to 19% growth year-over-year."
-          }
-        },
-        "q4_guidance": {
-          "revenue": {
-            "value": "7.37-7.38",
-            "unit": "billion USD",
-            "context": "Q1 revenue guidance raised to $7.37 billion to $7.38 billion, approximately 24% growth year-over-year."
-          },
-          "crpo_growth": {
-            "value": "21%",
-            "unit": "year-over-year",
-            "context": "Q1 CRPO growth of approximately 21%, including 5 points from Slack."
-          },
-          "eps": {
-            "gaap_diluted_eps": {
-              "value": "-0.05 to -0.04",
-              "unit": "USD per share",
-              "context": "Q1 GAAP EPS guidance of -$0.05 to -$0.04."
-            },
-            "non_gaap_diluted_eps": {
-              "value": "0.93 to 0.94",
-              "unit": "USD per share",
-              "context": "Q1 non-GAAP EPS guidance of $0.93 to $0.94."
-            }
-          }
-        },
-        "fy_2023": {
-          "revenue": {
-            "value": 32.1,
-            "unit": "billion USD",
-            "context": "Fiscal year 2023 revenue guidance raised to $32.1 billion, representing approximately 21% growth year-over-year."
-          },
-          "growth": {
-            "value": "21%",
-            "unit": "year-over-year",
-            "context": "Projected growth year-over-year for FY 2023."
-          },
-          "operating_margin": {
-            "value": 20.0,
-            "unit": "percent",
-            "context": "Fiscal year 2023 non-GAAP operating margin guidance of 20%."
-          },
-          "capex": {
-            "value": "2%",
-            "unit": "percent of revenue",
-            "context": "Fiscal year 2023 CapEx expected to be approximately 2% of revenue, an all-time low."
-          },
-          "eps": {
-            "gaap_diluted_eps": {
-              "value": "0.46 to 0.48",
-              "unit": "USD per share",
-              "context": "Fiscal year 2023 GAAP diluted EPS guidance of $0.46 to $0.48."
-            },
-            "non_gaap_diluted_eps": {
-              "value": "4.62 to 4.64",
-              "unit": "USD per share",
-              "context": "Fiscal year 2023 non-GAAP diluted EPS guidance of $4.62 to $4.64."
-            }
-          },
-          "operating_cash_flow_growth": {
-            "value": "21-22%",
-            "unit": "year-over-year",
-            "context": "Fiscal year 2023 operating cash flow guidance initiated at approximately 21% to 22% year-over-year."
-          }
-        }
-      }
+      ]
     },
-    "metadata": {
-      "parsed_date": "2022-12-31T00:00:00Z",
-      "company_ticker": "CRM",
-      "source": "Q4 2022 Earnings Call Transcript",
-      "operating_environment_challenges": [
-        "Integration of Slack and Traction on Demand acquisitions.",
-        "Managing FX headwinds impacting revenue growth.",
-        "Balancing investments in cloud and AI with profitability.",
-        "Adapting to competitive pressures in cloud and CRM markets.",
-        "Scaling operations to support rapid growth in key segments like Sales Cloud and Service Cloud.",
-        "Ongoing impacts of the COVID-19 pandemic and geopolitical tensions on operations, customer behavior, and economic conditions."
+    "brian_milham": {
+      "role": "Head of Sales",
+      "responses": [
+        {
+          "topic": "Transition into New Role",
+          "content": "Well, Keith, first of all, thanks for the question. Really appreciate it. And I agree we had very strong performance in our Q4. Very happy with the quick pivot we made enabling our salespeople to talk differently about the values our customers get..."
+        },
+        {
+          "topic": "Pipeline Confidence and Demand Environment",
+          "content": "I think it was measured hours, actually, Marc. I’ve been running the forecast calls already. I’m in the business, you know, traveling to see customers..."
+        },
+        {
+          "topic": "Sales Capacity and Industry Impact",
+          "content": "Yes, Marc, I appreciate it, and certainly don't want to contradict anything that you said, but…"
+        },
+        {
+          "topic": "Attrition and Customer Success",
+          "content": "Amy, thank you, I appreciate it. I'll quickly address it. Thank you Sarah for the question. First of all, I think it's part of our heritage..."
+        }
       ]
     }
+  },
+  "analyst_questions": [
+    {
+      "analyst": "Keith Weiss",
+      "firm": "Morgan Stanley & Co. LLC",
+      "topics": ["Leadership Change", "Operating Margin"],
+      "questions": [
+        "Marc, on the leadership change or Bret leaving, we're also very sorry to see Bret leaving. He was a great addition to the team. I guess the good news is there's already a CEO, in you, set to go. But should we expect a replacement for Bret on a going-forward basis? Are you going to look to go back to that kind of Co-CEO dynamic, or replace kind of what he was doing on a day-to-day basis with some other executive on a go-forward basis?",
+        "Then I guess for Amy, at the Analyst Day, you talked about a more back-end-loaded operating margin trajectory towards that 25%. Any change in that dynamic, given kind of what's going on in the macro environment, and seeing kind of the degradation on the top line? Does that push operating margin? Does that sort of push operating margin expansion to kind of the forefront in any way?"
+      ]
+    },
+    {
+      "analyst": "Mark Murphy",
+      "firm": "JP Morgan",
+      "topics": ["Remote Work", "Real Estate Strategy"],
+      "questions": [
+        "Marc, I wanted to ask you if you think that this volatile environment is going to be fully conducive to remote work, or do you see some of your employees maybe gravitating back a little more to in-office?",
+        "Amy, relatedly and since you just mentioned it, could you touch on the plans for the real estate footprint, including the Salesforce Tower and the other buildings, and just help us understand maybe how that could contribute to margin expansion?"
+      ]
+    },
+    {
+      "analyst": "Brad Zelnick",
+      "firm": "Deutsche Bank Securities, Inc.",
+      "topics": ["Profitability", "M&A Strategy"],
+      "questions": [
+        "Marc, you have a lot of pressure out there from all kinds of investors to drive profitability, including some activists. But paradoxically, it would seem an amazing time to put money to work, with all the dislocation in the world creating opportunity. How do you do both at the same time?"
+      ]
+    },
+    {
+      "analyst": "Kasthuri Rangan",
+      "firm": "Goldman Sachs",
+      "topics": ["Recession Playbook", "Growth Strategy"],
+      "questions": [
+        "What an amazing end of fiscal year. Congratulations to the team. Much, much better than expected. Brighter days ahead. Question for Marc. And maybe, Brian, you can chime in here. So Marc, we went through the 2008, 2009 recession, 2010 rebound, back then, the company was a smaller company, but you still were able to get profitability up. We went through a bit of a downturn, and we came out of it. So are there pyramids to be drawn in this cycle? Because there's certainly uncertainty about recession, whatnot, that's damping spending. If we take that as a fact, the growth rate that you guided to, should that be the aspirational long-term growth rate of the company? Or do you think if and when the recession clears that there should be a rebound in spending? And we understand that all the go-to-market rationalization that you and Brian and Amy you're all working on should allow you to gain share. So help us think about the recovery curve of Salesforce in the next economic cycle."
+      ]
+    },
+    {
+      "analyst": "Raimo Lenschow",
+      "firm": "Barclays",
+      "topics": ["Sales Productivity", "Sales Capacity"],
+      "questions": [
+        "I just wanted to—question for Brian. As you kind of started alluding already on the initiatives you're taking there, like how should we think about what do you see in terms of what—in the field in terms of—there's macro, but has also relatively a decent penetration of Salesforce, like how do you think this will play out, and how do you see your Salesforce position in terms of sales capacity, etc., to sell in this environment?"
+      ]
+    },
+    {
+      "analyst": "Sarah Hindlian-Bowler",
+      "firm": "Macquarie Capital",
+      "topics": ["Retention Rates", "Product Bundling"],
+      "questions": [
+        "This was a question for Amy. I think one topic that we touched on, you mentioned briefly on the call, were your retention rates, which continue to be a great way to add revenue that's really high margin. So maybe we could drill down into that a little bit, what you're doing to drive your retention rates higher, and maybe how some of the product bundling or suite strategy plays into that would be helpful as well."
+      ]
+    },
+    {
+      "analyst": "Karl Keirstead",
+      "firm": "UBS",
+      "topics": ["GAAP vs Non-GAAP Earnings"],
+      "questions": [
+        "Amy, just continuing on the margin conversation, you hinted in your comments about a desire to close the gap between GAAP and non-GAAP earnings. I'm just wondering if you could talk a little bit about what key levers you're using to do that. You hinted that adjustments to the equity program. It might be interesting to hear a little bit more. And over what time frame do you think that bridge might close?"
+      ]
+    },
+    {
+      "analyst": "Brent Thill",
+      "firm": "Jefferies",
+      "topics": ["CDP and Vertical Solutions", "Product Bundling"],
+      "questions": [
+        "Amy, given Marc's #1 profit -- goal of profitability, can you outline where this big jump is coming from? Can you give us just a sense of the big areas that you feel that you can really cut? And I guess, back to Marc, it seems like you can keep growing at a pretty good rate even with higher margins. So this doesn't really feel like it's really sacrificing growth when you're guiding to still a double-digit number."
+      ]
+    }
+  ],
+  "metadata": {
+    "parsed_date": "2023-12-31T16:30:00.000Z",
+    "company_ticker": "CRM",
+    "source": "earnings_call_transcript"
   }
-  
+}

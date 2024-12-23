@@ -2,429 +2,218 @@
     "company_name": "Salesforce",
     "quarter": "Q4",
     "fiscal_year": "2022",
-    "financials": {
-      "total_revenue": {
-        "value": 7.33,
-        "unit": "billion USD",
-        "year_over_year_change": "+26%",
-        "constant_currency_growth": "27%",
-        "context": "Q4 2022 revenue was $7.33 billion, up 26% year-over-year or 27% in constant currency.",
-        "composition": {
-          "Sales_Cloud": {
-            "year_over_year_change": "+17%",
-            "constant_currency_growth": null,
-            "context": "Sales Cloud grew 17% year-over-year, reaching a $6 billion run rate."
+    "speakers": {
+      "marc_benioff": {
+        "role": "Founder, Chairman & Co-Chief Executive Officer",
+        "responses": [
+          {
+            "topic": "Co-CEO Structure and Responsibilities",
+            "content": "Salesforce has had an evolving leadership structure several times, and we have also had tremendous success previously with the Co-CEO structure. These jobs are big jobs and being able to have a partner that you can share it with makes it a lot easier. When Keith decided to retire, I was back in this job. It was very lonely, and now to have a partner with Bret, I couldn't be more excited."
           },
-          "Service_Cloud": {
-            "year_over_year_change": "+18%",
-            "constant_currency_growth": null,
-            "context": "Service Cloud grew 18% year-over-year, achieving nearly $6.5 billion in revenue."
+          {
+            "topic": "CEO Priorities and Market Demand",
+            "content": "In so many of the CEO conversations that I'm having, and let me emphasize the ones I'm having in Europe, number one, because of the Green New Deal that's happening here in Europe, every CEO here is focused on their net zero transformation, and they realize that for them to continue to be successful in this environment, in this economy, they're having to make a net zero transformation. The second priority is supply chain challenges. The third priority is success from anywhere in this new world..."
           },
-          "Marketing_and_Commerce_Cloud": {
-            "year_over_year_change": "+25%",
-            "constant_currency_growth": null,
-            "context": "Commerce and Marketing Clouds grew 25% year-over-year in the third quarter, continuing a 20-month run."
+          {
+            "topic": "Operating Margin and Financial Model",
+            "content": "We've had now three out of the last five quarters greater than 20%, and we have a lot of swagger when it comes to our operating margin. The pandemic let us have a beginner's mind in regards to our entire business, and we made strategic decisions, tactical decisions, and also decisions at our core way that we're operating our business, and you can see that with these operating margin results."
           },
-          "Platform_and_Other": {
-            "year_over_year_change": "+23.5%",
-            "constant_currency_growth": null,
-            "context": "Platform and Other segments, including Slack, MuleSoft, Tableau, and Acumen, grew 23.5% year-over-year."
+          {
+            "topic": "Future Outlook and Acquisitions",
+            "content": "We're in a new world, and we've had the ability to adjust and run the company dynamically. We're in a tremendous new world, and Salesforce has never been better positioned for an economy and for a world. We're continuing to integrate our acquisitions successfully, and Slack has fundamentally changed the tone and tempo and future of Salesforce."
+          },
+          {
+            "topic": "Valuation and M&A Strategy",
+            "content": "We've certainly seen the software industry contract, and I think it's probably best reflected by that ETF I watch it very closely, IGV. When we made the major decision to acquire Slack more than a year ago, it became our most strategic initiative in the company. It will take us quite a long time to digest this acquisition. We also have other parts of our portfolio that require our focus to ensure they work for our investors."
           }
-        }
+        ]
       },
-      "profitability": {
-        "eps": {
-          "gaap_diluted_eps": {
-            "value": -0.03,
-            "unit": "USD per share",
-            "context": "Q4 GAAP Earnings Per Share was -$0.03."
+      "bret_taylor": {
+        "role": "Vice Chair and Co-Chief Executive Officer",
+        "responses": [
+          {
+            "topic": "Slack Integration and Success Metrics",
+            "content": "We're really excited about this vision for the Slack-First Customer 360, and that's really building not only an integrated vision between Slack and our Customer 360 platform, but also integrating our products. We've made a faster start to integrating our technology than any acquisition in our history. Slack Connect was up an astonishing 176% year-over-year in the quarter..."
           },
-          "non_gaap_diluted_eps": {
-            "value": 0.84,
-            "unit": "USD per share",
-            "context": "Q4 non-GAAP Earnings Per Share was $0.84."
+          {
+            "topic": "Cloud Portfolio Performance and Multi-Cloud Deals",
+            "content": "The strength is really across the portfolio. When we talk about the fact that of the seven-figure deals, they on average included more than four of our clouds; we're not selling individual products. We're selling a Customer 360 solution to really transform the entire customer experience..."
+          },
+          {
+            "topic": "Customer Data Platform (CDP) and Marketing Cloud",
+            "content": "Our Customer Data Platform, branded as Customer 360 Audiences, is powered by Hyperforce architecture. It enables scalable, real-time data integration and provides marketers with deep insights to drive personalized campaigns. In Q4, CDP significantly boosted Marketing Cloud performance, driving higher engagement and conversion rates."
+          },
+          {
+            "topic": "Slack + Tableau Integration",
+            "content": "We're really excited about the combination of Slack and Tableau. Automated notifications so that when you need to take action on data, you're getting notified in Slack, you can collaborate with your colleagues to diagnose a business issue, just an incredible combination. It really shows just our philosophy on our M&A and why we've had really unprecedented success in the marketplace and integrating our acquisition successfully..."
+          },
+          {
+            "topic": "Operational Efficiency and Growth",
+            "content": "We've seen tremendous growth and operating margin improvements through discipline and strategic decision-making. This has been facilitated by our new operating model and the integration of Slack, which is now a strategic part of every customer conversation."
+          },
+          {
+            "topic": "MuleSoft Integration and Growing Pains",
+            "content": "We've made some changes that we think are right for the long-term, and while we recognize some short-term growing pains as we integrate our acquisitions, we feel very confident in the future of MuleSoft. It's fundamental to our ability to deliver our Customer 360 and solve customer problems."
           }
-        }
-      },
-      "cash_flow": {
-        "free_cash_flow": {
-          "value": 5.3,
-          "unit": "billion USD",
-          "context": "Free cash flow for the full fiscal year was $5.3 billion, up 29% year-over-year."
-        },
-        "operating_cash_flow": {
-          "value": 0.404,
-          "unit": "billion USD",
-          "context": "Operating cash flow for Q4 was $404 million, up 19% year-over-year."
-        }
-      },
-      "capital_expenditures": {
-        "value": 0.166,
-        "unit": "billion USD",
-        "context": "CapEx for Q4 was $166 million, contributing to free cash flow of $238 million."
-      }
-    },
-    "operating_metrics": {
-      "ai_predictions": {
-        "value": null,
-        "unit": "billion",
-        "context": "Data not provided in the Q4 2022 earnings call."
-      },
-      "trailhead": {
-        "learners": {
-          "value": null,
-          "unit": "million",
-          "context": "Data not provided in the Q4 2022 earnings call."
-        },
-        "jobs_created": {
-          "value": null,
-          "unit": "million",
-          "context": "Data not provided in the Q4 2022 earnings call."
-        },
-        "business_revenues": {
-          "value": null,
-          "unit": "trillion USD",
-          "context": "Data not provided in the Q4 2022 earnings call."
-        }
-      }
-    },
-    "strategic_updates": {
-      "market_position": {
-        "description": "Salesforce remains the #1 CRM provider by market share for the eighth year in a row.",
-        "initiatives": [
-          "Maintaining leadership in CRM across sales, service, marketing, commerce, communities, integration, and app development.",
-          "Integrating Slack into the Customer 360 platform to enhance collaboration capabilities."
-        ],
-        "goals": [
-          "Maintain CRM market leadership.",
-          "Enhance collaboration and communication through Slack integration."
-        ],
-        "examples": [
-          "Integration of Slack to create a Slack-first Customer 360.",
-          "Continued leadership in CRM as rated by IDC and Gartner."
         ]
       },
-      "innovation": {
-        "description": "Focus on Customer 360, AI innovations, and integration of Slack.",
-        "initiatives": [
-          "Enhancing Customer 360 to provide unified customer views with Slack integration.",
-          "Advancing AI capabilities with Einstein to support customer success.",
-          "Expanding Salesforce Blockchain and other innovative solutions to meet customer needs."
-        ],
-        "goals": [
-          "Empower customers with AI and blockchain capabilities.",
-          "Provide unified customer experiences through integrated platforms.",
-          "Drive workforce development and ecosystem growth."
-        ],
-        "examples": [
-          "Integration of Slack in the Customer 360 platform.",
-          "Slack-First Customer 360 making Salesforce products more powerful and effective."
+      "amy_weaver": {
+        "role": "President, Chief Financial Officer & Member of the Executive Committee",
+        "responses": [
+          {
+            "topic": "Balance Between Growth and Margin Expansion",
+            "content": "When I look at the balance between growth and profitability, I want to be clear that growth remains our number one priority. Investing into growth, especially in this demand environment, is simply the best thing we can do for the company. That said, I am a big believer that a focus on discipline makes for a stronger and more durable company..."
+          },
+          {
+            "topic": "Operating Margin Improvement",
+            "content": "We raised our full-year operating margin improvement guide by 50 basis points, from 17.5% to 18%. This improvement comes from a combination of our strong quarterly performance, T&E savings due to the digital work environment, and renewed focus on operational efficiencies and discipline across the company."
+          },
+          {
+            "topic": "Operational Efficiency",
+            "content": "The lowest hanging fruit is clearly our difference in how we are working right now. It's this all-digital work from anywhere. Probably the easiest part on that is the difference in T&E. That clearly has gone way down. We are assuming, for purposes of guidance, some modest return of travel in the second half of this year. But it will be nowhere near where we were pre-pandemic..."
+          },
+          {
+            "topic": "Use of Slack in Negotiations",
+            "content": "We use Slack to negotiate, to do – we conducted our due diligence, our negotiation and integration for Slack. So I do think that that's the ultimate example of a terrific sale, all conducted with Slack and Slack Connect."
+          },
+          {
+            "topic": "Operating Margin Sustainability",
+            "content": "We've been able to drive growth and increase profitability at the same time through terrific business performance, efficiencies, the work-from-anywhere model, and disciplined decision-making. We're challenging ourselves and finding ways to shift our operating model where necessary."
+          },
+          {
+            "topic": "Seasonality and Data Cloud Business",
+            "content": "One of the advantages of breaking up the revenue this way is it provides greater transparency to all of our investors. It will put Tableau and MuleSoft, which are two primarily license-based offerings, together in the same line. It's more about lumpiness in revenue recognition rather than seasonality."
+          },
+          {
+            "topic": "Operating Margin Guidance and Q4 Seasonality",
+            "content": "We have a great year and I'm really delighted to predict that we're going to end the year around 18.6%. We are expecting additional investments in our workforce and our growth and also some modest increase to T&E expectations in Q4, which will cause a quarter-over-quarter decline in operating margin. But we're really excited about the full-year number and proud to be guiding to 18.6%."
+          }
         ]
       },
-      "acquisitions": {
-        "tableau": {
-          "description": "Integration of Tableau into Salesforce ecosystem continues to drive data visualization and analytics capabilities.",
-          "initiatives": [
-            "Leveraging Tableau in top deals to enhance business intelligence offerings."
-          ],
-          "goals": [
-            "Expand data analytics offerings.",
-            "Leverage Tableau for advanced business intelligence."
-          ],
-          "examples": [
-            "Tableau featured in 9 of Salesforce's top 10 deals for Q4 2022.",
-            "Integration benefits customers like MillerKnoll and RBC Wealth Management."
-          ]
-        },
-        "salesforce_org": {
-          "description": "Integration and support for Salesforce.org enhancing nonprofit and education sectors.",
-          "initiatives": [
-            "Continuing to empower nonprofit and education customers through Salesforce.org."
-          ],
-          "goals": [
-            "Support mission-driven organizations.",
-            "Strengthen corporate social responsibility initiatives."
-          ],
-          "examples": [
-            "Salesforce.org continues to support over 51,000 nonprofits with free services."
-          ]
-        },
-        "clicksoftware": {
-          "description": "Integration of ClickSoftware to enhance field service capabilities.",
-          "initiatives": [
-            "Delivering greater field service innovation through ClickSoftware integration."
-          ],
-          "goals": [
-            "Expand field service offerings.",
-            "Improve customer service workflows."
-          ],
-          "examples": [
-            "FOX Sports utilizing Field Service Lightning for enhanced service delivery."
-          ]
-        },
-        "vlocity": {
-          "description": "Integration of Vlocity to enhance industry-specific solutions.",
-          "initiatives": [
-            "Delivering powerful industry-specific clouds and mobile app solutions through Vlocity."
-          ],
-          "goals": [
-            "Expand industry-specific offerings.",
-            "Enhance customer success across verticals."
-          ],
-          "examples": [
-            "Vlocity contributing to tailored solutions for sectors like telecommunications and healthcare."
-          ]
-        },
-        "slack": {
-          "description": "Acquisition and integration of Slack to enhance collaboration and communication capabilities.",
-          "initiatives": [
-            "Integrating Slack with Salesforce products to create a Slack-first platform.",
-            "Building new capabilities leveraging Slack's collaboration tools."
-          ],
-          "goals": [
-            "Enhance productivity for customers through integrated collaboration tools.",
-            "Expand Salesforce's presence in the enterprise communication space."
-          ],
-          "examples": [
-            "Slack integrated into Salesforce's Customer 360 to enhance collaboration.",
-            "Slack's revenue accelerated to 39% growth year-over-year on a standalone basis."
-          ]
-        },
-        "traction_on_demand": {
-          "description": "Acquisition of Traction on Demand to enhance professional services offerings.",
-          "initiatives": [
-            "Integrating Traction on Demand's professional services to support customer implementations."
-          ],
-          "goals": [
-            "Enhance professional services capabilities.",
-            "Provide end-to-end customer implementation support."
-          ],
-          "examples": [
-            "Traction on Demand expected to close by the end of the fiscal quarter, contributing $75 million in revenue for fiscal '23."
-          ]
-        }
-      },
-      "ecosystem_development": {
-        "description": "Growth of Salesforce ecosystem through Trailhead, strategic partnerships, and Slack integration.",
-        "initiatives": [
-          "Expanding Trailhead to support continuous learning and reskilling.",
-          "Enhancing My Trailhead for customers to create branded learning experiences.",
-          "Strengthening strategic partnerships with global brands like IBM, Amazon, Microsoft, and Alibaba.",
-          "Integrating Slack to enhance the collaborative ecosystem."
-        ],
-        "goals": [
-          "Create more than 3 million jobs and $860 billion in GDP impact worldwide by 2022.",
-          "Provide over 1 million Americans with Salesforce credentials.",
-          "Contribute to 4.2 million new jobs and $1.2 trillion in new business revenues worldwide from 2019 through 2024."
-        ],
-        "examples": [
-          "Accenture leveraging My Trailhead for employee reskilling.",
-          "Telstra adopting My Trailhead.",
-          "Partnership with Alibaba to support multinational customers.",
-          "IBM building their Customer 360 on Salesforce and Slack integration."
-        ]
-      },
-      "social_initiatives": {
-        "description": "Enhanced support for nonprofits, commitment to sustainability, and integration of Slack.",
-        "initiatives": [
-          "Supporting over 51,000 nonprofits with Salesforce.org.",
-          "Delivering $450 million in grants and 6 million volunteer hours.",
-          "Achieving net zero gas emissions globally and providing a carbon-neutral cloud to customers.",
-          "Committing to 100% renewable energy for global operations by 2022.",
-          "Integrating Slack to support collaborative and sustainable work environments."
-        ],
-        "goals": [
-          "Empower nonprofit, education, and philanthropy customers to fulfill their missions.",
-          "Enhance corporate social responsibility efforts.",
-          "Reduce environmental impact and promote sustainability."
-        ],
-        "examples": [
-          "Salesforce.org supporting 51,000 nonprofits with free services.",
-          "$450 million in grants delivered to various causes.",
-          "Carbon-neutral cloud and commitment to renewable energy initiatives.",
-          "Slack-First Customer 360 promoting sustainable collaboration."
+      "gavin_patterson": {
+        "role": "President and Chief Revenue Officer",
+        "responses": [
+          {
+            "topic": "Demand Environment and Pipeline Confidence",
+            "content": "The pipeline is very strong, and we saw that build throughout the year, and coming into Q4 we continued to see it build. And that's in spite of having no face-to-face events during the year. It's all been done digitally..."
+          },
+          {
+            "topic": "Slack Acquisition Insights and Usage",
+            "content": "Slack provides access to rich conversational customer data, advancing our AI efforts. It serves as the operating system for growth, facilitating team selling, customer service, and marketing in the all-digital work-from-anywhere world..."
+          },
+          {
+            "topic": "Using Slack in the Sales Process",
+            "content": "We are beginning to sell through Slack. The most powerful presentation sales teams give are often Salesforce on Salesforce, and so Slack on Slack is a very compelling way to explain how we use the product. We're beginning to do more and more of that..."
+          },
+          {
+            "topic": "Operational Resilience and Execution",
+            "content": "Our agility allows us to maintain the grip of a small company while managing to grow into a 21-plus billion dollar company. This has been crucial in responding to changing customer needs and delivering transformation solutions..."
+          },
+          {
+            "topic": "Pipeline Confidence and Acceleration",
+            "content": "The pipeline is very strong and continues to build despite the shift to digital engagement. We're investing in our sales force to capture the growing demand and are confident in our ability to meet future opportunities..."
+          },
+          {
+            "topic": "Deal Complexity and Time to Value",
+            "content": "Deal complexity has increased, with more sophisticated and multi-cloud solutions being demanded by customers. Time to value is now a top priority, and we're ensuring that our solutions are deployed quickly and effectively to meet these needs..."
+          },
+          {
+            "topic": "Salesforce Operating Model and Efficiency",
+            "content": "We've put a lot more focus on executional excellence and grip on the operating metrics around the pipeline going forward. We've spent a lot of time looking at how everybody in the sales organization is contributing through participation and through enablement, through productivity, and really driving performance across each of the operating units. We've flattened the structure so that we can move in a more agile manner and give more accountability to operating unit leaders."
+          },
+          {
+            "topic": "Global Growth and Market Performance",
+            "content": "Geographically, there's strength across the board. The US is consistently growing 20%-plus in revenue. EMEA is growing 32% this quarter, and APAC is growing 26%. So we're growing across the board and growth internationally is not coming at the expense of growth in the US."
+          },
+          {
+            "topic": "Demand and Pipeline in Q4",
+            "content": "We started the fourth quarter really strong, and demand is stronger across the pipeline looks very good. Americas is particularly strong and parts of Europe are performing equally well. There's good performance across the verticals. It's a balanced performance across the board."
+          },
+          {
+            "topic": "MuleSoft Integration and Growing Pains",
+            "content": "We've gone through some operational challenges with MuleSoft, but the actions that need to be taken are very clear. MuleSoft is fundamental to our ability to deliver our Customer 360, and we are confident we'll work through these over the next quarter."
+          },
+          {
+            "topic": "Future Demand and COVID Variants",
+            "content": "As we cycle through another wave of COVID, I don't see that changing fundamentally. Demand remains strong, and pipeline is robust across all geographies and products."
+          }
         ]
       }
     },
-    "outlook": {
-      "revenue_growth": {
-        "expectation": "Robust organic and acquisition-driven growth with continued demand for CRM and integrated solutions.",
-        "constant_currency_growth": "Expected to remain strong or accelerate in upcoming quarters.",
-        "factors": [
-          "Growth in Salesforce platform and cloud services.",
-          "Successful integration of acquisitions like Slack and Traction on Demand.",
-          "Increased demand for digital transformation and customer experience solutions."
-        ],
-        "specifics": {
-          "fy_2022": {
-            "value": 26.4,
-            "unit": "billion USD",
-            "context": "Fiscal year 2022 revenue guidance raised to $26.4 billion, representing approximately 24% growth year-over-year."
-          },
-          "fy_2026": {
-            "value": 50,
-            "unit": "billion USD",
-            "context": "Revenue target of $50 billion by fiscal year 2026."
-          },
-          "q4": {
-            "value": 7.33,
-            "unit": "billion USD",
-            "context": "Q4 revenue was $7.33 billion, up 26% year-over-year."
-          },
-          "q1_fy_2023_guidance": {
-            "revenue": {
-              "value": "7.215-7.25",
-              "unit": "billion USD",
-              "context": "Fiscal year 2023 Q1 revenue guidance of $7.215 billion to $7.25 billion, or approximately 21% to 22% growth year-over-year."
-            }
-          }
-        }
-      },
-      "expenses_and_investments": {
-        "full_year_2022_expense_growth": {
-          "range": "+8%",
-          "drivers": [
-            "Investments in Salesforce.org integration.",
-            "Growth in cloud infrastructure costs.",
-            "Continued investment in AI and commercial sales capacity."
-          ]
-        },
-        "expense_outlook_excluding_accrual": {
-          "note": "Expense outlook essentially unchanged excluding Salesforce.org-related expenses."
-        },
-        "core_trends": [
-          "Continued investment in cloud and AI.",
-          "Expansion of commercial sales capacity.",
-          "Strategic acquisitions to enhance product offerings."
+    "analyst_questions": [
+      {
+        "analyst": "Alex Zukin",
+        "firm": "Wolfe Research",
+        "topics": ["Demand Environment", "Pipeline Strength"],
+        "questions": [
+          "Are you seeing or can you comment there were some reports of pull forwards of demand for front office applications? Can you just set the stage and maybe give us some context around what you saw in Q4 and kind of as you come out of the pandemic, the strength of pipeline, the demand environment, and your ability to execute on that demand?"
         ]
       },
-      "capital_expenditures_guidance": {
-        "value": "In line with Q4",
-        "unit": "billion USD",
-        "focus": [
-          "Investment in cloud infrastructure.",
-          "Expansion of data centers.",
-          "Enhancements to network infrastructure."
-        ],
-        "reason_for_adjustment": "Based on infrastructure spend timing."
+      {
+        "analyst": "Brad Zelnick",
+        "firm": "Deutsche Bank Securities, Inc.",
+        "topics": ["Co-CEO Structure", "Operating Margin Guidance"],
+        "questions": [
+          "On the Co-CEO structure, how do you envision breaking down CEO responsibilities amongst yourselves? And what did you learn in the past about having Co-CEOs that will make this structure even better than it was last time around?",
+          "Regarding the guidance for CRPO in Q4, it seems to imply meaningful deceleration. What factors contribute to this? Is there anything anomalous to call out perhaps in addition to FX? And is there anything at all that impacts the confidence level that you have in your forecast?"
+        ]
       },
-      "future_guidance": {
-        "fy_2022": {
-          "revenue": {
-            "value": 26.4,
-            "unit": "billion USD",
-            "context": "Fiscal year 2022 revenue guidance raised to $26.4 billion, representing approximately 24% growth year-over-year."
-          },
-          "growth": {
-            "value": "24%",
-            "unit": "year-over-year",
-            "context": "Projected growth year-over-year for FY 2022."
-          },
-          "operating_margin": {
-            "value": 18.7,
-            "unit": "percent",
-            "context": "Fiscal year 2022 non-GAAP operating margin raised to 18.7%, an expansion of 90 basis points year-over-year."
-          },
-          "capex": {
-            "value": "3%",
-            "unit": "percent of revenue",
-            "context": "Fiscal year 2022 CapEx expected to remain at approximately 3% of revenue."
-          },
-          "eps": {
-            "gaap_diluted_eps": {
-              "value": "1.48",
-              "unit": "USD per share",
-              "context": "Fiscal year 2022 GAAP diluted EPS was $1.48."
-            },
-            "non_gaap_diluted_eps": {
-              "value": "4.78",
-              "unit": "USD per share",
-              "context": "Fiscal year 2022 non-GAAP diluted EPS was $4.78."
-            }
-          },
-          "operating_cash_flow_growth": {
-            "value": "18-19%",
-            "unit": "year-over-year",
-            "context": "Fiscal year 2022 operating cash flow guidance raised by 4 points, now expecting 18% to 19% growth year-over-year."
-          }
-        },
-        "q4_guidance": {
-          "revenue": {
-            "value": "7.37-7.38",
-            "unit": "billion USD",
-            "context": "Q1 revenue guidance raised to $7.37 billion to $7.38 billion, approximately 24% growth year-over-year."
-          },
-          "crpo_growth": {
-            "value": "21%",
-            "unit": "year-over-year",
-            "context": "Q1 CRPO growth of approximately 21%, including 5 points from Slack."
-          },
-          "eps": {
-            "gaap_diluted_eps": {
-              "value": "-0.05 to -0.04",
-              "unit": "USD per share",
-              "context": "Q1 GAAP EPS guidance of -$0.05 to -$0.04."
-            },
-            "non_gaap_diluted_eps": {
-              "value": "0.93 to 0.94",
-              "unit": "USD per share",
-              "context": "Q1 non-GAAP EPS guidance of $0.93 to $0.94."
-            }
-          }
-        },
-        "fy_2023": {
-          "revenue": {
-            "value": 32.1,
-            "unit": "billion USD",
-            "context": "Fiscal year 2023 revenue guidance raised to $32.1 billion, representing approximately 21% growth year-over-year."
-          },
-          "growth": {
-            "value": "21%",
-            "unit": "year-over-year",
-            "context": "Projected growth year-over-year for FY 2023."
-          },
-          "operating_margin": {
-            "value": 20.0,
-            "unit": "percent",
-            "context": "Fiscal year 2023 non-GAAP operating margin guidance of 20%."
-          },
-          "capex": {
-            "value": "2%",
-            "unit": "percent of revenue",
-            "context": "Fiscal year 2023 CapEx expected to be approximately 2% of revenue, an all-time low."
-          },
-          "eps": {
-            "gaap_diluted_eps": {
-              "value": "0.46 to 0.48",
-              "unit": "USD per share",
-              "context": "Fiscal year 2023 GAAP diluted EPS guidance of $0.46 to $0.48."
-            },
-            "non_gaap_diluted_eps": {
-              "value": "4.62 to 4.64",
-              "unit": "USD per share",
-              "context": "Fiscal year 2023 non-GAAP diluted EPS guidance of $4.62 to $4.64."
-            }
-          },
-          "operating_cash_flow_growth": {
-            "value": "21-22%",
-            "unit": "year-over-year",
-            "context": "Fiscal year 2023 operating cash flow guidance initiated at approximately 21% to 22% year-over-year."
-          }
-        }
+      {
+        "analyst": "Raimo Lenschow",
+        "firm": "Barclays Capital",
+        "topics": ["Slack Connect", "Operating Margin Seasonality"],
+        "questions": [
+          "One of the main exciting points around Slack was the shared channel, especially on the sales side. Can you talk about what you're seeing in the market and the feedback you get from customers?",
+          "You've beaten operating margin this quarter. Can you talk a little bit about the linearity of spending in Q4, because this quarter was so much better. Are you spending or hiring quite a bit in Q4?"
+        ]
+      },
+      {
+        "analyst": "Keith Weiss",
+        "firm": "Morgan Stanley & Co. LLC",
+        "topics": ["Foreign Exchange Impacts", "Growth and Profitability Balance"],
+        "questions": [
+          "Can you talk about the degree to which FX impacts are already incorporated into the Q4 guide and to what extent have you incorporated the strong US dollar into the margin commentary and the forward FY 2023 guide?",
+          "You've been working on a new philosophy of a better balance between growth and profitability for a couple of quarters now. How is that progressing? Are you finding this to be an easier or harder job than you originally anticipated in terms of pivoting the company to more of an efficiency focus?"
+        ]
+      },
+      {
+        "analyst": "Stewart Kirk Materne III",
+        "firm": "Evercore ISI",
+        "topics": ["Slack Success Metrics", "Multi-Cloud Deals"],
+        "questions": [
+          "What are you measuring to judge success with Slack, beyond revenue growth in terms of the number of customers and multi-cloud deals that include Slack? What should we be looking for to see that the deal is progressing as planned and that it is the one plus one equals seven combination that you guys are betting on?"
+        ]
+      },
+      {
+        "analyst": "David Hynes",
+        "firm": "Canaccord Genuity LLC",
+        "topics": ["MuleSoft Integration", "Data Cloud Business Seasonality"],
+        "questions": [
+          "Bret, I was hoping you could touch on some of the growing pains that were alluded to with MuleSoft. I think you also mentioned that there were some changes made in that business that you feel pretty good about. So maybe just unpack that a little bit.",
+          "How should we think about the seasonality and modeling of the data cloud business, just given it's the first time that you are breaking that out?"
+        ]
+      },
+      {
+        "analyst": "Tyler Radke",
+        "firm": "Citi",
+        "topics": ["Valuation and M&A Strategy"],
+        "questions": [
+          "When you look at the valuation out there in the software market, obviously it's come in quite a bit since the last call. Just how are you thinking about that as you approach M&A? And with valuations having come down so much, does that change your philosophy or framework on how you're approaching M&A given higher IRR and kind of the math?"
+        ]
+      },
+      {
+        "analyst": "Phil Winslow",
+        "firm": "Credit Suisse",
+        "topics": ["Strategic Depth and Vertical Tech Stack"],
+        "questions": [
+          "Bret, you said that Salesforce is becoming more strategic to the C-Suite just for their broadening footprint. So my question is, and Marc, too, and even Gavin, when you talk to customers, what are they saying to you about, call it, not only the breadth of the CRM portfolio, but also now the depth of the vertical tech stack when choosing Salesforce versus, let's say, point vendors, especially kind of considering the upside we saw in Slack this quarter?"
+        ]
       }
-    },
+    ],
     "metadata": {
-      "parsed_date": "2022-12-31T00:00:00Z",
+      "parsed_date": "2022-12-31T16:30:00.000Z",
       "company_ticker": "CRM",
-      "source": "Q4 2022 Earnings Call Transcript",
-      "operating_environment_challenges": [
-        "Integration of Slack and Traction on Demand acquisitions.",
-        "Managing FX headwinds impacting revenue growth.",
-        "Balancing investments in cloud and AI with profitability.",
-        "Adapting to competitive pressures in cloud and CRM markets.",
-        "Scaling operations to support rapid growth in key segments like Sales Cloud and Service Cloud.",
-        "Ongoing impacts of the COVID-19 pandemic and geopolitical tensions on operations, customer behavior, and economic conditions."
-      ]
+      "source": "earnings_call_transcript"
     }
   }
   

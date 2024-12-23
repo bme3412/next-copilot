@@ -1,136 +1,211 @@
 {
-  "company_name": "Microsoft",
-  "quarter": "Q1",
-  "fiscal_year": "2019",
-  "speakers": {
-    "satya_nadella": {
-      "role": "CEO",
-      "responses": [
-        {
-          "topic": "Intelligent Cloud and Edge",
-          "content": "We’re building an intelligent cloud, intelligent edge platform to span everything, including Azure, game streaming, Microsoft 365, and Dynamics 365. Our architectural advantage with hybrid solutions and our business model advantage with Azure benefits for Windows Server and SQL Server are driving strong performance."
-        },
-        {
-          "topic": "Gaming and xCloud",
-          "content": "Gaming remains a key focus with Xbox's strong community and monetization capabilities. Our investment in streaming through xCloud leverages our cloud infrastructure to deliver high-quality gaming experiences as a subscription service, enhancing reach and engagement."
-        },
-        {
-          "topic": "Developer Ecosystem and GitHub",
-          "content": "GitHub remains a vital part of our developer strategy. We are committed to maintaining the GitHub community and fostering developer productivity. Our integration with Azure and support for open-source projects are essential to earning developer trust and expanding our ecosystem."
-        },
-        {
-          "topic": "Dynamics 365 and Business Applications",
-          "content": "Dynamics 365 continues to evolve with a modular and extensible architecture powered by our Power Platform. We are focused on business process automation and are well-positioned to capitalize on shifts in business models and technology through both organic growth and potential acquisitions."
-        }
-      ]
+    "company_name": "Salesforce",
+    "quarter": "Q3",
+    "fiscal_year": "2021",
+    "speakers": {
+      "marc_benioff": {
+        "role": "Founder, Chairman & Chief Executive Officer",
+        "responses": [
+          {
+            "topic": "Slack Acquisition and AI Integration",
+            "content": "When I look back at the dreams that we've had and what the social enterprise means over the last couple decades, it's a very rich user interface that kind of front ends all of our services. And the idea is how can you take all of that and bring it to the user, to the power professional, to the worker, to the knowledge user, or even to me, the CEO, and turn it into a powerful experience? And now, with this combination of Slack and Salesforce, exactly as I mentioned, my whole world is on this platform, and we call it Customer 360..."
+          },
+          {
+            "topic": "Vision for the Future",
+            "content": "Our intention is to help our customers connect with their customers in new ways. We want to be the number one CRM, the number one in analytics, and remain tightly focused..."
+          },
+          {
+            "topic": "Adaptation and Transformation",
+            "content": "This moment is both humbling and bittersweet. We've had to reimagine our business and remain relevant by transforming how we engage with customers digitally..."
+          },
+          {
+            "topic": "Operational Resilience and Execution",
+            "content": "We've made changes at Salesforce that we are advising our clients to make, how to get their employees to participate. We have 54,000 employees. For us to achieve these results, everybody has to be on the field and playing the game. We have to also give them the incentive to play, to train them, to keep them motivated..."
+          }
+        ]
+      },
+      "bret_taylor": {
+        "role": "President & Chief Operating Officer",
+        "responses": [
+          {
+            "topic": "Digital Transformation and Service Cloud",
+            "content": "We're seeing a 600% increase in messaging channels usage and 89% year-over-year growth in Commerce Cloud. Our Service Cloud continues to deliver robust growth, now surpassing Sales Cloud..."
+          },
+          {
+            "topic": "Customer Success Stories",
+            "content": "Examples like Sonos and Standard Bank illustrate the power of our Customer 360 platform and the importance of integrating sales and service to transform businesses..."
+          },
+          {
+            "topic": "Commerce Cloud Performance",
+            "content": "Over 100% year-over-year GMV growth reflects the broad digitization of commerce. Our Commerce Cloud integrates B2C and B2B commerce, facilitating seamless customer experiences..."
+          },
+          {
+            "topic": "Agility and Customer-Centricity",
+            "content": "Our ability to pivot quickly and remain agile has been crucial. We're meeting customers where they are and providing solutions that address their immediate and long-term needs..."
+          },
+          {
+            "topic": "Slack Integration Strategy",
+            "content": "Our philosophy is very similar to our philosophy with MuleSoft and Tableau, which is, number one, starting with our mutual customers and how we can help them benefit from the combination of these two technologies. Slack is really the system of engagement for every employee, partner, and customer interaction..."
+          }
+        ]
+      },
+      "mark_j_hawkins": {
+        "role": "President & Chief Financial Officer",
+        "responses": [
+          {
+            "topic": "CRPO Bookings Growth and Guidance",
+            "content": "For Q2, CRPO bookings are expected to grow at approximately 16% to 17%. We're anticipating a recovery in FY 2022, aligning with our conservative outlook on the demand environment..."
+          },
+          {
+            "topic": "Operating Margin Improvement",
+            "content": "We raised our full-year operating margin improvement guide by 75 basis points. While specific details on pullforward of expenses are not quantified, the improvement is driven by investments in growth areas and T&E savings..."
+          },
+          {
+            "topic": "Slack Acquisition Financial Impact",
+            "content": "Slack's business profile will be factored into our overall business for next year. The acquisition is dilutive to our operating margin due to purchase accounting, but specifics will be provided in the Q4 call..."
+          },
+          {
+            "topic": "Expense Management and Profitability",
+            "content": "We're focusing on delivering growth, profitability, and cash flow over the long-term. While we benefit from T&E savings, our primary focus remains on strategic investments in growth areas..."
+          }
+        ]
+      },
+      "brian_millham": {
+        "role": "President - Customer Success Group",
+        "responses": [
+          {
+            "topic": "Pipeline Strengthening",
+            "content": "Strengthening our pipeline has been very encouraging, coming from different market segments, regions, and products. We're optimistic about both large and small deals across our distribution organization..."
+          },
+          {
+            "topic": "Customer Relevance",
+            "content": "Our relevance to customers has never been stronger. Products like Work.com are essential for businesses to operate safely and effectively in the current environment..."
+          }
+        ]
+      },
+      "gavin_patterson": {
+        "role": "President and Chief Revenue Officer",
+        "responses": [
+          {
+            "topic": "Market Confidence and Pipeline",
+            "content": "Confidence is building almost week by week. We're seeing better visibility for bookings not just in Q2 but into Q3 and Q4 as well. Our products remain highly relevant, especially Work.com..."
+          },
+          {
+            "topic": "Digital Transformation Imperative",
+            "content": "Customers recognize the imperative to accelerate digital transformation. Our solutions enable them to pivot quickly and address their evolving needs..."
+          },
+          {
+            "topic": "Demand Environment and Pipeline",
+            "content": "During Q3, we saw a continuation of the strong demand that we saw in Q2, with a well-rounded performance across all the clouds and both in the US and internationally..."
+          },
+          {
+            "topic": "Slack Acquisition Insights",
+            "content": "Slack provides access to rich conversational customer data, advancing our AI efforts. It serves as the operating system for growth, facilitating team selling, customer service, and marketing in the all-digital work-from-anywhere world..."
+          },
+          {
+            "topic": "Operational Resilience and Execution",
+            "content": "Our agility allows us to maintain the grip of a small company while managing to grow into a 21-plus billion dollar company. This has been crucial in responding to changing customer needs and delivering transformation solutions..."
+          }
+        ]
+      },
+      "amy_weaver": {
+        "role": "President, Legal & Corporate Affairs, General Counsel and Secretary",
+        "responses": [
+          {
+            "topic": "Core Values and Crisis Management",
+            "content": "Executing our plans in line with our core values—trust, customer success, innovation, and equality—has strengthened our relationships with customers and communities..."
+          },
+          {
+            "topic": "Public Sector Success",
+            "content": "Public sector engagements have been a great success. Teams have quickly mobilized to support states like Rhode Island, demonstrating our ability to partner effectively and deliver value..."
+          }
+        ]
+      },
+      "parker_harris": {
+        "role": "Co-Founder & CTO",
+        "responses": [
+          {
+            "topic": "CRM Evolution and Customer 360",
+            "content": "CRM has evolved significantly over the past two decades, driven by the Fourth Industrial Revolution. Our mission remains to stay ahead through organic innovation and strategic acquisitions..."
+          },
+          {
+            "topic": "Work.com and Customer Trust",
+            "content": "Work.com has been pivotal in helping businesses and schools operate safely. Building trust with customers has been key to our success and resilience during the crisis..."
+          }
+        ]
+      },
+      "evan_goldstein": {
+        "role": "SVP of Corporate Planning and Operations Finance & Strategy",
+        "responses": [
+          {
+            "topic": "Closing Remarks",
+            "content": "Thank you for joining us on the call today. If you have any follow-up questions, please e-mail us at investor@salesforce.com. We look forward to speaking with you on our Q4 results call in September..."
+          }
+        ]
+      }
     },
-    "amy_hood": {
-      "role": "CFO",
-      "responses": [
-        {
-          "topic": "Azure Growth and Capital Efficiency",
-          "content": "Azure bookings remained strong in Q1, supported by hybrid demand and Azure hybrid benefits. Our focus on capital efficiency across the intelligent cloud and edge platform ensures sustained growth and profitability in our cloud businesses."
-        },
-        {
-          "topic": "Office 365 and Microsoft 365",
-          "content": "Microsoft 365, encompassing Office 365, EMS, and Windows Commercial Services, continues to show robust growth. We are seeing strong customer demand for integrated security, management, and collaboration tools, which drives both user growth and revenue per user."
-        },
-        {
-          "topic": "Commercial Bookings and Volatility",
-          "content": "Commercial bookings grew by 16% despite a flat expiry portfolio, driven by renewals, expansions, and new long-term contracts. We expect some volatility in bookings due to large contracts and hybrid strengths, but overall commercial performance remains strong."
-        },
-        {
-          "topic": "Windows 10 Pro and Refresh Cycle",
-          "content": "Windows 10 Pro continues to perform well, driven by corporate refresh cycles and strong demand for security and manageability features. We anticipate sustained demand as customers upgrade to modern hardware and leverage Microsoft 365 for deployments."
-        }
-      ]
+    "analyst_questions": [
+      {
+        "analyst": "David Hynes",
+        "firm": "Canaccord Genuity LLC",
+        "topics": ["Slack Acquisition", "AI Integration"],
+        "questions": [
+          "Marc Benioff, given Slack's access to huge amounts of rich conversational customer data, how do you see that advancing your efforts around AI? Also, what's your vision for what Slack could be with Salesforce in three to five years?"
+        ]
+      },
+      {
+        "analyst": "Derrick Wood",
+        "firm": "Cowen and Company",
+        "topics": ["Operational Integration", "Operating Margins"],
+        "questions": [
+          "Can you compare and contrast the strategy to integrate Slack versus what you've done with Tableau or MuleSoft? Additionally, Mark Hawkins, regarding expense management, how does Slack impact operating margins and what should we expect for margins next year?"
+        ]
+      },
+      {
+        "analyst": "Alex Zukin",
+        "firm": "RBC Capital Markets LLC",
+        "topics": ["Pipeline Confidence", "Year of Acceleration"],
+        "questions": [
+          "Marc and Gavin, how do you view the demand environment from a pipeline perspective for the fourth quarter? How are priorities changing through this pandemic, and how do you think about opportunities to solve these pain points? Also, why acquire Slack now instead of before or next year?"
+        ]
+      },
+      {
+        "analyst": "Taylor McGinnis",
+        "firm": "Deutsche Bank",
+        "topics": ["Operating Margin Improvement", "Expense Pullforward"],
+        "questions": [
+          "Can you break down the components driving the 75 basis points operating margin improvement guide? Specifically, how much is coming from T&E savings and can you quantify the pullforward of expenses?"
+        ]
+      },
+      {
+        "analyst": "Phil Winslow",
+        "firm": "Wells Fargo Securities LLC",
+        "topics": ["Service Cloud Dynamics", "Sustainability of Growth"],
+        "questions": [
+          "Can you talk about the dynamics you see in Service Cloud and how you think about the sustainability of its growth on a go-forward basis?"
+        ]
+      },
+      {
+        "analyst": "Raimo Lenschow",
+        "firm": "Barclays",
+        "topics": ["Customer Engagement", "Deal Size", "Go-to-Market Investments"],
+        "questions": [
+          "In this new environment, what are you seeing in terms of customer engagement and deal size? How are you shifting Dreamforce to an online format, and how does that relate to your go-to-market investments?"
+        ]
+      },
+      {
+        "analyst": "Kash Rangan",
+        "firm": "Bank of America Merrill Lynch",
+        "topics": ["Tableau Integration", "Digital Transformation"],
+        "questions": [
+          "How does Tableau enhance Customer 360 and support digital transformation for industries looking into 2021 and 2022?"
+        ]
+      }
+    ],
+    "metadata": {
+      "parsed_date": "2021-09-30T16:30:00.000Z",
+      "company_ticker": "CRM",
+      "source": "earnings_call_transcript"
     }
-  },
-  "analyst_questions": [
-    {
-      "analyst": "Heather Bellini",
-      "firm": "Goldman Sachs",
-      "topics": ["Intelligent Cloud", "Azure Growth"],
-      "questions": [
-        "How much did the pricing changes at the beginning of the quarter drive Azure spending last quarter, and how is the Azure hybrid benefit impacting growth rates?"
-      ]
-    },
-    {
-      "analyst": "Keith Weiss",
-      "firm": "Morgan Stanley",
-      "topics": ["Capital Efficiency", "Azure Margins"],
-      "questions": [
-        "Can you discuss the drivers behind Azure's improving gross margins and the trends in capital intensity within your cloud businesses?"
-      ]
-    },
-    {
-      "analyst": "Phillip Winslow",
-      "firm": "Wells Fargo Securities",
-      "topics": ["Office 365 Growth", "Commercial Metrics"],
-      "questions": [
-        "Can you provide an update on Office 365's commercial and consumer growth, particularly the gap between seat growth and revenue growth, and your outlook for the full year?"
-      ]
-    },
-    {
-      "analyst": "Raimo Lenschow",
-      "firm": "Barclays",
-      "topics": ["Gaming and xCloud", "Streaming Innovation"],
-      "questions": [
-        "Can you elaborate on the innovations behind xCloud and how Microsoft plans to deliver cloud-based gaming as a subscription service?"
-      ]
-    },
-    {
-      "analyst": "Jennifer Lowe",
-      "firm": "UBS",
-      "topics": ["GitHub Integration", "Developer Outreach"],
-      "questions": [
-        "What opportunities exist to engage developers using competing platforms on GitHub, and how will Microsoft integrate GitHub into its ecosystem while maintaining its independence?"
-      ]
-    },
-    {
-      "analyst": "Brad Zelnick",
-      "firm": "Credit Suisse",
-      "topics": ["IT Spending Environment", "Market Indicators"],
-      "questions": [
-        "How long do you expect the strong IT spending environment to persist, and what indicators give you confidence in its continuation?"
-      ]
-    },
-    {
-      "analyst": "Walter Pritchard",
-      "firm": "Citi",
-      "topics": ["Azure Outlook", "Bookings Growth"],
-      "questions": [
-        "Can you provide insight into Azure's growth trajectory for the year, considering the volatility in growth rates and your strong Q4 performance?"
-      ]
-    },
-    {
-      "analyst": "Mark Murphy",
-      "firm": "J.P. Morgan",
-      "topics": ["Commercial Bookings", "Revenue Volatility"],
-      "questions": [
-        "Can you connect the dots on the strong commercial bookings growth despite a flat expiry portfolio and discuss potential volatility going forward?"
-      ]
-    },
-    {
-      "analyst": "Ross McMillan",
-      "firm": "RBC Capital Markets",
-      "topics": ["Azure and Server KPIs", "Windows 10 Refresh"],
-      "questions": [
-        "Is the high teens growth in Azure plus server products still the framework for the year? Additionally, how should we think about the impact of the Windows 10 Pro refresh cycle on your projections?"
-      ]
-    },
-    {
-      "analyst": "Brad Reback",
-      "firm": "Stifel Nicholas",
-      "topics": ["Dynamics 365 Growth", "Acquisition Strategy"],
-      "questions": [
-        "How do you balance the need for larger acquisitions in the Dynamics business versus focusing on organic development and smaller tuck-ins?"
-      ]
-    }
-  ],
-  "metadata": {
-    "parsed_date": "2019-04-30T16:30:00.000Z",
-    "company_ticker": "MSFT",
-    "source": "earnings_call_transcript"
   }
-}
+  
