@@ -13,6 +13,10 @@ const COMPANY_ALIASES = {
   'nvda': 'NVDA',
   'google':'GOOGL',
   'googl':'GOOGL',
+  'amazon':'AMZN',
+  'amzn':'AMZN',
+  'amd':'AMD',
+  'advanced micro devices':'AMD',
 };
 
 // Base classes

@@ -23,13 +23,42 @@ async function readJsonFile(filePath) {
   }
 }
 
-function extractTextFromQA(content) {
-  const texts = [];
+// ======================== //
+// 1) Generic JSON Walker   //
+// ======================== //
+function extractAllTextRecursively(obj, prefix = '', texts = []) {
+  // If it's an array, iterate each element
+  if (Array.isArray(obj)) {
+    obj.forEach((item, index) => {
+      extractAllTextRecursively(item, `${prefix}[${index}]`, texts);
+    });
+  }
+  // If it's an object, iterate each key
+  else if (obj && typeof obj === 'object') {
+    for (const [key, value] of Object.entries(obj)) {
+      if (value && typeof value === 'object') {
+        extractAllTextRecursively(value, prefix ? `${prefix}.${key}` : key, texts);
+      } else {
+        const stringValue = value === null ? 'null' : String(value);
+        texts.push(`${prefix ? prefix + '.' + key : key}: ${stringValue}`);
+      }
+    }
+  } 
+  // Otherwise, it's a primitive
+  else {
+    texts.push(`${prefix}: ${obj}`);
+  }
+  return texts;
+}
 
-  // Extract executive responses
+// ======================== //
+// 2) QA Extraction         //
+// ======================== //
+function extractTextFromQA(content) {
+  // Keep your existing logic. No changes needed.
+  const texts = [];
   if (content.speakers) {
     for (const [speaker, data] of Object.entries(content.speakers)) {
-      // Extract individual responses
       if (data.responses) {
         data.responses.forEach(response => {
           const responseText = [
@@ -41,15 +70,11 @@ function extractTextFromQA(content) {
           texts.push(responseText);
         });
       }
-
-      // Extract closing remarks if present
       if (data.closing_remarks) {
         texts.push(`Speaker: ${speaker} (${data.role})\nClosing Remarks: ${data.closing_remarks}`);
       }
     }
   }
-
-  // Extract analyst questions
   if (content.analyst_questions) {
     content.analyst_questions.forEach(qa => {
       const questionText = [
@@ -60,69 +85,21 @@ function extractTextFromQA(content) {
       texts.push(questionText);
     });
   }
-
   return texts;
 }
 
+// ======================== //
+// 3) Earnings Extraction   //
+// ======================== //
 function extractTextFromEarnings(content) {
-  const texts = [];
-
-  // Extract strategic initiatives
-  if (content.strategic_initiatives?.length > 0) {
-    texts.push('Strategic Initiatives: ' + content.strategic_initiatives.join('. '));
-  }
-
-  // Extract segment information
-  if (content.segments?.length > 0) {
-    content.segments.forEach(segment => {
-      const segmentText = [
-        `${segment.name} Segment:`,
-        `Revenue: ${segment.revenue?.value} ${segment.revenue?.unit} (${segment.revenue?.context})`,
-        segment.growth_yoy ? `YoY Growth: ${segment.growth_yoy}%` : '',
-        segment.growth_qoq ? `QoQ Growth: ${segment.growth_qoq}%` : '',
-        segment.key_points?.length > 0 ? `Key Points: ${segment.key_points.join('. ')}` : ''
-      ].filter(Boolean).join(' ');
-      texts.push(segmentText);
-    });
-  }
-
-  // Extract CFO commentary
-  if (content.cfo_commentary) {
-    const cfoName = content.cfo_commentary.cfo_name;
-    for (const [section, comments] of Object.entries(content.cfo_commentary)) {
-      if (Array.isArray(comments)) {
-        texts.push(`CFO ${cfoName} - ${section}: ${comments.join(' ')}`);
-      }
-    }
-  }
-
-  // Extract market opportunities
-  if (content.market_opportunities?.length > 0) {
-    content.market_opportunities.forEach(opportunity => {
-      for (const [market, description] of Object.entries(opportunity)) {
-        texts.push(`Market Opportunity - ${market}: ${description}`);
-      }
-    });
-  }
-
-  // Extract operational metrics
-  if (content.operational_metrics) {
-    const metrics = [];
-    const { gross_margin, operating_margin, net_income, cash_flow } = content.operational_metrics;
-    
-    if (gross_margin) metrics.push(`Gross Margin: ${gross_margin.value}${gross_margin.unit} (${gross_margin.context})`);
-    if (operating_margin) metrics.push(`Operating Margin: ${operating_margin.value}${operating_margin.unit} (${operating_margin.context})`);
-    if (net_income) metrics.push(`Net Income: ${net_income.value} ${net_income.unit} (${net_income.context})`);
-    if (cash_flow) metrics.push(`Cash Flow: ${cash_flow.value} ${cash_flow.unit} (${cash_flow.context})`);
-    
-    if (metrics.length > 0) {
-      texts.push(`Operational Metrics: ${metrics.join('. ')}`);
-    }
-  }
-
-  return texts;
+  if (!content) return [];
+  // Simply walk through all data
+  return extractAllTextRecursively(content, 'earnings');
 }
 
+// ======================== //
+// 4) Create Chunks         //
+// ======================== //
 function createChunks(text, maxLength = CHUNK_SIZE) {
   if (!text || typeof text !== 'string') return [];
   
@@ -143,6 +120,9 @@ function createChunks(text, maxLength = CHUNK_SIZE) {
   return chunks;
 }
 
+// ======================== //
+// 5) Process File          //
+// ======================== //
 async function processFile(filePath, company) {
   try {
     const content = await readJsonFile(filePath);
@@ -153,6 +133,7 @@ async function processFile(filePath, company) {
     const quarter = pathParts.find(part => part.startsWith('Q'));
     const fileType = filePath.includes('_qa.json') ? 'qa' : 'earnings';
 
+    // Choose QA vs. earnings
     const textSections = fileType === 'qa' 
       ? extractTextFromQA(content)
       : extractTextFromEarnings(content);
@@ -195,6 +176,9 @@ async function processFile(filePath, company) {
   }
 }
 
+// ======================== //
+// 6) Upsert                //
+// ======================== //
 async function upsertVectors(index, vectors, batchSize = 100) {
   for (let i = 0; i < vectors.length; i += batchSize) {
     const batch = vectors.slice(i, i + batchSize);
@@ -203,6 +187,9 @@ async function upsertVectors(index, vectors, batchSize = 100) {
   }
 }
 
+// ======================== //
+// 7) Main Script           //
+// ======================== //
 async function createEarningsEmbeddings() {
   try {
     const pinecone = new Pinecone({
@@ -247,7 +234,6 @@ async function getJsonFiles(dirPath) {
 
   for (const file of files) {
     if (file.startsWith('.')) continue;
-    
     const filePath = path.join(dirPath, file);
     const stats = await fs.stat(filePath);
 
