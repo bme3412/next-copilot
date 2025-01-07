@@ -67,7 +67,7 @@ class PineconeRetriever extends BaseRetriever {
   }
 
   async retrieve(vector, options = {}) {
-    const { topK = 8, filters = {} } = options;
+    const { topK = 16, filters = {} } = options;
     const queryParams = {
       vector,
       topK,

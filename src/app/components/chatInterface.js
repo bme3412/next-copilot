@@ -1,10 +1,11 @@
-// ChatInterface.js
+// src/app/components/ChatInterface.js
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { AnalysisDisplay } from './AnalysisDisplay';
 import QueryInput from './QueryInput';
 import { AlertCircle, Loader2 } from 'lucide-react';
+import { v4 as uuidv4 } from 'uuid'; // Import UUID
 
 export default function ChatInterface() {
   const [query, setQuery] = useState('');
@@ -27,7 +28,7 @@ export default function ChatInterface() {
         },
         body: JSON.stringify({ 
           query,
-          history: conversationHistory
+          // history: conversationHistory // Remove if not used
         }),
       });
 
@@ -37,16 +38,24 @@ export default function ChatInterface() {
 
       const result = await response.json();
       
-      // Update conversation history with new entry
-      setConversationHistory(prev => [...prev, {
-        type: 'query',
-        content: query,
-        timestamp: new Date().toISOString()
-      }, {
-        type: 'response',
-        content: result,
-        timestamp: new Date().toISOString()
-      }]);
+      // Generate unique IDs for each message
+      const queryId = uuidv4();
+      const responseId = uuidv4();
+      
+      setConversationHistory([
+        {
+          id: queryId, // Unique key
+          type: 'query',
+          content: query,
+          timestamp: new Date().toISOString()
+        },
+        {
+          id: responseId, // Unique key
+          type: 'response',
+          content: result,
+          timestamp: new Date().toISOString()
+        }
+      ]);
       
       setQuery('');
     } catch (err) {
@@ -100,9 +109,9 @@ export default function ChatInterface() {
       )}
 
       <div className="mt-8 space-y-6">
-        {conversationHistory.map((item, index) => (
+        {conversationHistory.map((item) => (
           <div
-            key={item.timestamp}
+            key={item.id} // Use unique UUID as key
             className={`p-4 rounded-xl ${
               item.type === 'query'
                 ? 'bg-blue-500/10 border border-blue-500/20'
@@ -134,4 +143,4 @@ export default function ChatInterface() {
       `}</style>
     </div>
   );
-}
+};
