@@ -74,7 +74,7 @@ export default function ChatInterface() {
     <div className="max-w-5xl mx-auto p-6 space-y-6">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-white mb-2">
-          Tech Investment Analysis
+          Generative-AI Investment CoPilot
         </h1>
         <p className="text-gray-400">
           Ask detailed questions about major tech companies' performance and strategies

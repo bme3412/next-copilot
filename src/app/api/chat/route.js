@@ -15,6 +15,7 @@ const COMPANY_ALIASES = {
   meta: 'META',
   facebook: 'META',
   fb: 'META',
+  meta : 'META',
   nvidia: 'NVDA',
   nvda: 'NVDA',
   google: 'GOOGL',
@@ -22,7 +23,19 @@ const COMPANY_ALIASES = {
   amazon: 'AMZN',
   amzn: 'AMZN',
   amd: 'AMD',
-  'advanced micro devices': 'AMD',
+  avago: "AVGO",
+  broadcom: "AVGO",
+  avgo: "AVGO",
+  salesforce: "CRM",
+  crm: 'CRM',
+  google: 'GOOGL',
+  googl: 'GOOGL',
+  goog: "GOOGL",
+  alphabet: 'GOOGL',
+  microsoft: 'MSFT',
+  msft: 'MSFT',
+  oracle: 'ORCL',
+  orcl: 'ORCL'
 };
 
 // ----------------------------------------------------------------
@@ -79,7 +92,7 @@ class PineconeRetriever extends BaseRetriever {
   }
 
   async retrieve(vector, options = {}) {
-    const { topK = 16, filters = {} } = options;
+    const { topK = 24, filters = {} } = options;
     const queryParams = {
       vector,
       topK,
@@ -264,22 +277,22 @@ class GPT4Analyzer extends BaseAnalyzer {
 You are a financial analyst covering ${company}. 
 You have both transcript data and financial data. 
 Do NOT use bullet points, headings, or any markdown formatting. 
-Write a cohesive plain-text response. 
-Include key metrics and commentary as relevant, but keep it concise.
+When summarizing a specific quarter or multiple quarters, start with a brief introduction highlighting the main points and context for that period. 
+Follow it with relevant metrics, strategic developments, and concise commentary in a cohesive plain-text narrative. 
 analysis_type: ${queryIntent.analysis_type}
 topics: ${queryIntent.topics.join(', ')}
 timeframe: ${queryIntent.timeframe}
 content_type: ${queryIntent.content_type}
-    `;
+`;
 
-    const userPrompt = `
+const userPrompt = `
 User asked about: ${queryIntent.topics.join(', ')} 
 Timeframe: ${queryIntent.timeframe}
 Content type: ${queryIntent.content_type}
 
 Relevant data:
 ${relevantData.map(d => `[${d.fiscalYear} ${d.quarter} | ${d.type}] ${d.content}`).join('\n\n')}
-    `;
+`;
 
     try {
       const response = await this.openai.chat.completions.create({
@@ -288,7 +301,7 @@ ${relevantData.map(d => `[${d.fiscalYear} ${d.quarter} | ${d.type}] ${d.content}
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },
         ],
-        temperature: 0,
+        temperature: .3,
         max_tokens: 3000,
       });
 
