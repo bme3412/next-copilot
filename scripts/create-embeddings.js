@@ -6,13 +6,18 @@ import path from 'path';
 
 dotenv.config({ path: '.env' });
 
+// Instantiate OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const TRANSCRIPTS_DIR = path.join(process.cwd(), 'data', 'transcripts');
+// Directory where AAPL transcripts live
+const TRANSCRIPTS_DIR = path.join(process.cwd(), 'data', 'transcripts', 'AAPL');
 const CHUNK_SIZE = 1000;
 
+// -------------------
+// 1) Read JSON file
+// -------------------
 async function readJsonFile(filePath) {
   try {
     const content = await fs.readFile(filePath, 'utf8');
@@ -23,18 +28,15 @@ async function readJsonFile(filePath) {
   }
 }
 
-// ======================== //
-// 1) Generic JSON Walker   //
-// ======================== //
+// -------------------
+// 2) Generic JSON Walker
+// -------------------
 function extractAllTextRecursively(obj, prefix = '', texts = []) {
-  // If it's an array, iterate each element
   if (Array.isArray(obj)) {
     obj.forEach((item, index) => {
       extractAllTextRecursively(item, `${prefix}[${index}]`, texts);
     });
-  }
-  // If it's an object, iterate each key
-  else if (obj && typeof obj === 'object') {
+  } else if (obj && typeof obj === 'object') {
     for (const [key, value] of Object.entries(obj)) {
       if (value && typeof value === 'object') {
         extractAllTextRecursively(value, prefix ? `${prefix}.${key}` : key, texts);
@@ -43,29 +45,26 @@ function extractAllTextRecursively(obj, prefix = '', texts = []) {
         texts.push(`${prefix ? prefix + '.' + key : key}: ${stringValue}`);
       }
     }
-  } 
-  // Otherwise, it's a primitive
-  else {
+  } else {
     texts.push(`${prefix}: ${obj}`);
   }
   return texts;
 }
 
-// ======================== //
-// 2) QA Extraction         //
-// ======================== //
+// -------------------
+// 3) QA Extraction
+// -------------------
 function extractTextFromQA(content) {
-  // Keep your existing logic. No changes needed.
   const texts = [];
   if (content.speakers) {
     for (const [speaker, data] of Object.entries(content.speakers)) {
       if (data.responses) {
-        data.responses.forEach(response => {
+        data.responses.forEach((response) => {
           const responseText = [
             `Speaker: ${speaker} (${data.role})`,
             `Topic: ${response.topic}`,
             `Context: ${response.context}`,
-            `Response: ${response.content}`
+            `Response: ${response.content}`,
           ].join('\n');
           texts.push(responseText);
         });
@@ -76,11 +75,11 @@ function extractTextFromQA(content) {
     }
   }
   if (content.analyst_questions) {
-    content.analyst_questions.forEach(qa => {
+    content.analyst_questions.forEach((qa) => {
       const questionText = [
         `Analyst: ${qa.analyst} (${qa.firm})`,
         `Topic: ${qa.topic}`,
-        `Question: ${qa.question}`
+        `Question: ${qa.question}`,
       ].join('\n');
       texts.push(questionText);
     });
@@ -88,21 +87,20 @@ function extractTextFromQA(content) {
   return texts;
 }
 
-// ======================== //
-// 3) Earnings Extraction   //
-// ======================== //
+// -------------------
+// 4) Earnings Extraction
+// -------------------
 function extractTextFromEarnings(content) {
   if (!content) return [];
-  // Simply walk through all data
   return extractAllTextRecursively(content, 'earnings');
 }
 
-// ======================== //
-// 4) Create Chunks         //
-// ======================== //
+// -------------------
+// 5) Create Chunks
+// -------------------
 function createChunks(text, maxLength = CHUNK_SIZE) {
   if (!text || typeof text !== 'string') return [];
-  
+
   const chunks = [];
   const sentences = text.split(/(?<=[.!?])\s+/);
   let currentChunk = '';
@@ -115,119 +113,89 @@ function createChunks(text, maxLength = CHUNK_SIZE) {
       currentChunk = sentence;
     }
   }
-  
+
   if (currentChunk) chunks.push(currentChunk);
   return chunks;
 }
 
-// ======================== //
-// 5) Process File          //
-// ======================== //
-async function processFile(filePath, company) {
-  try {
-    const content = await readJsonFile(filePath);
-    if (!content) return [];
+// -------------------
+// 6) Process File
+// -------------------
+async function processFile(filePath) {
+  const content = await readJsonFile(filePath);
+  if (!content) return [];
 
-    const pathParts = filePath.split(path.sep);
-    const fiscalYear = pathParts.find(part => part.startsWith('FY_'));
-    const quarter = pathParts.find(part => part.startsWith('Q'));
-    const fileType = filePath.includes('_qa.json') ? 'qa' : 'earnings';
+  // Derive FY and Q from directory path
+  const pathParts = filePath.split(path.sep);
+  // e.g. ".../AAPL/FY_2024/Q1/parsed_earnings/AAPL_FY2024_Q1_earnings.json"
+  const fiscalYearPart = pathParts.find((part) => part.startsWith('FY_')); // e.g. "FY_2024"
+  const quarterPart = pathParts.find((part) => part.startsWith('Q'));     // e.g. "Q1"
 
-    // Choose QA vs. earnings
-    const textSections = fileType === 'qa' 
+  const fileType = filePath.includes('_qa.json') ? 'qa' : 'earnings';
+
+  // Extract text differently for "qa" vs. "earnings"
+  const textSections =
+    fileType === 'qa'
       ? extractTextFromQA(content)
       : extractTextFromEarnings(content);
 
-    console.log(`Extracted ${textSections.length} sections from ${filePath}`);
-    const vectors = [];
+  console.log(`Extracted ${textSections.length} sections from ${filePath}`);
+  const vectors = [];
 
-    for (let sectionIndex = 0; sectionIndex < textSections.length; sectionIndex++) {
-      const chunks = createChunks(textSections[sectionIndex]);
-      console.log(`Created ${chunks.length} chunks from section ${sectionIndex + 1}`);
+  for (let sectionIndex = 0; sectionIndex < textSections.length; sectionIndex++) {
+    const sectionText = textSections[sectionIndex];
+    const chunks = createChunks(sectionText);
+    console.log(`Created ${chunks.length} chunks from section ${sectionIndex + 1}`);
 
-      for (let chunkIndex = 0; chunkIndex < chunks.length; chunkIndex++) {
-        const chunk = chunks[chunkIndex];
-        const embedding = await openai.embeddings.create({
-          input: chunk,
-          model: "text-embedding-3-small"
-        });
+    for (let chunkIndex = 0; chunkIndex < chunks.length; chunkIndex++) {
+      const chunk = chunks[chunkIndex];
 
-        vectors.push({
-          id: `${company}_${fiscalYear}_${quarter}_${fileType}_${sectionIndex}_${chunkIndex}`,
-          values: embedding.data[0].embedding,
-          metadata: {
-            text: chunk,
-            company,
-            fiscalYear: fiscalYear?.replace('FY_', ''),
-            quarter: quarter?.replace('Q', ''),
-            type: fileType,
-            section: sectionIndex,
-            chunk_index: chunkIndex,
-            source: path.basename(filePath)
-          }
-        });
-      }
+      // Get embedding from OpenAI
+      const embeddingResp = await openai.embeddings.create({
+        input: chunk,
+        model: 'text-embedding-3-small',
+      });
+      const embedding = embeddingResp.data[0].embedding;
+
+      // Build metadata
+      const metadata = {
+        text: chunk,
+        company: 'AAPL', // Hardcode AAPL
+        fiscalYear: fiscalYearPart?.replace('FY_', '') || '',
+        quarter: quarterPart?.replace('Q', '') || '',
+        type: fileType,
+        section: sectionIndex,
+        chunk_index: chunkIndex,
+        source: path.basename(filePath),
+      };
+
+      vectors.push({
+        id: `AAPL_${fiscalYearPart || ''}_${quarterPart || ''}_${fileType}_${sectionIndex}_${chunkIndex}`,
+        values: embedding,
+        metadata,
+      });
     }
-
-    return vectors;
-  } catch (error) {
-    console.error(`Error processing file ${filePath}:`, error);
-    return [];
   }
+
+  return vectors;
 }
 
-// ======================== //
-// 6) Upsert                //
-// ======================== //
+// -------------------
+// 7) Upsert to Pinecone
+// -------------------
 async function upsertVectors(index, vectors, batchSize = 100) {
   for (let i = 0; i < vectors.length; i += batchSize) {
     const batch = vectors.slice(i, i + batchSize);
     await index.upsert(batch);
-    console.log(`Upserted batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(vectors.length / batchSize)}`);
+    console.log(
+      `Upserted batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(vectors.length / batchSize)}`
+    );
   }
 }
 
-// ======================== //
-// 7) Main Script           //
-// ======================== //
-async function createEarningsEmbeddings() {
-  try {
-    const pinecone = new Pinecone({
-      apiKey: process.env.PINECONE_API_KEY,
-    });
-
-    const index = pinecone.index('clarity');
-    const companies = (await fs.readdir(TRANSCRIPTS_DIR)).filter(file => !file.startsWith('.'));
-    
-    let totalVectors = 0;
-
-    for (const company of companies) {
-      const companyDir = path.join(TRANSCRIPTS_DIR, company);
-      const stats = await fs.stat(companyDir);
-      if (!stats.isDirectory()) continue;
-
-      console.log(`\nProcessing ${company}...`);
-      const jsonFiles = await getJsonFiles(companyDir);
-      console.log(`Found ${jsonFiles.length} files`);
-
-      for (const filePath of jsonFiles) {
-        console.log(`\nProcessing ${filePath}`);
-        const vectors = await processFile(filePath, company);
-        if (vectors.length > 0) {
-          await upsertVectors(index, vectors);
-          totalVectors += vectors.length;
-          console.log(`Created ${vectors.length} vectors from ${filePath}`);
-        }
-      }
-    }
-
-    console.log(`\nAll done! Created ${totalVectors} vectors total`);
-  } catch (error) {
-    console.error('Error creating embeddings:', error);
-    throw error;
-  }
-}
-
+// -------------------
+// 8) Recursively find JSON
+// -------------------
 async function getJsonFiles(dirPath) {
   const files = await fs.readdir(dirPath);
   const jsonFiles = [];
@@ -238,8 +206,10 @@ async function getJsonFiles(dirPath) {
     const stats = await fs.stat(filePath);
 
     if (stats.isDirectory()) {
+      // Recurse
       jsonFiles.push(...(await getJsonFiles(filePath)));
-    } else if (file.endsWith('_qa.json') || file.endsWith('_earnings.json')) {
+    } else if (file.endsWith('_earnings.json') || file.endsWith('_qa.json')) {
+      // Only process "earnings" or "qa" files
       jsonFiles.push(filePath);
     }
   }
@@ -247,4 +217,46 @@ async function getJsonFiles(dirPath) {
   return jsonFiles;
 }
 
-createEarningsEmbeddings();
+// -------------------
+// 9) Main Script
+// -------------------
+async function createAAPLTranscriptsEmbeddings() {
+  try {
+    // Connect to Pinecone
+    const pinecone = new Pinecone({
+      apiKey: process.env.PINECONE_API_KEY,
+    });
+
+    // Use your existing index name
+    const index = pinecone.index('clarity');
+
+    // We only want to process "AAPL" transcripts
+    console.log('Processing transcripts for AAPL only...');
+
+    // Collect all JSON files from data/transcripts/AAPL
+    const allJsonFiles = await getJsonFiles(TRANSCRIPTS_DIR);
+    console.log(`Found ${allJsonFiles.length} AAPL transcript files total.`);
+
+    let totalVectors = 0;
+
+    // For each JSON file, process
+    for (const filePath of allJsonFiles) {
+      console.log(`\nProcessing file: ${filePath}`);
+      const vectors = await processFile(filePath);
+
+      if (vectors.length > 0) {
+        await upsertVectors(index, vectors);
+        totalVectors += vectors.length;
+        console.log(`Created ${vectors.length} vectors from ${path.basename(filePath)}`);
+      }
+    }
+
+    console.log(`\nAll done! Created ${totalVectors} vectors total for AAPL.`);
+  } catch (error) {
+    console.error('Error creating embeddings:', error);
+    throw error;
+  }
+}
+
+// Invoke main script
+createAAPLTranscriptsEmbeddings();
