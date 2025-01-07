@@ -23,14 +23,14 @@ const COMPANY_ALIASES = {
   amazon: 'AMZN',
   amzn: 'AMZN',
   amd: 'AMD',
-  avago: "AVGO",
-  broadcom: "AVGO",
-  avgo: "AVGO",
-  salesforce: "CRM",
+  avago: 'AVGO',
+  broadcom: 'AVGO',
+  avgo: 'AVGO',
+  salesforce: 'CRM',
   crm: 'CRM',
   google: 'GOOGL',
   googl: 'GOOGL',
-  goog: "GOOGL",
+  goog: 'GOOGL',
   alphabet: 'GOOGL',
   microsoft: 'MSFT',
   msft: 'MSFT',
@@ -254,15 +254,17 @@ class GPT4Analyzer extends BaseAnalyzer {
   }
 
   extractText(data) {
-    return data.map((m) => {
-      if (!m.metadata?.text) return null;
-      return {
-        fiscalYear: m.metadata.fiscalYear,
-        quarter: m.metadata.quarter,
-        content: m.metadata.text,
-        type: m.metadata.type || 'Unknown',
-      };
-    }).filter(Boolean);
+    return data
+      .map((m) => {
+        if (!m.metadata?.text) return null;
+        return {
+          fiscalYear: m.metadata.fiscalYear,
+          quarter: m.metadata.quarter,
+          content: m.metadata.text,
+          type: m.metadata.type || 'Unknown',
+        };
+      })
+      .filter(Boolean);
   }
 
   async analyze(data, queryIntent, company = 'NVDA') {
@@ -285,7 +287,7 @@ timeframe: ${queryIntent.timeframe}
 content_type: ${queryIntent.content_type}
 `;
 
-const userPrompt = `
+    const userPrompt = `
 User asked about: ${queryIntent.topics.join(', ')} 
 Timeframe: ${queryIntent.timeframe}
 Content type: ${queryIntent.content_type}
@@ -301,7 +303,7 @@ ${relevantData.map(d => `[${d.fiscalYear} ${d.quarter} | ${d.type}] ${d.content}
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },
         ],
-        temperature: .3,
+        temperature: 0.3,
         max_tokens: 3000,
       });
 
@@ -349,34 +351,93 @@ class RAGPipeline {
     return COMPANY_ALIASES[lower] || 'NVDA';
   }
 
+  // NEW CODE: Helper function to parse ALL Q / Year references
+  extractQuartersAndYears(timeframeString) {
+    const regex = /q(\d)\s*(\d{4})/gi;
+    const matches = [...timeframeString.matchAll(regex)];
+    return matches.map(m => ({
+      quarter: m[1],      // '1', '2', etc.
+      fiscalYear: m[2],   // '2024'
+    }));
+  }
+
   buildFilters(intent, ticker) {
-    const filters = { company: ticker };
-    const timeframe = (intent.timeframe || '').toLowerCase();
+    // Always start with base filter for the company
+    let baseFilter = { company: ticker };
 
-    // e.g. "Q1 2024" => qMatch => [ "q1 2024", "1", "2024" ]
-    const fyMatch = timeframe.match(/fy(\d{4})/i);
-    const qMatch = timeframe.match(/q(\d)\s*(\d{4})/i);
-
-    if (qMatch) {
-      filters.fiscalYear = qMatch[2];   // e.g. "2024"
-      filters.quarter = qMatch[1];     // store just the digit, e.g. "1"
-    } else if (fyMatch) {
-      filters.fiscalYear = fyMatch[1];
-    } else if (timeframe === 'recent') {
-      filters.fiscalYear = '2024';
-    }
-
-    // content_type => might be "earnings_call" or "qa", but in Pinecone, type is "earnings" or "qa"
+    // If content_type is not "all", map to Pinecone's doc types
     if (intent.content_type && intent.content_type !== 'all') {
-      // If user said "earnings_call", we match Pinecone docs labeled "earnings"
       if (intent.content_type === 'earnings_call') {
-        filters.type = 'earnings';
+        baseFilter.type = 'earnings';
       } else {
-        filters.type = intent.content_type;
+        baseFilter.type = intent.content_type;
       }
     }
 
-    return filters;
+    // Convert timeframe string to lowercase
+    const timeframe = (intent.timeframe || '').toLowerCase();
+
+    // NEW CODE: Extract multiple Q references
+    const quartersAndYears = this.extractQuartersAndYears(timeframe); // e.g. Q1 2024, Q2 2024
+    // Also parse possible multiple FY references
+    const fyRegex = /fy(\d{4})/gi;
+    const fyMatches = [...timeframe.matchAll(fyRegex)];
+    const fiscalYears = fyMatches.map(m => m[1]); // e.g. ['2023', '2024']
+
+    // If user says "recent"
+    if (timeframe === 'recent' && !quartersAndYears.length && !fiscalYears.length) {
+      // fallback
+      return {
+        ...baseFilter,
+        fiscalYear: '2024'
+      };
+    }
+
+    // If multiple Q references
+    if (quartersAndYears.length > 1) {
+      // Build an $or clause
+      const orClauses = quartersAndYears.map(qy => ({
+        quarter: qy.quarter,
+        fiscalYear: qy.fiscalYear
+      }));
+      return {
+        $and: [
+          baseFilter,
+          { $or: orClauses }
+        ]
+      };
+    }
+
+    // If exactly one Q reference
+    if (quartersAndYears.length === 1) {
+      return {
+        ...baseFilter,
+        fiscalYear: quartersAndYears[0].fiscalYear,
+        quarter: quartersAndYears[0].quarter
+      };
+    }
+
+    // If multiple FY references
+    if (fiscalYears.length > 1) {
+      const orFYs = fiscalYears.map(y => ({ fiscalYear: y }));
+      return {
+        $and: [
+          baseFilter,
+          { $or: orFYs }
+        ]
+      };
+    }
+
+    // If exactly one FY reference
+    if (fiscalYears.length === 1) {
+      return {
+        ...baseFilter,
+        fiscalYear: fiscalYears[0]
+      };
+    }
+
+    // If no Q or FY found, just return baseFilter
+    return baseFilter;
   }
 
   async process(query) {
@@ -421,11 +482,56 @@ class ExtendedRAGPipeline extends RAGPipeline {
       );
 
     if (isFinQuery) {
+      // Because user might have multiple Q references, let's pick the relevant ones
+      // For simplicity, just handle the "first" or the "recent" if multiple are present,
+      // or you can loop over them if you want to retrieve all local JSON files that match.
       const timeframe = {};
-      if (filters.fiscalYear) timeframe.fiscalYear = filters.fiscalYear;
-      if (filters.quarter) timeframe.quarter = `Q${filters.quarter}`; // e.g. "Q1"
 
-      finMatches = await this.financialRetriever.retrieveFinancialData(ticker, timeframe);
+      // For demonstration, handle only single-quarter or single-FY
+      // If you want to retrieve multiple, you'd need to loop over them
+      // and gather all matches. 
+      // E.g. if filters has $and/$or, you'd parse them here similarly.
+
+      // A simpler approach: parse again with `extractQuartersAndYears`:
+      const quartersAndYears = this.extractQuartersAndYears(intent.timeframe.toLowerCase());
+      const fyRegex = /fy(\d{4})/gi;
+      const fyMatches = [...intent.timeframe.toLowerCase().matchAll(fyRegex)];
+      const fiscalYears = fyMatches.map(m => m[1]);
+
+      // Example: if multiple Q references, retrieve them all
+      if (quartersAndYears.length > 1) {
+        for (const qy of quartersAndYears) {
+          const theseMatches = await this.financialRetriever.retrieveFinancialData(ticker, {
+            fiscalYear: qy.fiscalYear,
+            quarter: `Q${qy.quarter}`,
+          });
+          finMatches.push(...theseMatches);
+        }
+      } else if (quartersAndYears.length === 1) {
+        timeframe.fiscalYear = quartersAndYears[0].fiscalYear;
+        timeframe.quarter = `Q${quartersAndYears[0].quarter}`;
+        const theseMatches = await this.financialRetriever.retrieveFinancialData(ticker, timeframe);
+        finMatches.push(...theseMatches);
+      } else if (fiscalYears.length > 1) {
+        for (const fy of fiscalYears) {
+          const theseMatches = await this.financialRetriever.retrieveFinancialData(ticker, {
+            fiscalYear: fy
+          });
+          finMatches.push(...theseMatches);
+        }
+      } else if (fiscalYears.length === 1) {
+        timeframe.fiscalYear = fiscalYears[0];
+        const theseMatches = await this.financialRetriever.retrieveFinancialData(ticker, timeframe);
+        finMatches.push(...theseMatches);
+      } else {
+        // fallback for "recent" or none
+        const theseMatches = await this.financialRetriever.retrieveFinancialData(ticker, {
+          fiscalYear: '2024',
+          quarter: 'Q1'
+        });
+        finMatches.push(...theseMatches);
+      }
+
       console.log('Financial data matches:', finMatches.length);
     }
 
@@ -469,7 +575,13 @@ function createPipeline() {
   const finRetriever = new FinancialJSONRetriever(baseDir);
 
   // Build the extended pipeline
-  return new ExtendedRAGPipeline(embedder, pineRetriever, analyzer, intentAnalyzer, finRetriever);
+  return new ExtendedRAGPipeline(
+    embedder,
+    pineRetriever,
+    analyzer,
+    intentAnalyzer,
+    finRetriever
+  );
 }
 
 const pipeline = createPipeline();
@@ -512,4 +624,4 @@ export async function POST(req) {
       { status: 400 }
     );
   }
-}
+};
