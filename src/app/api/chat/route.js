@@ -280,7 +280,8 @@ You are a financial analyst covering ${company}.
 You have both transcript data and financial data. 
 Do NOT use bullet points, headings, or any markdown formatting. 
 When summarizing a specific quarter or multiple quarters, start with a brief introduction highlighting the main points and context for that period. 
-Follow it with relevant metrics, strategic developments, and concise commentary in a cohesive plain-text narrative. 
+Follow it with relevant metrics, strategic developments, and concise commentary in a cohesive plain-text narrative.
+When coming up with responses to queries, use input from both transcript data and financial data. 
 analysis_type: ${queryIntent.analysis_type}
 topics: ${queryIntent.topics.join(', ')}
 timeframe: ${queryIntent.timeframe}
@@ -303,7 +304,7 @@ ${relevantData.map(d => `[${d.fiscalYear} ${d.quarter} | ${d.type}] ${d.content}
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },
         ],
-        temperature: 0.3,
+        temperature: 0.7,
         max_tokens: 3000,
       });
 
