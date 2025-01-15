@@ -15,7 +15,7 @@ const COMPANY_ALIASES = {
   meta: 'META',
   facebook: 'META',
   fb: 'META',
-  meta : 'META',
+  meta: 'META',
   nvidia: 'NVDA',
   nvda: 'NVDA',
   google: 'GOOGL',
@@ -28,10 +28,6 @@ const COMPANY_ALIASES = {
   avgo: 'AVGO',
   salesforce: 'CRM',
   crm: 'CRM',
-  google: 'GOOGL',
-  googl: 'GOOGL',
-  goog: 'GOOGL',
-  alphabet: 'GOOGL',
   microsoft: 'MSFT',
   msft: 'MSFT',
   oracle: 'ORCL',
@@ -54,7 +50,7 @@ class BaseRetriever {
 }
 
 class BaseAnalyzer {
-  async analyze(data, queryIntent, companyName) {
+  async analyze(data, queryIntent, companyName, style) {
     throw new Error('Must implement analyze method');
   }
 }
@@ -123,7 +119,6 @@ class FinancialJSONRetriever {
   }
 
   async retrieveFinancialData(ticker, timeframe = {}) {
-    // By default, e.g. FY=2024, Q=Q1
     const fy = timeframe.fiscalYear || '2024';
     const q = timeframe.quarter || 'Q1';
 
@@ -165,7 +160,7 @@ class FinancialJSONRetriever {
 }
 
 // ----------------------------------------------------------------
-// 6. QueryIntentAnalyzer (LLM-based classification)
+// 6. QueryIntentAnalyzer
 // ----------------------------------------------------------------
 class QueryIntentAnalyzer {
   constructor(openaiClient) {
@@ -181,7 +176,10 @@ timeframe: detect if user wants a specific quarter/year or general timeframe ("r
 content_type: one of ["earnings_call", "qa", "cfo_commentary", "all"]
 company_name: the company the user is asking about if any, else null.
 
-Return ONLY a JSON object, no extra text.
+Return ONLY valid JSON. 
+DO NOT wrap the JSON in triple backticks, 
+DO NOT include any additional text, code blocks, or markdown formatting.
+If your output is not valid JSON, it will break the system.
     `;
     const userPrompt = `User query: "${query}"`;
 
@@ -196,10 +194,16 @@ Return ONLY a JSON object, no extra text.
     });
 
     let classification;
+    let rawContent = response.choices[0].message.content.trim();
+
+    // Remove potential code fences if GPT accidentally included them
+    rawContent = rawContent.replace(/```([\s\S]*?)```/g, '$1');
+
     try {
-      classification = JSON.parse(response.choices[0].message.content.trim());
+      classification = JSON.parse(rawContent);
     } catch (err) {
       console.error('Could not parse classification JSON:', err);
+      // Fallback
       classification = {
         analysis_type: 'general',
         topics: ['general'],
@@ -208,28 +212,31 @@ Return ONLY a JSON object, no extra text.
         company_name: null,
       };
     }
+
+    // Optional style handling
+    classification.style = classification.style || 'neutral';
+
     console.log('Analyzed query intent:', classification);
     return classification;
   }
 }
 
 // ----------------------------------------------------------------
-// 7. GPT4Analyzer (no markdown/bullets)
+// 7. EnhancedFinancialAnalyst (Replaces GPT4Analyzer)
 // ----------------------------------------------------------------
-class GPT4Analyzer extends BaseAnalyzer {
-  constructor(openaiClient) {
+class EnhancedFinancialAnalyst extends BaseAnalyzer {
+  constructor(openai) {
     super();
-    this.openai = openaiClient;
+    this.openai = openai;
   }
 
+  // Reuse the normalization logic to handle quarter/year sorting
   normalize(data) {
-    // Turn "1" into "Q1" for sorting, etc.
     return data
       .map((item) => {
         const quarterRaw = item.metadata?.quarter || 'Q1';
-        // If it's just a digit, we prefix with "Q"
         const qMatch = quarterRaw.match(/^(\d+)$/);
-        const qFinal = qMatch ? `Q${qMatch[1]}` : quarterRaw; // e.g. "Q1"
+        const qFinal = qMatch ? `Q${qMatch[1]}` : quarterRaw;
 
         const yearRaw = item.metadata?.fiscalYear || '2023';
         const yMatch = yearRaw.match(/\d{4}/);
@@ -242,7 +249,6 @@ class GPT4Analyzer extends BaseAnalyzer {
         };
       })
       .sort((a, b) => {
-        // Sort by year desc, then quarter desc
         const yearA = parseInt(a.year, 10);
         const yearB = parseInt(b.year, 10);
         if (yearB !== yearA) return yearB - yearA;
@@ -253,6 +259,7 @@ class GPT4Analyzer extends BaseAnalyzer {
       });
   }
 
+  // Reuse the extraction logic from the raw data
   extractText(data) {
     return data
       .map((m) => {
@@ -267,7 +274,18 @@ class GPT4Analyzer extends BaseAnalyzer {
       .filter(Boolean);
   }
 
-  async analyze(data, queryIntent, company = 'NVDA') {
+  // Remove markdown formatting while preserving text
+  removeMarkdown(text) {
+    // Remove markdown characters (#, *, _, `)
+    return text
+      .replace(/[#*_`]/g, '')
+      .replace(/\n\s*\n/g, '\n')
+      .trim();
+  }
+
+  // Enhanced analysis method
+  async analyze(data, queryIntent, company = 'NVDA', style = 'professional') {
+    // Normalize and extract relevant data
     const normalized = this.normalize(data);
     const relevantData = this.extractText(normalized);
 
@@ -275,26 +293,52 @@ class GPT4Analyzer extends BaseAnalyzer {
       return this.emptyAnalysis(queryIntent);
     }
 
+    // Enhanced system prompt with emphasis on quantitative data
     const systemPrompt = `
-You are a financial analyst covering ${company}. 
-You have both transcript data and financial data. 
-Do NOT use bullet points, headings, or any markdown formatting. 
-When summarizing a specific quarter or multiple quarters, start with a brief introduction highlighting the main points and context for that period. 
-Follow it with relevant metrics, strategic developments, and concise commentary in a cohesive plain-text narrative.
-When coming up with responses to queries, use input from both transcript data and financial data. 
-analysis_type: ${queryIntent.analysis_type}
-topics: ${queryIntent.topics.join(', ')}
-timeframe: ${queryIntent.timeframe}
-content_type: ${queryIntent.content_type}
+You are an advanced financial and business analyst covering ${company}. Your responses should emphasize quantitative data and market metrics when available.
+
+Key Analysis Guidelines:
+- Provide natural, conversational answers that directly address the user's question
+- Always include specific numbers when discussing:
+  * Market opportunities and Total Addressable Market (TAM)
+  * Revenue projections and growth rates
+  * Market share and competitive positioning
+  * Customer metrics and unit economics
+  * Industry-wide statistics
+- When mentioning market sizes or opportunities, cite specific figures (e.g. "Company sees the AI market at $500B by 2025")
+- For market share discussions, include percentages and growth metrics
+- Quote executives directly when they provide specific numbers or market projections
+- Include revenue ranges and growth rates even when exact figures aren't available
+- Maintain ${style} tone throughout the response
+- Present information in plain text without formatting
+
+Focus Areas:
+Analysis Type: ${queryIntent.analysis_type}
+Topics: ${queryIntent.topics.join(', ')}
+Timeframe: ${queryIntent.timeframe}
+Content Type: ${queryIntent.content_type}
 `;
 
+    // Enhanced user prompt to emphasize numerical data
     const userPrompt = `
-User asked about: ${queryIntent.topics.join(', ')} 
+Analyze these topics: ${queryIntent.topics.join(', ')}
 Timeframe: ${queryIntent.timeframe}
-Content type: ${queryIntent.content_type}
+Content Type: ${queryIntent.content_type}
+
+Please emphasize:
+- Market size estimates and TAM figures
+- Growth rates and financial projections
+- Revenue and margin metrics
+- Market share percentages
+- Customer/user metrics
+- Unit economics and pricing data
+- Geographic market breakdowns
+- Industry-wide statistics
 
 Relevant data:
-${relevantData.map(d => `[${d.fiscalYear} ${d.quarter} | ${d.type}] ${d.content}`).join('\n\n')}
+${relevantData
+  .map((d) => `[${d.fiscalYear} ${d.quarter} | ${d.type}] ${d.content}`)
+  .join('\n\n')}
 `;
 
     try {
@@ -305,10 +349,12 @@ ${relevantData.map(d => `[${d.fiscalYear} ${d.quarter} | ${d.type}] ${d.content}
           { role: 'user', content: userPrompt },
         ],
         temperature: 0.7,
-        max_tokens: 3000,
+        max_tokens: 2500,
       });
 
-      const answer = response.choices[0].message.content.trim();
+      let answer = response.choices[0].message.content.trim();
+      answer = this.removeMarkdown(answer);
+
       return {
         analysis: answer,
         metadata: {
@@ -316,6 +362,7 @@ ${relevantData.map(d => `[${d.fiscalYear} ${d.quarter} | ${d.type}] ${d.content}
           analysis_type: queryIntent.analysis_type,
           timeframe: queryIntent.timeframe,
           topics_covered: queryIntent.topics,
+          quantitative_focus: true
         },
       };
     } catch (error) {
@@ -326,10 +373,11 @@ ${relevantData.map(d => `[${d.fiscalYear} ${d.quarter} | ${d.type}] ${d.content}
 
   emptyAnalysis(queryIntent) {
     return {
-      analysis: 'No relevant data found for this query.',
+      analysis: 'No relevant data found for this query. The information might be outside our available transcripts or financials.',
       metadata: {
         query_type: queryIntent.analysis_type,
         data_points: 0,
+        quantitative_focus: true
       },
     };
   }
@@ -352,21 +400,18 @@ class RAGPipeline {
     return COMPANY_ALIASES[lower] || 'NVDA';
   }
 
-  // NEW CODE: Helper function to parse ALL Q / Year references
   extractQuartersAndYears(timeframeString) {
     const regex = /q(\d)\s*(\d{4})/gi;
     const matches = [...timeframeString.matchAll(regex)];
     return matches.map(m => ({
-      quarter: m[1],      // '1', '2', etc.
-      fiscalYear: m[2],   // '2024'
+      quarter: m[1],
+      fiscalYear: m[2],
     }));
   }
 
   buildFilters(intent, ticker) {
-    // Always start with base filter for the company
     let baseFilter = { company: ticker };
 
-    // If content_type is not "all", map to Pinecone's doc types
     if (intent.content_type && intent.content_type !== 'all') {
       if (intent.content_type === 'earnings_call') {
         baseFilter.type = 'earnings';
@@ -375,19 +420,14 @@ class RAGPipeline {
       }
     }
 
-    // Convert timeframe string to lowercase
     const timeframe = (intent.timeframe || '').toLowerCase();
-
-    // NEW CODE: Extract multiple Q references
-    const quartersAndYears = this.extractQuartersAndYears(timeframe); // e.g. Q1 2024, Q2 2024
-    // Also parse possible multiple FY references
+    const quartersAndYears = this.extractQuartersAndYears(timeframe);
     const fyRegex = /fy(\d{4})/gi;
     const fyMatches = [...timeframe.matchAll(fyRegex)];
-    const fiscalYears = fyMatches.map(m => m[1]); // e.g. ['2023', '2024']
+    const fiscalYears = fyMatches.map(m => m[1]);
 
-    // If user says "recent"
+    // "recent" fallback
     if (timeframe === 'recent' && !quartersAndYears.length && !fiscalYears.length) {
-      // fallback
       return {
         ...baseFilter,
         fiscalYear: '2024'
@@ -396,7 +436,6 @@ class RAGPipeline {
 
     // If multiple Q references
     if (quartersAndYears.length > 1) {
-      // Build an $or clause
       const orClauses = quartersAndYears.map(qy => ({
         quarter: qy.quarter,
         fiscalYear: qy.fiscalYear
@@ -437,7 +476,7 @@ class RAGPipeline {
       };
     }
 
-    // If no Q or FY found, just return baseFilter
+    // Otherwise just return the base filter
     return baseFilter;
   }
 
@@ -460,13 +499,13 @@ class ExtendedRAGPipeline extends RAGPipeline {
     const intent = await this.intentAnalyzer.analyze(query);
     console.log('Intent:', intent);
 
-    // 2) Detect the company's ticker
+    // 2) Detect company ticker
     const ticker = this.detectCompany(intent.company_name);
 
-    // 3) Generate an embedding
+    // 3) Generate embedding
     const vector = await this.embedder.embed(query);
 
-    // 4) Build filters (fiscalYear, quarter, type, etc.)
+    // 4) Build filters
     const filters = this.buildFilters(intent, ticker);
 
     // 5) Retrieve transcripts from Pinecone
@@ -483,23 +522,13 @@ class ExtendedRAGPipeline extends RAGPipeline {
       );
 
     if (isFinQuery) {
-      // Because user might have multiple Q references, let's pick the relevant ones
-      // For simplicity, just handle the "first" or the "recent" if multiple are present,
-      // or you can loop over them if you want to retrieve all local JSON files that match.
       const timeframe = {};
-
-      // For demonstration, handle only single-quarter or single-FY
-      // If you want to retrieve multiple, you'd need to loop over them
-      // and gather all matches. 
-      // E.g. if filters has $and/$or, you'd parse them here similarly.
-
-      // A simpler approach: parse again with `extractQuartersAndYears`:
       const quartersAndYears = this.extractQuartersAndYears(intent.timeframe.toLowerCase());
       const fyRegex = /fy(\d{4})/gi;
       const fyMatches = [...intent.timeframe.toLowerCase().matchAll(fyRegex)];
       const fiscalYears = fyMatches.map(m => m[1]);
 
-      // Example: if multiple Q references, retrieve them all
+      // Multiple Q references
       if (quartersAndYears.length > 1) {
         for (const qy of quartersAndYears) {
           const theseMatches = await this.financialRetriever.retrieveFinancialData(ticker, {
@@ -509,11 +538,16 @@ class ExtendedRAGPipeline extends RAGPipeline {
           finMatches.push(...theseMatches);
         }
       } else if (quartersAndYears.length === 1) {
+        // Single Q
         timeframe.fiscalYear = quartersAndYears[0].fiscalYear;
         timeframe.quarter = `Q${quartersAndYears[0].quarter}`;
-        const theseMatches = await this.financialRetriever.retrieveFinancialData(ticker, timeframe);
+        const theseMatches = await this.financialRetriever.retrieveFinancialData(
+          ticker,
+          timeframe
+        );
         finMatches.push(...theseMatches);
       } else if (fiscalYears.length > 1) {
+        // Multiple FY
         for (const fy of fiscalYears) {
           const theseMatches = await this.financialRetriever.retrieveFinancialData(ticker, {
             fiscalYear: fy
@@ -521,8 +555,12 @@ class ExtendedRAGPipeline extends RAGPipeline {
           finMatches.push(...theseMatches);
         }
       } else if (fiscalYears.length === 1) {
+        // Single FY
         timeframe.fiscalYear = fiscalYears[0];
-        const theseMatches = await this.financialRetriever.retrieveFinancialData(ticker, timeframe);
+        const theseMatches = await this.financialRetriever.retrieveFinancialData(
+          ticker,
+          timeframe
+        );
         finMatches.push(...theseMatches);
       } else {
         // fallback for "recent" or none
@@ -545,8 +583,8 @@ class ExtendedRAGPipeline extends RAGPipeline {
       };
     }
 
-    // 8) Let the analyzer produce the final text
-    return await this.analyzer.analyze(combined, intent, ticker);
+    // 8) Final text from EnhancedFinancialAnalyst
+    return await this.analyzer.analyze(combined, intent, ticker, intent.style);
   }
 }
 
@@ -560,22 +598,20 @@ function createPipeline() {
     if (!process.env[v]) throw new Error(`${v} is required`);
   }
 
-  // Initialize clients
   const openaiClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   const pineconeClient = new Pinecone({ apiKey: process.env.PINECONE_API_KEY });
   const pineconeIndex = pineconeClient.index(process.env.PINECONE_INDEX);
 
-  // Instantiate all classes
   const embedder = new OpenAIEmbedder(openaiClient);
   const pineRetriever = new PineconeRetriever(pineconeIndex);
-  const analyzer = new GPT4Analyzer(openaiClient);
   const intentAnalyzer = new QueryIntentAnalyzer(openaiClient);
 
-  // Local JSON data (financial data) retriever
+  // Use the new EnhancedFinancialAnalyst instead of GPT4Analyzer
+  const analyzer = new EnhancedFinancialAnalyst(openaiClient);
+
   const baseDir = path.join(process.cwd(), 'data', 'financials');
   const finRetriever = new FinancialJSONRetriever(baseDir);
 
-  // Build the extended pipeline
   return new ExtendedRAGPipeline(
     embedder,
     pineRetriever,
