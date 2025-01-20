@@ -11,8 +11,8 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Directory where AAPL transcripts live
-const TRANSCRIPTS_DIR = path.join(process.cwd(), 'data', 'transcripts', 'AAPL');
+// Directory where AVGO transcripts live
+const TRANSCRIPTS_DIR = path.join(process.cwd(), 'data', 'transcripts', 'AVGO');
 const CHUNK_SIZE = 1000;
 
 // -------------------
@@ -127,7 +127,7 @@ async function processFile(filePath) {
 
   // Derive FY and Q from directory path
   const pathParts = filePath.split(path.sep);
-  // e.g. ".../AAPL/FY_2024/Q1/parsed_earnings/AAPL_FY2024_Q1_earnings.json"
+  // e.g. ".../AVGO/FY_2024/Q1/parsed_earnings/AVGO_FY2024_Q1_earnings.json"
   const fiscalYearPart = pathParts.find((part) => part.startsWith('FY_')); // e.g. "FY_2024"
   const quarterPart = pathParts.find((part) => part.startsWith('Q'));     // e.g. "Q1"
 
@@ -160,7 +160,7 @@ async function processFile(filePath) {
       // Build metadata
       const metadata = {
         text: chunk,
-        company: 'AAPL', // Hardcode AAPL
+        company: 'AVGO', // Hardcode AVGO
         fiscalYear: fiscalYearPart?.replace('FY_', '') || '',
         quarter: quarterPart?.replace('Q', '') || '',
         type: fileType,
@@ -170,7 +170,7 @@ async function processFile(filePath) {
       };
 
       vectors.push({
-        id: `AAPL_${fiscalYearPart || ''}_${quarterPart || ''}_${fileType}_${sectionIndex}_${chunkIndex}`,
+        id: `AVGO_${fiscalYearPart || ''}_${quarterPart || ''}_${fileType}_${sectionIndex}_${chunkIndex}`,
         values: embedding,
         metadata,
       });
@@ -220,7 +220,7 @@ async function getJsonFiles(dirPath) {
 // -------------------
 // 9) Main Script
 // -------------------
-async function createAAPLTranscriptsEmbeddings() {
+async function createAVGOTranscriptsEmbeddings() {
   try {
     // Connect to Pinecone
     const pinecone = new Pinecone({
@@ -230,12 +230,12 @@ async function createAAPLTranscriptsEmbeddings() {
     // Use your existing index name
     const index = pinecone.index('clarity');
 
-    // We only want to process "AAPL" transcripts
-    console.log('Processing transcripts for AAPL only...');
+    // We only want to process "AVGO" transcripts
+    console.log('Processing transcripts for AVGO only...');
 
-    // Collect all JSON files from data/transcripts/AAPL
+    // Collect all JSON files from data/transcripts/AVGO
     const allJsonFiles = await getJsonFiles(TRANSCRIPTS_DIR);
-    console.log(`Found ${allJsonFiles.length} AAPL transcript files total.`);
+    console.log(`Found ${allJsonFiles.length} AVGO transcript files total.`);
 
     let totalVectors = 0;
 
@@ -251,7 +251,7 @@ async function createAAPLTranscriptsEmbeddings() {
       }
     }
 
-    console.log(`\nAll done! Created ${totalVectors} vectors total for AAPL.`);
+    console.log(`\nAll done! Created ${totalVectors} vectors total for AVGO.`);
   } catch (error) {
     console.error('Error creating embeddings:', error);
     throw error;
@@ -259,4 +259,4 @@ async function createAAPLTranscriptsEmbeddings() {
 }
 
 // Invoke main script
-createAAPLTranscriptsEmbeddings();
+createAVGOTranscriptsEmbeddings();
