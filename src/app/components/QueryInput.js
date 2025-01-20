@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDown, ChevronUp, Sparkles, Search, TrendingUp, Cpu, DollarSign } from 'lucide-react';
 
 const QUESTION_CATEGORIES = [
@@ -6,20 +6,20 @@ const QUESTION_CATEGORIES = [
     title: "Financial Performance",
     icon: <DollarSign className="w-4 h-4" />,
     questions: [
-      "What was NVIDIA's revenue growth in the last quarter?",
-      "How does Meta's profit margin compare to other tech giants?",
+      "Can you describe Nvidia's financial performance during FY 2023?",
+      "Provide in-depth analysis of GOOGL`s FY 2024 financial performance and position in the tech industry, focusing on profit margins, growth metrics, market size, and competitive positioning",
       "Show me Apple's cash flow trends over the past year",
-      "What's Microsoft's revenue breakdown by segment?",
+      "What's Microsoft's revenue breakdown by segment in Q1 2024?",
     ]
   },
   {
     title: "AI & Technology",
     icon: <Cpu className="w-4 h-4" />,
     questions: [
-      "What are NVIDIA's main AI initiatives?",
-      "How is Microsoft implementing AI across products?",
-      "Explain Google's AI strategy and investments",
-      "What's Meta's progress in AI research?",
+      "What are NVIDIA's main AI initiatives and how has this evolved over time?",
+      "Please describe Microsoft's partnership with OpenAI, and how is Microsoft implementing AI across products?",
+      "Explain Google's AI strategy and investments and how does this compare vs Microsoft?",
+      "Please describe CRM's AI capabilities and what role do agents play?",
     ]
   },
   {
@@ -29,7 +29,7 @@ const QUESTION_CATEGORIES = [
       "How has NVIDIA's market share evolved?",
       "Compare Apple's competitive position in smartphones",
       "What are the key market trends affecting Amazon?",
-      "Analyze Microsoft's cloud market position",
+      "Analyze Microsoft's cloud market position and how does this compare to AMZN AWS?",
     ]
   }
 ];
@@ -37,6 +37,21 @@ const QUESTION_CATEGORIES = [
 const QueryInput = ({ value, onChange, onSubmit, disabled }) => {
   const [expandedCategory, setExpandedCategory] = useState(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const componentRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (componentRef.current && !componentRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+        setExpandedCategory(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleQuestionClick = (question) => {
     onChange({ target: { value: question } });
@@ -50,33 +65,34 @@ const QueryInput = ({ value, onChange, onSubmit, disabled }) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full" ref={componentRef}>
       <form onSubmit={handleSubmit} className="relative">
         <div className="flex gap-3">
           <div className="relative flex-1">
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+            <div className="absolute left-4 top-6 text-gray-400">
               <Search className="w-5 h-5" />
             </div>
-            <input
-              type="text"
+            <textarea
               value={value}
               onChange={onChange}
               disabled={disabled}
               onFocus={() => setShowSuggestions(true)}
-              placeholder="Ask about any tech company's performance..."
+              placeholder="Ask about any tech company's performance, or click for sample questions..."
+              rows="3"
               className="w-full pl-12 pr-4 py-4 bg-gray-900/50 text-white placeholder-gray-400 border border-gray-700 rounded-xl 
                 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500
-                disabled:opacity-50 transition-all backdrop-blur-sm"
+                disabled:opacity-50 transition-all backdrop-blur-sm resize-none"
+              style={{ minHeight: '100px' }}
             />
           </div>
           <button
             type="submit"
             disabled={disabled}
-            className="px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl 
+            className="px-4 py-3 h-12 self-start mt-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg
               hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed
               transition-all duration-200 ease-in-out font-medium shadow-lg shadow-blue-500/20
               hover:shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98]
-              flex items-center gap-2"
+              flex items-center gap-2 text-sm"
           >
             {disabled ? (
               <>
@@ -135,7 +151,7 @@ const QueryInput = ({ value, onChange, onSubmit, disabled }) => {
         <Sparkles className="w-4 h-4 text-blue-400" />
         <span>
           <span className="font-medium text-blue-400">Pro tip:</span> You can ask about any major tech company - 
-          try questions about revenue, AI strategies, market trends, or competitive analysis
+          try questions about quarterly results, AI strategies, market trends, or competitive analysis, etc...
         </span>
       </div>
     </div>

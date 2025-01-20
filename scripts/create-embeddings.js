@@ -11,8 +11,8 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Directory where MSFT transcripts live
-const TRANSCRIPTS_DIR = path.join(process.cwd(), 'data', 'transcripts', 'MSFT');
+// Directory where NVDA transcripts live
+const TRANSCRIPTS_DIR = path.join(process.cwd(), 'data', 'transcripts', 'NVDA');
 const CHUNK_SIZE = 1000;
 
 // -------------------
@@ -127,7 +127,7 @@ async function processFile(filePath) {
 
   // Derive FY and Q from directory path
   const pathParts = filePath.split(path.sep);
-  // e.g. ".../MSFT/FY_2024/Q1/parsed_earnings/MSFT_FY2024_Q1_earnings.json"
+  // e.g. ".../NVDA/FY_2024/Q1/parsed_earnings/NVDA_FY2024_Q1_earnings.json"
   const fiscalYearPart = pathParts.find((part) => part.startsWith('FY_')); // e.g. "FY_2024"
   const quarterPart = pathParts.find((part) => part.startsWith('Q'));     // e.g. "Q1"
 
@@ -160,7 +160,7 @@ async function processFile(filePath) {
       // Build metadata
       const metadata = {
         text: chunk,
-        company: 'MSFT', // Hardcode MSFT
+        company: 'NVDA', // Hardcode NVDA
         fiscalYear: fiscalYearPart?.replace('FY_', '') || '',
         quarter: quarterPart?.replace('Q', '') || '',
         type: fileType,
@@ -170,7 +170,7 @@ async function processFile(filePath) {
       };
 
       vectors.push({
-        id: `MSFT_${fiscalYearPart || ''}_${quarterPart || ''}_${fileType}_${sectionIndex}_${chunkIndex}`,
+        id: `NVDA_${fiscalYearPart || ''}_${quarterPart || ''}_${fileType}_${sectionIndex}_${chunkIndex}`,
         values: embedding,
         metadata,
       });
@@ -220,7 +220,7 @@ async function getJsonFiles(dirPath) {
 // -------------------
 // 9) Main Script
 // -------------------
-async function createMSFTTranscriptsEmbeddings() {
+async function createNVDATranscriptsEmbeddings() {
   try {
     // Connect to Pinecone
     const pinecone = new Pinecone({
@@ -230,12 +230,12 @@ async function createMSFTTranscriptsEmbeddings() {
     // Use your existing index name
     const index = pinecone.index('clarity');
 
-    // We only want to process "MSFT" transcripts
-    console.log('Processing transcripts for MSFT only...');
+    // We only want to process "NVDA" transcripts
+    console.log('Processing transcripts for NVDA only...');
 
-    // Collect all JSON files from data/transcripts/MSFT
+    // Collect all JSON files from data/transcripts/NVDA
     const allJsonFiles = await getJsonFiles(TRANSCRIPTS_DIR);
-    console.log(`Found ${allJsonFiles.length} MSFT transcript files total.`);
+    console.log(`Found ${allJsonFiles.length} NVDA transcript files total.`);
 
     let totalVectors = 0;
 
@@ -251,7 +251,7 @@ async function createMSFTTranscriptsEmbeddings() {
       }
     }
 
-    console.log(`\nAll done! Created ${totalVectors} vectors total for MSFT.`);
+    console.log(`\nAll done! Created ${totalVectors} vectors total for NVDA.`);
   } catch (error) {
     console.error('Error creating embeddings:', error);
     throw error;
@@ -259,4 +259,4 @@ async function createMSFTTranscriptsEmbeddings() {
 }
 
 // Invoke main script
-createMSFTTranscriptsEmbeddings();
+createNVDATranscriptsEmbeddings();

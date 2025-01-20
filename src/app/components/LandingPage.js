@@ -83,13 +83,13 @@ const LandingPage = () => {
             AI-Powered Tech Investment Analysis
           </p>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            Get instant, in-depth analysis of tech giants' performance, trends, and strategic moves.
+            Get instant, in-depth analysis of Big Tech performance, trends, and strategic moves.
           </p>
         </div>
 
         {/* Action Buttons */}
         <div 
-          className={`flex flex-col sm:flex-row gap-4 mb-16 transition-all duration-1000 delay-500 ${
+          className={`mb-16 transition-all duration-1000 delay-500 ${
             mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
@@ -99,12 +99,6 @@ const LandingPage = () => {
           >
             <span className="relative z-10">Analyze Now</span>
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 transform transition-transform group-hover:scale-105" />
-          </Link>
-          <Link
-            href="/companies"
-            className="group px-8 py-4 bg-transparent text-white rounded-full text-lg font-medium border border-gray-700 hover:border-blue-500 transition-all hover:scale-105 hover:shadow-lg hover:shadow-blue-500/10"
-          >
-            How I made this
           </Link>
         </div>
 

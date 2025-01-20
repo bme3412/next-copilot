@@ -77,7 +77,7 @@ export default function ChatInterface() {
           Generative-AI Investment CoPilot
         </h1>
         <p className="text-gray-400">
-          Ask detailed questions about major tech companies' performance and strategies
+          Ask detailed questions about Big Tech company performance and strategies
         </p>
       </div>
 
