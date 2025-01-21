@@ -185,7 +185,7 @@ If your output is not valid JSON, it will break the system.
     const userPrompt = `User query: "${query}"`;
 
     const response = await this.openai.chat.completions.create({
-      model: 'gpt-4o-2024-11-20',
+      model: 'gpt-4o',
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt },
@@ -344,7 +344,7 @@ ${relevantData
 
     try {
       const response = await this.openai.chat.completions.create({
-        model: 'gpt-4o-2024-11-20',
+        model: 'gpt-4o',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },
