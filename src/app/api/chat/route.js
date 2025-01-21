@@ -20,6 +20,7 @@ const COMPANY_ALIASES = {
   nvda: 'NVDA',
   google: 'GOOGL',
   googl: 'GOOGL',
+  goog:'GOOGL',
   amazon: 'AMZN',
   amzn: 'AMZN',
   amd: 'AMD',
