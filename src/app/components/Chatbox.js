@@ -1,13 +1,13 @@
-// src/app/components/ChatInterface.js
+// src/app/components/Chatbox.js
 'use client';
 
 import React, { useState } from 'react';
-import { AnalysisDisplay } from '@/app/components/sDisplay';
-import QueryInput from '@/app/components/Query';
+import { AnalysisDisplay } from './Display';   // <-- relative import
+import QueryInput from './Query';             // <-- relative import
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid'; // Import UUID
 
-export default function ChatInterface() {
+export default function Chatbox() {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -26,9 +26,9 @@ export default function ChatInterface() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           query,
-          // history: conversationHistory // Remove if not used
+          // history: conversationHistory // Remove or uncomment if needed
         }),
       });
 
@@ -37,26 +37,27 @@ export default function ChatInterface() {
       }
 
       const result = await response.json();
-      
+
       // Generate unique IDs for each message
       const queryId = uuidv4();
       const responseId = uuidv4();
-      
-      setConversationHistory([
+
+      setConversationHistory((prevHistory) => [
+        ...prevHistory,
         {
-          id: queryId, // Unique key
+          id: queryId,
           type: 'query',
           content: query,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
         },
         {
-          id: responseId, // Unique key
+          id: responseId,
           type: 'response',
           content: result,
-          timestamp: new Date().toISOString()
-        }
+          timestamp: new Date().toISOString(),
+        },
       ]);
-      
+
       setQuery('');
     } catch (err) {
       setError(err.message);
@@ -121,7 +122,11 @@ export default function ChatInterface() {
             <div className="text-sm text-gray-400 mb-1">
               {item.type === 'query' ? 'Your Question:' : 'Analysis:'}
             </div>
-            <div className={item.type === 'query' ? 'text-blue-400' : 'text-white'}>
+            <div
+              className={
+                item.type === 'query' ? 'text-blue-400' : 'text-white'
+              }
+            >
               {item.type === 'query' ? (
                 item.content
               ) : (
@@ -134,8 +139,14 @@ export default function ChatInterface() {
 
       <style jsx global>{`
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         .animate-fadeIn {
           animation: fadeIn 0.3s ease-out forwards;
@@ -143,4 +154,4 @@ export default function ChatInterface() {
       `}</style>
     </div>
   );
-};
+}
