@@ -2,8 +2,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { AnalysisDisplay } from './Display';   // <-- relative import
-import QueryInput from './Query';             // <-- relative import
+import { AnalysisDisplay } from './Display';   
+import QueryInput from './Query';             
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid'; // Import UUID
 
