@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-  ResponsiveContainer, BarChart, Bar, AreaChart, Area
+  ResponsiveContainer, BarChart, Bar, AreaChart, Area, PieChart, Pie, Cell
 } from 'recharts';
 import { TrendingUp, DollarSign, BarChart2, AlertCircle, Info } from 'lucide-react';
+import FinancialChart from './FinancialChart';
 
 const formatQuarterlyData = (progression) => {
   if (!progression || !Array.isArray(progression)) return [];
@@ -136,6 +137,29 @@ export function AnalysisDisplay({ analysis, isStreaming = false }) {
           )}
         </div>
 
+        {/* Financial Charts from Streaming API */}
+        {analysis.metadata?.charts && analysis.metadata.charts.length > 0 && (
+          <div className="border-t border-gray-800 pt-6">
+            <h3 className="text-lg font-semibold text-gray-200 mb-4 flex items-center gap-2">
+              <BarChart2 className="w-5 h-5 text-blue-400" />
+              Financial Analysis
+            </h3>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {analysis.metadata.charts.map((chart, index) => (
+                <div key={index} className="bg-gray-800/30 rounded-lg p-4">
+                  <h4 className="text-sm font-medium text-gray-300 mb-3">{chart.title}</h4>
+                  <FinancialChart 
+                    chartData={chart.config}
+                    chartType={chart.config.type}
+                    title={chart.title}
+                    height="300px"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Charts - Only show for financial analysis with sufficient data */}
         {shouldShowCharts && (
           <>
@@ -189,6 +213,21 @@ export function AnalysisDisplay({ analysis, isStreaming = false }) {
           </>
         )}
       </div>
+
+      {/* Citations Section */}
+      {analysis.metadata?.citations && analysis.metadata.citations.length > 0 && (
+        <div className="border-t border-gray-800 pt-4">
+          <h4 className="text-sm font-medium text-gray-300 mb-3">Sources:</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            {analysis.metadata.citations.map((citation, index) => (
+              <div key={index} className="flex items-center gap-2 text-xs text-gray-400">
+                <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                <span>{citation.source}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Analysis Metadata - Simplified */}
       {analysis.metadata && (

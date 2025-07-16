@@ -5,6 +5,7 @@ import OpenAI from 'openai';
 import { Pinecone } from '@pinecone-database/pinecone';
 import fs from 'fs';
 import path from 'path';
+import { FinancialDataProcessor } from '../../../../utils/financialDataProcessor.js';
 
 // ----------------------------------------------------------------
 // 1. Company Aliases
@@ -44,6 +45,7 @@ class StreamingRAGPipeline {
     this.pineconeIndex = pineconeIndex;
     this.baseDir = baseDir;
     this.embeddingCache = new Map(); // Simple in-memory cache for embeddings
+    this.financialProcessor = new FinancialDataProcessor(path.join(process.cwd(), 'data', 'financials'));
   }
 
   detectCompany(companyName) {
@@ -151,7 +153,7 @@ If your output is not valid JSON, it will break the system.
     // Build query parameters
     const queryParams = {
       vector,
-      topK: isComparisonQuery ? 6 : 4, // More results for comparison queries
+      topK: isComparisonQuery ? 16 : 12, // Increased for more comprehensive results
       includeMetadata: true
     };
     
@@ -188,12 +190,16 @@ If your output is not valid JSON, it will break the system.
       }
     }
 
-    // Enhanced timeframe context
-    if (enhancedQuery.includes('past year') || enhancedQuery.includes('last year')) {
-      enhancedQuery += ' fiscal year 2024 2023 quarterly earnings call';
-    }
-    if (enhancedQuery.includes('quarter') || enhancedQuery.includes('Q')) {
-      enhancedQuery += ' quarterly earnings call';
+    // Enhanced timeframe context - prioritize recent data
+    if (enhancedQuery.includes('2024') || enhancedQuery.includes('recent') || enhancedQuery.includes('latest')) {
+      enhancedQuery += ' fiscal year 2024 2023 2022 2021 2020 quarterly earnings call recent data';
+    } else if (enhancedQuery.includes('past year') || enhancedQuery.includes('last year')) {
+      enhancedQuery += ' fiscal year 2024 2023 2022 quarterly earnings call';
+    } else if (enhancedQuery.includes('quarter') || enhancedQuery.includes('Q')) {
+      enhancedQuery += ' quarterly earnings call fiscal year 2024 2023 2022 2021 2020';
+    } else {
+      // Default to include all available years for comprehensive coverage
+      enhancedQuery += ' fiscal year 2024 2023 2022 2021 2020 quarterly earnings call comprehensive data';
     }
     
     // Add CFO commentary context for financial queries
@@ -269,6 +275,24 @@ If your output is not valid JSON, it will break the system.
         relevanceScore += 0.25;
       }
       
+      // Boost recent data (2024, 2023) for better relevance
+      if (text.includes('2024') || text.includes('FY2024')) {
+        relevanceScore += 0.4;
+      } else if (text.includes('2023') || text.includes('FY2023')) {
+        relevanceScore += 0.3;
+      } else if (text.includes('2022') || text.includes('FY2022')) {
+        relevanceScore += 0.25;
+      } else if (text.includes('2021') || text.includes('FY2021')) {
+        relevanceScore += 0.2;
+      } else if (text.includes('2020') || text.includes('FY2020')) {
+        relevanceScore += 0.15;
+      }
+      
+      // Boost data from different quarters for better coverage
+      if (text.includes('Q1') || text.includes('Q2') || text.includes('Q3') || text.includes('Q4')) {
+        relevanceScore += 0.15;
+      }
+      
       // Penalize very short or generic content
       if (text.length < 50) {
         relevanceScore -= 0.2;
@@ -283,7 +307,7 @@ If your output is not valid JSON, it will break the system.
     // Sort by enhanced relevance score and take top results
     return scoredMatches
       .sort((a, b) => b.score - a.score)
-      .slice(0, 2); // Reduced to top 2 for more focused responses
+      .slice(0, 10); // Increased to top 10 for more comprehensive citations
   }
 
   buildFilters(intent, ticker) {
@@ -313,6 +337,84 @@ If your output is not valid JSON, it will break the system.
     return baseFilter;
   }
 
+  async generateFinancialCharts(query, ticker) {
+    try {
+      // Determine what charts to generate based on query content
+      const queryLower = query.toLowerCase();
+      const charts = [];
+
+      // Revenue trend chart
+      if (queryLower.includes('revenue') || queryLower.includes('growth') || queryLower.includes('performance')) {
+        const revenueData = await this.financialProcessor.getTimeSeriesData(ticker, ['revenue', 'netIncome'], 8);
+        if (revenueData.labels.length > 0) {
+          charts.push({
+            type: 'revenue',
+            title: `${ticker} Revenue & Net Income Trend`,
+            config: this.financialProcessor.generateChartConfig(revenueData, 'line', `${ticker} Financial Performance`)
+          });
+        }
+      }
+
+      // Margin analysis chart
+      if (queryLower.includes('margin') || queryLower.includes('profitability')) {
+        const marginData = await this.financialProcessor.getTimeSeriesData(ticker, ['grossMargin', 'operatingMargin'], 8);
+        if (marginData.labels.length > 0) {
+          charts.push({
+            type: 'margins',
+            title: `${ticker} Margin Analysis`,
+            config: this.financialProcessor.generateChartConfig(marginData, 'line', `${ticker} Margin Trends`)
+          });
+        }
+      }
+
+      // Cash flow chart
+      if (queryLower.includes('cash') || queryLower.includes('flow')) {
+        const cashFlowData = await this.financialProcessor.getTimeSeriesData(ticker, ['operatingCashFlow', 'freeCashFlow'], 8);
+        if (cashFlowData.labels.length > 0) {
+          charts.push({
+            type: 'cashFlow',
+            title: `${ticker} Cash Flow Analysis`,
+            config: this.financialProcessor.generateChartConfig(cashFlowData, 'line', `${ticker} Cash Flow Trends`)
+          });
+        }
+      }
+
+      // Segment breakdown (pie chart) for most recent quarter
+      if (queryLower.includes('segment') || queryLower.includes('business') || queryLower.includes('breakdown')) {
+        const latestData = await this.financialProcessor.getSegmentData(ticker, '2024', '1');
+        if (latestData) {
+          charts.push({
+            type: 'segments',
+            title: `${ticker} Revenue by Segment`,
+            config: {
+              type: 'pie',
+              data: latestData,
+              options: {
+                responsive: true,
+                plugins: {
+                  title: {
+                    display: true,
+                    text: `${ticker} Revenue Breakdown`,
+                    font: { size: 16, weight: 'bold' }
+                  },
+                  legend: {
+                    display: true,
+                    position: 'right'
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+
+      return charts;
+    } catch (error) {
+      console.error('Error generating financial charts:', error);
+      return [];
+    }
+  }
+
   async streamAnalysis(query, relevantData, intent, ticker) {
     const systemPrompt = `
 You are an advanced financial and business analyst covering ${ticker}. Provide focused, actionable insights that directly answer the user's question.
@@ -326,6 +428,7 @@ Key Guidelines:
 - Use simple paragraphs and natural language
 - Focus on trends, changes, and implications rather than static facts
 - If data is limited, acknowledge it and focus on what's available
+- ALWAYS cite your sources using the provided citation format
 
 Query Focus:
 - Analysis Type: ${intent.analysis_type}
@@ -335,9 +438,38 @@ Query Focus:
 
 Response Structure:
 1. Direct answer to the question (1-2 sentences)
-2. Key supporting data points (2-3 bullet points)
+2. Key supporting data points with citations (5-8 bullet points for comprehensive coverage)
+   - Present information in CHRONOLOGICAL ORDER (earliest to latest)
+   - Include data from multiple quarters and years for complete coverage
+   - Group related data points by time period
+   - Maintain logical flow from past to present
+   - Ensure coverage spans multiple years and quarters
 3. Brief trend analysis or implication
+4. Citations section at the end listing all sources used
+
+Citation Format: When referencing data, use [Source: Company FY20XX QX] format. Include multiple citations when available to provide comprehensive coverage.
+
+IMPORTANT: Always present historical information in chronological order, starting with the earliest events and progressing to the most recent. Ensure coverage includes multiple quarters and years, not just Q1 data.
 `;
+
+    // Format data with proper metadata for citations
+    const formattedData = relevantData.map((d, index) => {
+      const metadata = d.metadata || {};
+      const source = metadata.fiscalYear && metadata.quarter 
+        ? `${ticker} FY${metadata.fiscalYear} Q${metadata.quarter}`
+        : metadata.fiscalYear 
+        ? `${ticker} FY${metadata.fiscalYear}`
+        : metadata.type === 'earnings' 
+        ? `${ticker} Earnings Call`
+        : `${ticker} Financial Data`;
+      
+      return {
+        index: index + 1,
+        source: source,
+        metadata: metadata,
+        text: metadata.text?.substring(0, 300) || 'No text available'
+      };
+    });
 
     const userPrompt = `
 User Question: "${query}"
@@ -346,12 +478,20 @@ Timeframe: ${intent.timeframe}
 
 Focus specifically on what the user is asking for. If they ask about cash flow trends, focus on cash flow metrics and trends. If they ask about financial performance, focus on key performance indicators. If they ask about competitive positioning, focus on market position and competitive advantages.
 
-Available data:
-${relevantData
-  .map((d) => `[${d.metadata?.fiscalYear || 'N/A'} ${d.metadata?.quarter || 'N/A'} | ${d.metadata?.type || 'Unknown'}] ${d.metadata?.text?.substring(0, 300) || 'No text'}...`)
+Available data with citations:
+${formattedData
+  .map((d) => `[${d.index}] [Source: ${d.source}] ${d.text}...`)
   .join('\n\n')}
 
-Provide a direct, focused answer to the user's specific question. Avoid generic statements and focus on specific insights and trends.
+IMPORTANT: When referencing any data or information, you MUST cite the source using the format [Source: Company FY20XX QX]. Include a "Citations:" section at the end listing all sources used.
+
+CRITICAL: Present all historical information in CHRONOLOGICAL ORDER (earliest to latest). Do not jump between time periods randomly. Group related data points by time period and maintain a logical flow from past to present.
+
+IMPORTANT: Provide comprehensive coverage by including data from multiple quarters and years, not just Q1 data. Ensure the analysis spans multiple time periods to show complete trends.
+
+CRITICAL: Fill any data gaps by including data from all available years (2020, 2021, 2022, 2023, 2024) to show a complete chronological progression. Do not skip years or create gaps in the timeline.
+
+Provide a direct, focused answer to the user's specific question. Avoid generic statements and focus on specific insights and trends. Always cite your sources and maintain chronological order with comprehensive quarter and year coverage.
 `;
 
     const stream = await this.openai.chat.completions.create({
@@ -432,10 +572,33 @@ export async function POST(req) {
             const relevantData = await streamingPipeline.retrieveRelevantData(query, intent, ticker);
             console.log('Relevant data matches:', relevantData.length);
 
-            // 4. Stream the analysis
+            // 4. Generate financial charts
+            const charts = await streamingPipeline.generateFinancialCharts(query, ticker);
+            console.log('Generated charts:', charts.length);
+
+            // 5. Stream the analysis
             const analysisStream = await streamingPipeline.streamAnalysis(query, relevantData, intent, ticker);
 
-            // Send initial metadata
+            // Send initial metadata with citation info
+            const citationSources = relevantData.map((d, index) => {
+              const metadata = d.metadata || {};
+              const source = metadata.fiscalYear && metadata.quarter 
+                ? `${ticker} FY${metadata.fiscalYear} Q${metadata.quarter}`
+                : metadata.fiscalYear 
+                ? `${ticker} FY${metadata.fiscalYear}`
+                : metadata.type === 'earnings' 
+                ? `${ticker} Earnings Call`
+                : `${ticker} Financial Data`;
+              
+              return {
+                index: index + 1,
+                source: source,
+                fiscalYear: metadata.fiscalYear,
+                quarter: metadata.quarter,
+                type: metadata.type
+              };
+            });
+
             controller.enqueue(
               new TextEncoder().encode(
                 `data: ${JSON.stringify({
@@ -444,6 +607,8 @@ export async function POST(req) {
                   analysis_type: intent.analysis_type,
                   timeframe: intent.timeframe,
                   topics_covered: intent.topics,
+                  citations: citationSources,
+                  charts: charts
                 })}\n\n`
               )
             );
