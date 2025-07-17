@@ -16,7 +16,6 @@ export default function Chatbox() {
   const [error, setError] = useState(null);
   const [conversationHistory, setConversationHistory] = useState([]);
   const [isFirstQuery, setIsFirstQuery] = useState(true);
-  const [showWelcomeGuide, setShowWelcomeGuide] = useState(true);
   const [analysisStage, setAnalysisStage] = useState('searching');
   const [showHelp, setShowHelp] = useState(false);
   const messagesEndRef = useRef(null);
@@ -30,7 +29,7 @@ export default function Chatbox() {
   }, [conversationHistory]);
 
   const handleStartAnalysis = (initialQuery = '') => {
-    setShowWelcomeGuide(false);
+    // setShowWelcomeGuide(false); // REMOVE: This line is no longer needed
     if (initialQuery) {
       setQuery(initialQuery);
       // Auto-submit the query after a short delay
@@ -171,11 +170,6 @@ export default function Chatbox() {
     setIsFirstQuery(true);
     setError(null);
   };
-
-  // Show welcome guide for first-time users
-  if (showWelcomeGuide) {
-    return <WelcomeGuide onStartAnalysis={handleStartAnalysis} />;
-  }
 
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-6">

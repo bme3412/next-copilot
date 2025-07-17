@@ -420,6 +420,120 @@ function formatKey(key) {
 }
 
 /**
+ * Improved chunking strategy that preserves semantic context and strategic discussions.
+ * @param {string} text - The text to split.
+ * @param {number} maxLength - The maximum length of each chunk.
+ * @returns {Array<string>} - An array of semantically meaningful text chunks.
+ */
+function createSemanticChunks(text, maxLength = 1500) {
+  if (!text || typeof text !== 'string') return [];
+
+  const chunks = [];
+  
+  // Split by major sections first (double line breaks often indicate topic changes)
+  const sections = text.split(/\n\s*\n/);
+  
+  for (const section of sections) {
+    if (section.trim().length === 0) continue;
+    
+    // If section is already within limits, keep it as one chunk
+    if (section.length <= maxLength) {
+      chunks.push(section.trim());
+      continue;
+    }
+    
+    // For longer sections, split by sentences but preserve context
+    const sentences = section.split(/(?<=[.!?])\s+/);
+    let currentChunk = '';
+    let currentContext = '';
+    
+    for (let i = 0; i < sentences.length; i++) {
+      const sentence = sentences[i];
+      const nextSentence = sentences[i + 1];
+      // Check if adding this sentence would exceed the limit
+      const potentialChunk = currentChunk + (currentChunk ? ' ' : '') + sentence;
+      
+      if (potentialChunk.length <= maxLength) {
+        currentChunk = potentialChunk;
+        // Keep some context for the next chunk
+        if (currentChunk.length > maxLength * 0.7) {
+          currentContext = sentence;
+        }
+      } else {
+        // Save current chunk if it has content
+        if (currentChunk.trim()) {
+          chunks.push(currentChunk.trim());
+        }
+        // Start new chunk with context from previous
+        currentChunk = (currentContext ? currentContext + ' ' : '') + sentence;
+        currentContext = '';
+      }
+    }
+    
+    // Add the last chunk if it has content
+    if (currentChunk.trim()) {
+      chunks.push(currentChunk.trim());
+    }
+  }
+  
+  return chunks;
+}
+
+/**
+ * Enhanced text extraction that groups related strategic discussions.
+ * @param {Object} content - The parsed JSON content.
+ * @returns {Array<string>} - An array of semantically grouped text sections.
+ */
+function extractStrategicSections(content) {
+  const sections = [];
+  
+  // Extract and group strategic discussions
+  if (content.earnings_call) {
+    const callText = content.earnings_call;
+    
+    // Look for strategic discussion patterns
+    const strategicPatterns = [
+      /(?:strategy|strategic|initiative|focus|priority|investment|partnership|growth|expansion|innovation|transformation)[^.]*(?:\.|$)/gi,
+      /(?:AI|artificial intelligence|machine learning|cloud|digital|technology|product|service|market|competitive|leadership)[^.]*(?:\.|$)/gi,
+      /(?:revenue|profit|margin|growth|performance|financial|business|segment|division)[^.]*(?:\.|$)/gi
+    ];
+    
+    // Group related strategic discussions
+    let strategicSections = [];
+    let currentSection = '';
+    const sentences = callText.split(/(?<=[.!?])\s+/);
+    
+    for (const sentence of sentences) {
+      const isStrategic = strategicPatterns.some(pattern => pattern.test(sentence));
+      
+      if (isStrategic) {
+        currentSection += (currentSection ? ' ' : '') + sentence;
+      } else if (currentSection) {
+        // End current strategic section
+        strategicSections.push(currentSection.trim());
+        currentSection = '';
+      }
+    }
+    
+    // Add any remaining strategic section
+    if (currentSection.trim()) {
+      strategicSections.push(currentSection.trim());
+    }
+  }
+  
+  // Add other content sections
+  if (content.qa) {
+    sections.push(content.qa);
+  }
+  
+  if (content.cfo_commentary) {
+    sections.push(content.cfo_commentary);
+  }
+  
+  return sections;
+}
+
+/**
  * Splits text into chunks based on sentence boundaries and maximum length.
  * @param {string} text - The text to split.
  * @param {number} maxLength - The maximum length of each chunk.
@@ -455,27 +569,22 @@ async function processFile(filePath) {
     const content = await readJsonFile(filePath);
     if (!content) return [];
 
-    // Extract company name dynamically
     const currentCompany = getCurrentCompanyName(content);
+    const fiscalYear = content.fiscal_year || '2024';
+    const quarter = content.quarter || 'Q1';
+    const fileType = path.basename(filePath).includes('_qa.json') ? 'qa' : 'earnings';
 
-    // Derive fiscalYear and quarter
-    const fiscalYear = content.fiscal_year ? `FY_${content.fiscal_year}` : 'UnknownFY';
-    const quarter = content.quarter ? content.quarter : 'UnknownQ';
+    console.log(`Processing ${currentCompany} ${fiscalYear} ${quarter} ${fileType}`);
 
-    // Determine file type
-    const fileType = filePath.includes('_qa.json') ? 'qa' : 'earnings';
+    // Use enhanced text extraction
+    const textSections = extractStrategicSections(content);
+    console.log(`Extracted ${textSections.length} strategic sections from ${filePath}`);
 
-    // Extract text sections based on file type
-    const textSections = fileType === 'qa'
-      ? extractTextFromQA(content)
-      : extractTextFromEarnings(content);
-
-    console.log(`Extracted ${textSections.length} sections from ${filePath}`);
     const vectors = [];
-
     for (let sectionIndex = 0; sectionIndex < textSections.length; sectionIndex++) {
-      const chunks = createChunks(textSections[sectionIndex]);
-      console.log(`Created ${chunks.length} chunks from section ${sectionIndex + 1}`);
+      // Use semantic chunking instead of simple chunking
+      const chunks = createSemanticChunks(textSections[sectionIndex]);
+      console.log(`Created ${chunks.length} semantic chunks from section ${sectionIndex + 1}`);
 
       for (let chunkIndex = 0; chunkIndex < chunks.length; chunkIndex++) {
         const chunk = chunks[chunkIndex];
@@ -497,7 +606,11 @@ async function processFile(filePath) {
             chunk_index: chunkIndex,
             source: path.basename(filePath),
             parsed_date: content.metadata?.parsed_date || '',
-            company_ticker: content.metadata?.company_ticker || ''
+            company_ticker: content.metadata?.company_ticker || '',
+            // Add semantic metadata for better retrieval
+            is_strategic: /strategy|strategic|initiative|focus|priority|investment|partnership|growth|expansion|innovation|transformation/i.test(chunk),
+            has_metrics: /revenue|profit|margin|growth|performance|financial|business|segment|division/i.test(chunk),
+            has_ai_tech: /AI|artificial intelligence|machine learning|cloud|digital|technology|product|service/i.test(chunk)
           }
         });
       }

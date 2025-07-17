@@ -76,12 +76,16 @@ timeframe: detect if user wants a specific quarter/year or general timeframe.
 - For "past year", "last year", "previous year" → return "past year"
 - For "recent", "current", "latest" → return "recent" 
 - For specific quarters like "Q1 2023" → return "Q1 2023"
-- For specific years like "FY2022" → return "FY2022"
+- For specific years like "FY2022" or "2022" → return "FY2022"
 - For "future", "upcoming" → return "future"
 - If none specified, return "all"
 content_type: one of ["earnings_call", "qa", "cfo_commentary", "all"]
 company_name: the company(ies) the user is asking about. For comparison queries (e.g., "compare X and Y"), return an array of company names. For single company queries, return a string. If no company mentioned, return null.
 
+IMPORTANT: When you detect a specific year (like "2024", "2023", etc.) in the query, return that year in the timeframe field as "FY2024". For specific quarters, return as "Q1 2024". For example:
+- "Google's AI strategy in 2024" → timeframe: "FY2024"
+- "Apple's revenue in 2023" → timeframe: "FY2023"
+- "Microsoft's performance in Q1 2024" → timeframe: "Q1 2024"
 Return ONLY valid JSON. 
 DO NOT wrap the JSON in triple backticks, 
 DO NOT include any additional text, code blocks, or markdown formatting.
@@ -153,7 +157,7 @@ If your output is not valid JSON, it will break the system.
     // Build query parameters
     const queryParams = {
       vector,
-      topK: isComparisonQuery ? 16 : 12, // Increased for more comprehensive results
+      topK: isComparisonQuery ? 25 : 20, // Increased for more comprehensive results
       includeMetadata: true
     };
     
@@ -307,7 +311,7 @@ If your output is not valid JSON, it will break the system.
     // Sort by enhanced relevance score and take top results
     return scoredMatches
       .sort((a, b) => b.score - a.score)
-      .slice(0, 10); // Increased to top 10 for more comprehensive citations
+      .slice(0, 15); // Increased to top 15 for more comprehensive citations
   }
 
   buildFilters(intent, ticker) {
@@ -323,6 +327,28 @@ If your output is not valid JSON, it will break the system.
 
     const timeframe = (intent.timeframe || '').toLowerCase();
     
+    // Handle specific year requests (e.g., 2024FY2024)
+    const yearMatch = timeframe.match(/(?:fy)?(\d{4})/i);
+    if (yearMatch) {
+      const specificYear = yearMatch[1];
+      return {
+        ...baseFilter,
+        fiscalYear: specificYear
+      };
+    }
+    
+    // Handle specific quarter requests (e.g., Q1 2024)
+    const quarterMatch = timeframe.match(/q(\d)\s*(\d{4})/i);
+    if (quarterMatch) {
+      const quarter = quarterMatch[1];
+      const year = quarterMatch[2];
+      return {
+        ...baseFilter,
+        fiscalYear: year,
+        quarter: `Q${quarter}`
+      };
+    }
+    
     // Enhanced timeframe detection for "past year"
     if (timeframe.includes('past year') || timeframe.includes('last year') || timeframe.includes('previous year')) {
       return {
@@ -331,6 +357,14 @@ If your output is not valid JSON, it will break the system.
           { fiscalYear: '2024' },
           { fiscalYear: '2023' }
         ]
+      };
+    }
+
+    // For "recent" or latest requests, prioritize 2024 data
+    if (timeframe.includes('recent') || timeframe.includes('latest') || timeframe.includes('current')) {
+      return {
+        ...baseFilter,
+        fiscalYear: '2024'
       };
     }
 
@@ -416,19 +450,33 @@ If your output is not valid JSON, it will break the system.
   }
 
   async streamAnalysis(query, relevantData, intent, ticker) {
+    // Detect if the user is asking for a trend/timeline/history
+    const isTrendQuery = /trend|change|evolution|history|over time|progression|growth/i.test(query);
+
     const systemPrompt = `
-You are an advanced financial and business analyst covering ${ticker}. Provide focused, actionable insights that directly answer the user's question.
+You are an advanced financial and business analyst covering ${ticker}. Provide comprehensive, actionable insights that directly answer the user's question.
 
 Key Guidelines:
-- Answer the specific question asked, don't provide general company overview
-- Lead with the most important insight or trend
-- Use specific numbers and percentages when available
-- Keep responses under 200 words unless more detail is specifically requested
-- Write in plain text without any markdown formatting
-- Use simple paragraphs and natural language
-- Focus on trends, changes, and implications rather than static facts
-- If data is limited, acknowledge it and focus on what's available
-- ALWAYS cite your sources using the provided citation format
+- Answer the specific question asked with thorough analysis, don't provide a generic company overview.
+- Lead with the most important insight or trend.
+- Use specific numbers and percentages when available.
+- Write in plain text without any markdown formatting.
+- Use well-developed paragraphs and natural language.
+- Focus on trends, changes, and implications if the user asks for a trend or history.
+- If data is limited, acknowledge it and focus on what's available.
+- ALWAYS cite your sources using the provided citation format.
+
+${isTrendQuery ? `
+IMPORTANT: For trend or timeline questions, present historical information in CHRONOLOGICAL ORDER (earliest to latest). Group related data points by time period and maintain a logical flow from past to present. Provide comprehensive coverage by including data from multiple quarters and years. Aim for 300–400 words unless the user requests brevity.
+` : `
+IMPORTANT: For summary, strategy, or "overall" questions, provide a rich, detailed synthesis of the most important and recent information for the requested period. Your answer should include:
+- 3–5 key strategic initiatives, partnerships, or product developments
+- Relevant quantitative metrics (e.g., revenue growth, adoption rates, partnership scale)
+- The main implications for the company's business, customers, and competitive position
+- A clear, readable structure with well-developed paragraphs
+- Competitive analysis and market positioning when relevant
+Do NOT list every quarter unless specifically asked. Focus on the main themes, strategies, and outcomes for the period in question. Aim for 400–500 words unless the user requests brevity.
+`}
 
 Query Focus:
 - Analysis Type: ${intent.analysis_type}
@@ -438,18 +486,11 @@ Query Focus:
 
 Response Structure:
 1. Direct answer to the question (1-2 sentences)
-2. Key supporting data points with citations (5-8 bullet points for comprehensive coverage)
-   - Present information in CHRONOLOGICAL ORDER (earliest to latest)
-   - Include data from multiple quarters and years for complete coverage
-   - Group related data points by time period
-   - Maintain logical flow from past to present
-   - Ensure coverage spans multiple years and quarters
-3. Brief trend analysis or implication
+2. Key supporting data points with citations (as needed)
+3. Brief trend analysis or implication (if relevant)
 4. Citations section at the end listing all sources used
 
 Citation Format: When referencing data, use [Source: Company FY20XX QX] format. Include multiple citations when available to provide comprehensive coverage.
-
-IMPORTANT: Always present historical information in chronological order, starting with the earliest events and progressing to the most recent. Ensure coverage includes multiple quarters and years, not just Q1 data.
 `;
 
     // Format data with proper metadata for citations
@@ -483,15 +524,7 @@ ${formattedData
   .map((d) => `[${d.index}] [Source: ${d.source}] ${d.text}...`)
   .join('\n\n')}
 
-IMPORTANT: When referencing any data or information, you MUST cite the source using the format [Source: Company FY20XX QX]. Include a "Citations:" section at the end listing all sources used.
-
-CRITICAL: Present all historical information in CHRONOLOGICAL ORDER (earliest to latest). Do not jump between time periods randomly. Group related data points by time period and maintain a logical flow from past to present.
-
-IMPORTANT: Provide comprehensive coverage by including data from multiple quarters and years, not just Q1 data. Ensure the analysis spans multiple time periods to show complete trends.
-
-CRITICAL: Fill any data gaps by including data from all available years (2020, 2021, 2022, 2023, 2024) to show a complete chronological progression. Do not skip years or create gaps in the timeline.
-
-Provide a direct, focused answer to the user's specific question. Avoid generic statements and focus on specific insights and trends. Always cite your sources and maintain chronological order with comprehensive quarter and year coverage.
+Provide a direct, focused answer to the user's specific question. Avoid generic statements and focus on specific insights and trends. Always cite your sources.
 `;
 
     const stream = await this.openai.chat.completions.create({
@@ -549,7 +582,7 @@ export async function POST(req) {
         try {
           // Add timeout to prevent very long responses
           const timeoutPromise = new Promise((_, reject) => {
-            setTimeout(() => reject(new Error('Request timeout')), 20000); // 20 second timeout
+            setTimeout(() => reject(new Error('Request timeout')), 60000); // 60 second timeout
           });
 
           const processPromise = (async () => {
