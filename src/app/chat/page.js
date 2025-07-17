@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function ChatPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-black to-gray-900 relative">
+    <main className="min-h-screen bg-gradient-to-b from-black to-gray-900 relative overflow-y-auto">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0">

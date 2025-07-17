@@ -111,13 +111,10 @@ export default function QueryInput({ value, onChange, onSubmit, disabled }) {
             {activeDropdown === action.text && (
               <div className="absolute z-50 w-80 mt-2 bg-gray-900/95 backdrop-blur-sm border border-gray-700 rounded-xl shadow-xl overflow-hidden">
                 <div className="p-4">
-                  <h3 className="text-sm font-bold text-blue-400 mb-1 flex items-center gap-2">
+                  <h3 className="text-sm font-bold text-blue-400 mb-3 flex items-center gap-2">
                     {action.icon}
                     {action.text} Example Queries
                   </h3>
-                  <p className="text-xs text-gray-400 mb-3">
-                    Here are some example questions you can ask about {action.text.toLowerCase()}. Select one to get started, or use them as inspiration for your own query.
-                  </p>
                   <div className="space-y-2">
                     {action.examples.map((example, i) => (
                       <button
@@ -211,14 +208,6 @@ export default function QueryInput({ value, onChange, onSubmit, disabled }) {
           </div>
         </div>
       )}
-
-      {/* Pro Tip */}
-      <div className="mt-4 text-sm text-gray-400 px-2 flex items-center gap-2">
-        <Sparkles className="w-4 h-4 text-blue-400" />
-        <span>
-          <span className="font-medium text-blue-400">Pro tip:</span> Be specific! Include company names, timeframes, or metrics for better analysis.
-        </span>
-      </div>
     </div>
   );
 }

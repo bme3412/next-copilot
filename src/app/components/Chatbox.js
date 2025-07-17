@@ -18,6 +18,7 @@ export default function Chatbox() {
   const [isFirstQuery, setIsFirstQuery] = useState(true);
   const [analysisStage, setAnalysisStage] = useState('searching');
   const [showHelp, setShowHelp] = useState(false);
+  const [generatingTableFor, setGeneratingTableFor] = useState(null);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -27,6 +28,16 @@ export default function Chatbox() {
   useEffect(() => {
     scrollToBottom();
   }, [conversationHistory]);
+
+  // Additional scroll effect when new responses are added
+  useEffect(() => {
+    if (conversationHistory.length > 0) {
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        scrollToBottom();
+      }, 100);
+    }
+  }, [conversationHistory.length]);
 
   const handleStartAnalysis = (initialQuery = '') => {
     // setShowWelcomeGuide(false); // REMOVE: This line is no longer needed
@@ -124,16 +135,33 @@ export default function Chatbox() {
                       : item
                   )
                 );
-              } else if (data.type === 'error') {
-                throw new Error(data.error);
-              } else if (data.type === 'end') {
-                // Mark streaming as complete
+              } else if (data.type === 'followup_questions') {
+                // Store follow-up questions in the response
                 setConversationHistory((prevHistory) =>
                   prevHistory.map((item) =>
                     item.id === responseId
                       ? {
                           ...item,
-                          content: { analysis, metadata },
+                          content: { analysis, metadata, followUpQuestions: data.questions },
+                          isStreaming: true,
+                        }
+                      : item
+                  )
+                );
+              } else if (data.type === 'error') {
+                throw new Error(data.error);
+              } else if (data.type === 'end') {
+                // Mark streaming as complete, but preserve followUpQuestions
+                setConversationHistory((prevHistory) =>
+                  prevHistory.map((item) =>
+                    item.id === responseId
+                      ? {
+                          ...item,
+                          content: { 
+                            analysis, 
+                            metadata,
+                            followUpQuestions: item.content.followUpQuestions || []
+                          },
                           isStreaming: false,
                         }
                       : item
@@ -165,6 +193,69 @@ export default function Chatbox() {
     if (error) setError(null);
   };
 
+  const handleFollowUpQuestion = (question) => {
+    // Set the question in the input field for visual feedback
+    setQuery(question);
+    
+    // Clear any existing errors
+    if (error) setError(null);
+    
+    // Auto-submit the follow-up question with a small delay for better UX
+    setTimeout(() => {
+      handleSubmit({ preventDefault: () => {} }, question);
+    }, 200);
+  };
+
+  const handleGenerateFinancialTable = async (responseId) => {
+    setGeneratingTableFor(responseId);
+    
+    try {
+      // Find the original query for this response
+      const responseIndex = conversationHistory.findIndex(item => item.id === responseId);
+      const originalQuery = responseIndex > 0 ? conversationHistory[responseIndex - 1].content : '';
+      
+      const response = await fetch('/api/chat/financial-table', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          responseId: responseId,
+          query: originalQuery,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate financial table');
+      }
+
+      const data = await response.json();
+      
+      // Update the conversation history with the financial table
+      setConversationHistory((prevHistory) =>
+        prevHistory.map((item) =>
+          item.id === responseId
+            ? {
+                ...item,
+                content: {
+                  ...item.content,
+                  metadata: {
+                    ...item.content.metadata,
+                    financialTable: data.financialTable
+                  }
+                }
+              }
+            : item
+        )
+      );
+    } catch (err) {
+      console.error('Error generating financial table:', err);
+      setError('Failed to generate financial table. Please try again.');
+    } finally {
+      setGeneratingTableFor(null);
+    }
+  };
+
   const clearConversation = () => {
     setConversationHistory([]);
     setIsFirstQuery(true);
@@ -192,8 +283,8 @@ export default function Chatbox() {
         </p>
       </div>
 
-      {/* Input Section - Sticky */}
-      <div className="sticky top-0 z-20 bg-gradient-to-b from-gray-900 to-gray-900/95 pt-4 pb-6 -mx-6 px-6">
+      {/* Input Section - Fixed positioning instead of sticky */}
+      <div className="bg-gradient-to-b from-gray-900 via-gray-900 to-gray-900/80 pt-4 pb-6 -mx-6 px-6 backdrop-blur-sm border-b border-gray-800">
         <QueryInput
           value={query}
           onChange={handleQueryChange}
@@ -202,109 +293,118 @@ export default function Chatbox() {
         />
       </div>
 
-      {/* Error Display */}
-      {error && (
-        <div className="mt-6 p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-xl backdrop-blur-sm animate-fadeIn">
-          <div className="flex items-center gap-2">
-            <AlertCircle className="w-5 h-5" />
-            {error}
+      {/* Main Content Area */}
+      <div className="pt-4">
+        {/* Error Display */}
+        {error && (
+          <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-xl backdrop-blur-sm animate-fadeIn">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-5 h-5" />
+              {error}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Loading State with Progress */}
-      {loading && (
-        <div className="mt-6 animate-fadeIn">
-          <AnalysisProgress stage={analysisStage} error={error} />
-        </div>
-      )}
-
-      {/* Welcome State */}
-      {isFirstQuery && conversationHistory.length === 0 && !loading && (
-        <div className="mt-12 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600/20 rounded-full mb-4">
-            <Sparkles className="w-8 h-8 text-blue-400" />
+        {/* Loading State with Progress */}
+        {loading && (
+          <div className="mb-6 animate-fadeIn">
+            <AnalysisProgress stage={analysisStage} error={error} />
           </div>
-          <h2 className="text-xl font-semibold text-white mb-2">
-            Ready to analyze
-          </h2>
-          <p className="text-gray-400 max-w-md mx-auto">
-            Start by asking about any tech company's performance, strategies, or market position. 
-            Try the quick actions above for guided examples.
-          </p>
-        </div>
-      )}
+        )}
 
-      {/* Conversation History */}
-      {conversationHistory.length > 0 && (
-        <div className="mt-8 space-y-6">
-          {/* Clear Conversation Button */}
-          <div className="flex justify-end">
-            <button
-              onClick={clearConversation}
-              className="text-sm text-gray-500 hover:text-gray-400 transition-colors"
-            >
-              Clear conversation
-            </button>
+        {/* Welcome State */}
+        {isFirstQuery && conversationHistory.length === 0 && !loading && (
+          <div className="mt-12 text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600/20 rounded-full mb-4">
+              <Sparkles className="w-8 h-8 text-blue-400" />
+            </div>
+            <h2 className="text-xl font-semibold text-white mb-2">
+              Ready to analyze
+            </h2>
+            <p className="text-gray-400 max-w-md mx-auto">
+              Start by asking about any tech company's performance, strategies, or market position. 
+              Try the quick actions above for guided examples.
+            </p>
           </div>
+        )}
 
-          {/* Messages */}
-          {conversationHistory.map((item) => (
-            <div
-              key={item.id}
-              className={`flex gap-4 ${
-                item.type === 'query' ? 'justify-end' : 'justify-start'
-              }`}
-            >
-              {/* Avatar */}
-              <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-                item.type === 'query' 
-                  ? 'bg-blue-600 text-white' 
-                  : 'bg-gray-700 text-gray-300'
-              }`}>
-                {item.type === 'query' ? (
-                  <User className="w-4 h-4" />
-                ) : (
-                  <Bot className="w-4 h-4" />
-                )}
-              </div>
+        {/* Conversation History */}
+        {conversationHistory.length > 0 && (
+          <div className="space-y-6 min-h-0 conversation-container">
+            {/* Clear Conversation Button */}
+            <div className="flex justify-end">
+              <button
+                onClick={clearConversation}
+                className="text-sm text-gray-500 hover:text-gray-400 transition-colors"
+              >
+                Clear conversation
+              </button>
+            </div>
 
-              {/* Message Content */}
-              <div className={`max-w-3xl ${
-                item.type === 'query' ? 'order-first' : 'order-last'
-              }`}>
-                <div className={`p-4 rounded-xl ${
-                  item.type === 'query'
-                    ? 'bg-blue-500/10 border border-blue-500/20'
-                    : 'bg-gray-800/50 border border-gray-700'
+            {/* Messages */}
+            {conversationHistory.map((item) => (
+              <div
+                key={item.id}
+                className={`flex gap-4 ${
+                  item.type === 'query' ? 'justify-end' : 'justify-start'
+                }`}
+              >
+                {/* Avatar */}
+                <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+                  item.type === 'query' 
+                    ? 'bg-blue-600 text-white' 
+                    : 'bg-gray-700 text-gray-300'
                 }`}>
-                  <div className="text-sm text-gray-400 mb-2 flex items-center gap-2">
-                    {item.type === 'query' ? 'Your Question' : 'Analysis'}
-                    {item.isStreaming && (
-                      <div className="flex items-center gap-1 text-blue-400">
-                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                        <span className="text-xs">Streaming...</span>
-                      </div>
-                    )}
-                  </div>
-                  <div className={
-                    item.type === 'query' ? 'text-blue-400' : 'text-white'
-                  }>
-                    {item.type === 'query' ? (
-                      item.content
-                    ) : (
-                      <AnalysisDisplay analysis={item.content} isStreaming={item.isStreaming} />
-                    )}
+                  {item.type === 'query' ? (
+                    <User className="w-4 h-4" />
+                  ) : (
+                    <Bot className="w-4 h-4" />
+                  )}
+                </div>
+
+                {/* Message Content */}
+                <div className={`max-w-3xl ${
+                  item.type === 'query' ? 'order-first' : 'order-last'
+                }`}>
+                  <div className={`p-4 rounded-xl ${
+                    item.type === 'query'
+                      ? 'bg-blue-500/10 border border-blue-500/20'
+                      : 'bg-gray-800/50 border border-gray-700'
+                  }`}>
+                    <div className="text-sm text-gray-400 mb-2 flex items-center gap-2">
+                      {item.type === 'query' ? 'Your Question' : 'Analysis'}
+                      {item.isStreaming && (
+                        <div className="flex items-center gap-1 text-blue-400">
+                          <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                          <span className="text-xs">Streaming...</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className={
+                      item.type === 'query' ? 'text-blue-400' : 'text-white'
+                    }>
+                      {item.type === 'query' ? (
+                        item.content
+                      ) : (
+                        <AnalysisDisplay 
+                          analysis={item.content} 
+                          isStreaming={item.isStreaming} 
+                          onQuestionClick={handleFollowUpQuestion}
+                          onGenerateFinancialTable={() => handleGenerateFinancialTable(item.id)}
+                          isGeneratingTable={generatingTableFor === item.id}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
 
-      {/* Scroll to bottom indicator */}
-      <div ref={messagesEndRef} />
+        {/* Scroll to bottom indicator */}
+        <div ref={messagesEndRef} />
+      </div>
 
       {/* Help Modal */}
       <HelpTips isVisible={showHelp} onClose={() => setShowHelp(false)} />
@@ -322,6 +422,16 @@ export default function Chatbox() {
         }
         .animate-fadeIn {
           animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        /* Ensure proper scrolling behavior */
+        html, body {
+          scroll-behavior: smooth;
+        }
+        
+        /* Ensure content is not hidden behind fixed elements */
+        .conversation-container {
+          padding-bottom: 2rem;
         }
       `}</style>
     </div>

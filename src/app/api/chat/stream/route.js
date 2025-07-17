@@ -157,7 +157,7 @@ If your output is not valid JSON, it will break the system.
     // Build query parameters
     const queryParams = {
       vector,
-      topK: isComparisonQuery ? 25 : 20, // Increased for more comprehensive results
+      topK: isComparisonQuery ? 15 : 12, // Reduced for faster processing
       includeMetadata: true
     };
     
@@ -217,89 +217,35 @@ If your output is not valid JSON, it will break the system.
   postProcessResults(matches, originalQuery) {
     if (!matches || matches.length === 0) return [];
 
-    const queryTerms = originalQuery.toLowerCase().split(' ');
-    const relevantTerms = ['cash', 'flow', 'revenue', 'profit', 'earnings', 'financial', 'performance', 'trend'];
+    const queryLower = originalQuery.toLowerCase();
+    const queryTerms = queryLower.split(' ');
     
-    // Enhanced scoring based on query type
-    const isCashFlowQuery = originalQuery.toLowerCase().includes('cash flow');
-    const isFinancialPerformanceQuery = originalQuery.toLowerCase().includes('financial performance');
-    const isCompetitiveQuery = originalQuery.toLowerCase().includes('competitive') || originalQuery.toLowerCase().includes('position');
-    
+    // Simplified scoring for better performance
     const scoredMatches = matches.map(match => {
       let relevanceScore = match.score;
       const text = (match.metadata?.text || '').toLowerCase();
       
-      // Boost score for exact term matches
-      for (const term of queryTerms) {
-        if (text.includes(term) && relevantTerms.some(rt => rt.includes(term))) {
-          relevanceScore += 0.15;
-        }
-      }
-      
-      // Special boost for cash flow specific content
-      if (isCashFlowQuery) {
-        const cashFlowTerms = ['operating cash flow', 'free cash flow', 'cash generation', 'cash from operations', 'cash flow'];
-        for (const term of cashFlowTerms) {
-          if (text.includes(term)) {
-            relevanceScore += 0.4;
-          }
-        }
-      }
-      
-      // Special boost for financial performance queries
-      if (isFinancialPerformanceQuery) {
-        const performanceTerms = ['revenue', 'profit', 'margin', 'growth', 'earnings', 'income'];
-        for (const term of performanceTerms) {
-          if (text.includes(term)) {
-            relevanceScore += 0.3;
-          }
-        }
-      }
-      
-      // Special boost for competitive positioning queries
-      if (isCompetitiveQuery) {
-        const competitiveTerms = ['market', 'competitive', 'position', 'share', 'advantage', 'leadership'];
-        for (const term of competitiveTerms) {
-          if (text.includes(term)) {
-            relevanceScore += 0.3;
-          }
-        }
-      }
-      
-      // Penalize irrelevant content more aggressively
-      const irrelevantTerms = ['applecare', 'app store', 'apple pay', 'iphone_and_services', 'future_guidance'];
-      for (const term of irrelevantTerms) {
-        if (text.includes(term) && !originalQuery.toLowerCase().includes(term)) {
-          relevanceScore -= 0.5;
-        }
-      }
-      
-      // Boost CFO commentary and earnings call content for financial queries
-      if (text.includes('cfo') || text.includes('chief financial officer') || text.includes('earnings')) {
-        relevanceScore += 0.25;
-      }
-      
-      // Boost recent data (2024, 2023) for better relevance
-      if (text.includes('2024') || text.includes('FY2024')) {
-        relevanceScore += 0.4;
-      } else if (text.includes('2023') || text.includes('FY2023')) {
+      // Quick boosts for common query types
+      if (queryLower.includes('cash flow') && text.includes('cash flow')) {
         relevanceScore += 0.3;
-      } else if (text.includes('2022') || text.includes('FY2022')) {
-        relevanceScore += 0.25;
-      } else if (text.includes('2021') || text.includes('FY2021')) {
+      }
+      if (queryLower.includes('revenue') && text.includes('revenue')) {
+        relevanceScore += 0.3;
+      }
+      if (queryLower.includes('earnings') && text.includes('earnings')) {
+        relevanceScore += 0.3;
+      }
+      
+      // Boost recent data
+      if (text.includes('2024') || text.includes('FY2024')) {
         relevanceScore += 0.2;
-      } else if (text.includes('2020') || text.includes('FY2020')) {
+      } else if (text.includes('2023') || text.includes('FY2023')) {
         relevanceScore += 0.15;
       }
       
-      // Boost data from different quarters for better coverage
-      if (text.includes('Q1') || text.includes('Q2') || text.includes('Q3') || text.includes('Q4')) {
+      // Boost CFO commentary
+      if (text.includes('cfo') || text.includes('earnings')) {
         relevanceScore += 0.15;
-      }
-      
-      // Penalize very short or generic content
-      if (text.length < 50) {
-        relevanceScore -= 0.2;
       }
       
       return {
@@ -308,10 +254,10 @@ If your output is not valid JSON, it will break the system.
       };
     });
 
-    // Sort by enhanced relevance score and take top results
+    // Sort and take top results
     return scoredMatches
       .sort((a, b) => b.score - a.score)
-      .slice(0, 15); // Increased to top 15 for more comprehensive citations
+      .slice(0, 10); // Reduced to top 10 for faster processing
   }
 
   buildFilters(intent, ticker) {
@@ -377,9 +323,9 @@ If your output is not valid JSON, it will break the system.
       const queryLower = query.toLowerCase();
       const charts = [];
 
-      // Revenue trend chart
+      // Only generate charts for specific financial queries to reduce processing time
       if (queryLower.includes('revenue') || queryLower.includes('growth') || queryLower.includes('performance')) {
-        const revenueData = await this.financialProcessor.getTimeSeriesData(ticker, ['revenue', 'netIncome'], 8);
+        const revenueData = await this.financialProcessor.getTimeSeriesData(ticker, ['revenue', 'netIncome'], 6);
         if (revenueData.labels.length > 0) {
           charts.push({
             type: 'revenue',
@@ -389,55 +335,14 @@ If your output is not valid JSON, it will break the system.
         }
       }
 
-      // Margin analysis chart
-      if (queryLower.includes('margin') || queryLower.includes('profitability')) {
-        const marginData = await this.financialProcessor.getTimeSeriesData(ticker, ['grossMargin', 'operatingMargin'], 8);
-        if (marginData.labels.length > 0) {
-          charts.push({
-            type: 'margins',
-            title: `${ticker} Margin Analysis`,
-            config: this.financialProcessor.generateChartConfig(marginData, 'line', `${ticker} Margin Trends`)
-          });
-        }
-      }
-
-      // Cash flow chart
-      if (queryLower.includes('cash') || queryLower.includes('flow')) {
-        const cashFlowData = await this.financialProcessor.getTimeSeriesData(ticker, ['operatingCashFlow', 'freeCashFlow'], 8);
+      // Cash flow chart - only if specifically requested
+      if (queryLower.includes('cash flow') || queryLower.includes('cashflow')) {
+        const cashFlowData = await this.financialProcessor.getTimeSeriesData(ticker, ['operatingCashFlow', 'freeCashFlow'], 6);
         if (cashFlowData.labels.length > 0) {
           charts.push({
             type: 'cashFlow',
             title: `${ticker} Cash Flow Analysis`,
             config: this.financialProcessor.generateChartConfig(cashFlowData, 'line', `${ticker} Cash Flow Trends`)
-          });
-        }
-      }
-
-      // Segment breakdown (pie chart) for most recent quarter
-      if (queryLower.includes('segment') || queryLower.includes('business') || queryLower.includes('breakdown')) {
-        const latestData = await this.financialProcessor.getSegmentData(ticker, '2024', '1');
-        if (latestData) {
-          charts.push({
-            type: 'segments',
-            title: `${ticker} Revenue by Segment`,
-            config: {
-              type: 'pie',
-              data: latestData,
-              options: {
-                responsive: true,
-                plugins: {
-                  title: {
-                    display: true,
-                    text: `${ticker} Revenue Breakdown`,
-                    font: { size: 16, weight: 'bold' }
-                  },
-                  legend: {
-                    display: true,
-                    position: 'right'
-                  }
-                }
-              }
-            }
           });
         }
       }
@@ -486,11 +391,12 @@ Query Focus:
 
 Response Structure:
 1. Direct answer to the question (1-2 sentences)
-2. Key supporting data points with citations (as needed)
+2. Key supporting data points (as needed)
 3. Brief trend analysis or implication (if relevant)
-4. Citations section at the end listing all sources used
 
-Citation Format: When referencing data, use [Source: Company FY20XX QX] format. Include multiple citations when available to provide comprehensive coverage.
+IMPORTANT: Do NOT include any citation references in the main text. Do NOT use [Source: Company FY20XX QX] format in the response body. The citations will be handled separately.
+
+IMPORTANT: Do NOT include any follow-up questions, suggestions for additional queries, or "you might also ask" sections in your response. Focus only on providing a direct, comprehensive answer to the user's specific question.
 `;
 
     // Format data with proper metadata for citations
@@ -519,12 +425,12 @@ Timeframe: ${intent.timeframe}
 
 Focus specifically on what the user is asking for. If they ask about cash flow trends, focus on cash flow metrics and trends. If they ask about financial performance, focus on key performance indicators. If they ask about competitive positioning, focus on market position and competitive advantages.
 
-Available data with citations:
+Available data:
 ${formattedData
-  .map((d) => `[${d.index}] [Source: ${d.source}] ${d.text}...`)
+  .map((d) => `[${d.index}] ${d.text}...`)
   .join('\n\n')}
 
-Provide a direct, focused answer to the user's specific question. Avoid generic statements and focus on specific insights and trends. Always cite your sources.
+Provide a direct, focused answer to the user's specific question. Avoid generic statements and focus on specific insights and trends. Do NOT include any citation references in your response.
 `;
 
     const stream = await this.openai.chat.completions.create({
@@ -534,11 +440,181 @@ Provide a direct, focused answer to the user's specific question. Avoid generic 
         { role: 'user', content: userPrompt },
       ],
       temperature: 0.7,
-      max_tokens: 1000, // Reduced for faster response
+      max_tokens: 800, // Further reduced for faster response
       stream: true,
     });
 
     return stream;
+  }
+
+  extractFollowUpQuestions(fullResponse, query, intent, ticker) {
+    // Generate contextually relevant questions based on the actual response content
+    return this.generateContextualFollowUpQuestions(fullResponse, query, intent, ticker);
+  }
+
+  generateContextualFollowUpQuestions(fullResponse, query, intent, ticker) {
+    const companyName = this.getCompanyDisplayName(ticker);
+    const questions = [];
+    
+    // Extract key themes and topics from the response
+    const responseLower = fullResponse.toLowerCase();
+    const queryLower = query.toLowerCase();
+    
+    // Detect specific themes mentioned in the response
+    const hasCloudMention = /cloud|aws|azure|google cloud/i.test(responseLower);
+    const hasRevenueMention = /revenue|growth|financial|earnings/i.test(responseLower);
+    const hasPartnershipMention = /partnership|alliance|collaboration|accenture|deloitte/i.test(responseLower);
+    const hasTalentMention = /talent|training|upskilling|workforce|professionals/i.test(responseLower);
+    const hasCompetitiveMention = /competitive|microsoft|amazon|aws|azure|rival/i.test(responseLower);
+    const hasProductMention = /product|workspace|generative ai|ai features/i.test(responseLower);
+    const hasInvestmentMention = /investment|r&d|research|development|expense/i.test(responseLower);
+    const hasMarginMention = /margin|profitability|operating income|cost optimization/i.test(responseLower);
+    const hasQuarterlyMention = /quarterly|q1|q2|q3|q4|quarter/i.test(responseLower);
+    
+    // Generate questions based on the actual company and themes in the response
+    if (hasMarginMention && hasQuarterlyMention) {
+      questions.push(
+        `How has ${companyName}'s margin expansion strategy evolved over the past few quarters?`,
+        `What specific cost optimization initiatives has ${companyName} implemented to improve profitability?`,
+        `How does ${companyName}'s operating income growth compare to its competitors?`
+      );
+    } else if (hasCloudMention && hasRevenueMention) {
+      questions.push(
+        `How has ${companyName}'s cloud business performance impacted overall revenue growth?`,
+        `What are the key drivers behind ${companyName}'s cloud service adoption?`,
+        `How does ${companyName} compare to competitors in the cloud market?`
+      );
+    } else if (hasRevenueMention && hasQuarterlyMention) {
+      questions.push(
+        `What are the main factors driving ${companyName}'s quarterly revenue performance?`,
+        `How has ${companyName}'s revenue growth trended across different business segments?`,
+        `What challenges is ${companyName} facing in maintaining revenue growth?`
+      );
+    } else if (hasCompetitiveMention) {
+      questions.push(
+        `What is ${companyName}'s competitive position in its main markets?`,
+        `How is ${companyName} responding to competitive pressures?`,
+        `What strategic advantages does ${companyName} have over its rivals?`
+      );
+    } else if (hasInvestmentMention) {
+      questions.push(
+        `What are ${companyName}'s key investment priorities for the coming year?`,
+        `How is ${companyName} balancing investment in growth with profitability?`,
+        `What ROI has ${companyName} seen from its recent investments?`
+      );
+    } else {
+      // Fallback to general questions about the specific company
+      questions.push(
+        `What are ${companyName}'s main growth opportunities in the current market?`,
+        `How is ${companyName} adapting to changing market conditions?`,
+        `What are the biggest challenges ${companyName} faces in the next 12 months?`
+      );
+    }
+    
+    // Ensure we have exactly 3 questions
+    return questions.slice(0, 3);
+  }
+
+  generateDefaultFollowUpQuestions(query, intent, ticker) {
+    const companyName = this.getCompanyDisplayName(ticker);
+    const questions = [];
+    
+    // Extract key terms from the query for more contextual questions
+    const queryLower = query.toLowerCase();
+    const isAIQuery = /ai|artificial intelligence|machine learning|ml|generative/i.test(queryLower);
+    const isFinancialQuery = /revenue|profit|earnings|financial|performance|growth|margin|cash/i.test(queryLower);
+    const isStrategyQuery = /strategy|strategic|initiative|plan|approach/i.test(queryLower);
+    const isCompetitiveQuery = /competitive|competition|market share|positioning/i.test(queryLower);
+    const isProductQuery = /product|service|feature|development|launch/i.test(queryLower);
+    
+    // Generate contextually relevant questions
+    if (isAIQuery) {
+      questions.push(
+        `What specific AI technologies is ${companyName} developing that differentiate it from competitors?`,
+        `How is ${companyName} measuring the success and adoption of its AI initiatives?`,
+        `What challenges is ${companyName} facing in scaling its AI capabilities across different markets?`
+      );
+    } else if (isFinancialQuery) {
+      questions.push(
+        `What are the key factors driving ${companyName}'s recent financial performance trends?`,
+        `How is ${companyName} managing costs while investing in growth initiatives?`,
+        `What new revenue opportunities is ${companyName} exploring in its core markets?`
+      );
+    } else if (isStrategyQuery) {
+      questions.push(
+        `What are the biggest strategic risks and opportunities ${companyName} faces in the next 12 months?`,
+        `How is ${companyName} balancing innovation with maintaining its core business strengths?`,
+        `What strategic partnerships or acquisitions could accelerate ${companyName}'s growth plans?`
+      );
+    } else if (isCompetitiveQuery) {
+      questions.push(
+        `What specific competitive advantages does ${companyName} have in its key markets?`,
+        `How is ${companyName} responding to competitive threats from emerging players?`,
+        `What market expansion opportunities is ${companyName} pursuing to strengthen its position?`
+      );
+    } else if (isProductQuery) {
+      questions.push(
+        `What customer needs is ${companyName} addressing with its latest product developments?`,
+        `How is ${companyName} balancing product innovation with maintaining existing customer relationships?`,
+        `What feedback mechanisms does ${companyName} use to guide its product development priorities?`
+      );
+    } else {
+      // Default questions based on analysis type
+      switch (intent.analysis_type) {
+        case 'financial':
+          questions.push(
+            `How has ${companyName}'s revenue growth trended over the past few quarters?`,
+            `What are ${companyName}'s main profit drivers and margin trends?`,
+            `How does ${companyName} compare to competitors in terms of financial performance?`
+          );
+          break;
+        case 'technology':
+          questions.push(
+            `What are ${companyName}'s key technology investments and partnerships?`,
+            `How is ${companyName} positioning itself in the AI market?`,
+            `What new products or services is ${companyName} developing?`
+          );
+          break;
+        case 'market':
+          questions.push(
+            `What is ${companyName}'s competitive position in its main markets?`,
+            `How has ${companyName}'s market share changed recently?`,
+            `What are the main challenges and opportunities for ${companyName}?`
+          );
+          break;
+        case 'strategic':
+          questions.push(
+            `What are ${companyName}'s main strategic initiatives for the coming year?`,
+            `How is ${companyName} adapting to market changes and competition?`,
+            `What partnerships or acquisitions has ${companyName} pursued recently?`
+          );
+          break;
+        default:
+          questions.push(
+            `What are the most significant operational challenges ${companyName} is addressing this year?`,
+            `How is ${companyName} adapting its business model to changing market conditions?`,
+            `What new market opportunities is ${companyName} exploring beyond its core business?`
+          );
+      }
+    }
+    
+    return questions.slice(0, 3);
+  }
+
+  getCompanyDisplayName(ticker) {
+    const companyMap = {
+      'AAPL': 'Apple',
+      'MSFT': 'Microsoft', 
+      'GOOGL': 'Google',
+      'AMZN': 'Amazon',
+      'META': 'Meta',
+      'NVDA': 'Nvidia',
+      'AVGO': 'Broadcom',
+      'CRM': 'Salesforce',
+      'ORCL': 'Oracle',
+      'AMD': 'AMD'
+    };
+    return companyMap[ticker] || ticker;
   }
 }
 
@@ -582,7 +658,7 @@ export async function POST(req) {
         try {
           // Add timeout to prevent very long responses
           const timeoutPromise = new Promise((_, reject) => {
-            setTimeout(() => reject(new Error('Request timeout')), 60000); // 60 second timeout
+            setTimeout(() => reject(new Error('Request timeout')), 120000); // Increased to 120 second timeout
           });
 
           const processPromise = (async () => {
@@ -601,16 +677,78 @@ export async function POST(req) {
               type: typeof intent.company_name
             });
 
-            // 3. Retrieve relevant data
-            const relevantData = await streamingPipeline.retrieveRelevantData(query, intent, ticker);
+            // 3. Retrieve relevant data and generate charts in parallel with individual timeouts
+            const dataPromise = Promise.race([
+              streamingPipeline.retrieveRelevantData(query, intent, ticker),
+              new Promise((_, reject) => setTimeout(() => reject(new Error('Data retrieval timeout')), 30000))
+            ]);
+            
+            const chartsPromise = Promise.race([
+              streamingPipeline.generateFinancialCharts(query, ticker),
+              new Promise((_, reject) => setTimeout(() => reject(new Error('Chart generation timeout')), 20000))
+            ]);
+            
+            let relevantData, charts;
+            try {
+              [relevantData, charts] = await Promise.all([dataPromise, chartsPromise]);
+            } catch (error) {
+              console.error('Error in data retrieval or chart generation:', error);
+              if (error.message.includes('timeout')) {
+                controller.enqueue(
+                  new TextEncoder().encode(
+                    `data: ${JSON.stringify({
+                      type: 'error',
+                      error: 'The request took too long to process. Please try a more specific query or ask about a different time period.'
+                    })}\n\n`
+                  )
+                );
+                return;
+              }
+              // Fallback to empty arrays if other errors occur
+              relevantData = [];
+              charts = [];
+            }
+            
             console.log('Relevant data matches:', relevantData.length);
-
-            // 4. Generate financial charts
-            const charts = await streamingPipeline.generateFinancialCharts(query, ticker);
             console.log('Generated charts:', charts.length);
 
-            // 5. Stream the analysis
-            const analysisStream = await streamingPipeline.streamAnalysis(query, relevantData, intent, ticker);
+            // Early return if no relevant data found
+            if (relevantData.length === 0) {
+              controller.enqueue(
+                new TextEncoder().encode(
+                  `data: ${JSON.stringify({
+                    type: 'error',
+                    error: 'No relevant data found for your query. Please try rephrasing or asking about a different time period.'
+                  })}\n\n`
+                )
+              );
+              return;
+            }
+
+            // 4. Stream the analysis with timeout
+            const analysisPromise = Promise.race([
+              streamingPipeline.streamAnalysis(query, relevantData, intent, ticker),
+              new Promise((_, reject) => setTimeout(() => reject(new Error('Analysis timeout')), 45000))
+            ]);
+            
+            let analysisStream;
+            try {
+              analysisStream = await analysisPromise;
+            } catch (error) {
+              console.error('Error in analysis streaming:', error);
+              if (error.message.includes('timeout')) {
+                controller.enqueue(
+                  new TextEncoder().encode(
+                    `data: ${JSON.stringify({
+                      type: 'error',
+                      error: 'The analysis took too long to generate. Please try a more specific query.'
+                    })}\n\n`
+                  )
+                );
+                return;
+              }
+              throw error; // Re-throw other errors
+            }
 
             // Send initial metadata with citation info
             const citationSources = relevantData.map((d, index) => {
@@ -647,9 +785,11 @@ export async function POST(req) {
             );
 
             // Stream the analysis content
+            let fullResponse = '';
             for await (const chunk of analysisStream) {
               const content = chunk.choices[0]?.delta?.content;
               if (content) {
+                fullResponse += content;
                 controller.enqueue(
                   new TextEncoder().encode(
                     `data: ${JSON.stringify({ type: 'content', content })}\n\n`
@@ -657,6 +797,19 @@ export async function POST(req) {
                 );
               }
             }
+
+            // Extract follow-up questions from the full response
+            const followUpQuestions = streamingPipeline.extractFollowUpQuestions(fullResponse, query, intent, ticker);
+
+            // Send follow-up questions as metadata
+            controller.enqueue(
+              new TextEncoder().encode(
+                `data: ${JSON.stringify({
+                  type: 'followup_questions',
+                  questions: followUpQuestions
+                })}\n\n`
+              )
+            );
 
             // Send end marker
             controller.enqueue(

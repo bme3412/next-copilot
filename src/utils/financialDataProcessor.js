@@ -86,7 +86,7 @@ export class FinancialDataProcessor {
   }
 
   // Get time series data for charting
-  async getTimeSeriesData(company, metrics = ['revenue', 'netIncome'], quarters = 8) {
+  async getTimeSeriesData(company, metrics = ['revenue', 'netIncome'], quarters = 6) {
     const timeSeriesData = {
       labels: [],
       datasets: {}
@@ -105,7 +105,7 @@ export class FinancialDataProcessor {
       .filter(dir => dir.startsWith('FY_'))
       .sort()
       .reverse()
-      .slice(0, 4); // Last 4 years
+      .slice(0, 2); // Get last 2 years for 4 quarters total
 
     let dataPoints = 0;
     
@@ -116,7 +116,8 @@ export class FinancialDataProcessor {
       const quarters = fs.readdirSync(fyPath)
         .filter(dir => dir.startsWith('Q'))
         .sort()
-        .reverse();
+        .reverse()
+        .slice(0, 4); // Get all 4 quarters per year
 
       for (const qDir of quarters) {
         if (dataPoints >= quarters) break;
