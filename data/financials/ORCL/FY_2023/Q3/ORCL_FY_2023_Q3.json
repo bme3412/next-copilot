@@ -98,7 +98,7 @@
       },
       "earnings_per_share": {
         "gaap": {
-          "basic": 0.70,
+          "basic": 0.7,
           "diluted": 0.68
         },
         "non_gaap": {
@@ -111,6 +111,11 @@
           "non_gaap": 2776
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 4275,
+      "capital_expenditures": -2628,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -458,46 +463,46 @@
       "cloud_services_and_license_support": {
         "value": 8923,
         "previous": 7637,
-        "yoy_change": 17.0,
-        "constant_currency_impact": -3.0,
-        "constant_currency_growth": 20.0
+        "yoy_change": 17,
+        "constant_currency_impact": -3,
+        "constant_currency_growth": 20
       },
       "cloud_license_and_onpremise": {
         "value": 1288,
         "previous": 1289,
-        "yoy_change": 0.0,
-        "constant_currency_impact": -4.0,
-        "constant_currency_growth": 4.0
+        "yoy_change": 0,
+        "constant_currency_impact": -4,
+        "constant_currency_growth": 4
       },
       "hardware": {
         "value": 811,
         "previous": 798,
-        "yoy_change": 2.0,
-        "constant_currency_impact": -2.0,
-        "constant_currency_growth": 4.0
+        "yoy_change": 2,
+        "constant_currency_impact": -2,
+        "constant_currency_growth": 4
       },
       "services": {
         "value": 1376,
         "previous": 789,
-        "yoy_change": 74.0,
-        "constant_currency_impact": -6.0,
-        "constant_currency_growth": 80.0
+        "yoy_change": 74,
+        "constant_currency_impact": -6,
+        "constant_currency_growth": 80
       }
     },
     "ecosystem_performance": {
       "applications_cloud_services": {
         "value": 4166,
         "previous": 3187,
-        "yoy_change": 31.0,
-        "constant_currency_impact": -2.0,
-        "constant_currency_growth": 33.0
+        "yoy_change": 31,
+        "constant_currency_impact": -2,
+        "constant_currency_growth": 33
       },
       "infrastructure_cloud_services": {
         "value": 4757,
         "previous": 4450,
-        "yoy_change": 7.0,
-        "constant_currency_impact": -3.0,
-        "constant_currency_growth": 10.0
+        "yoy_change": 7,
+        "constant_currency_impact": -3,
+        "constant_currency_growth": 10
       }
     },
     "geographic_performance": {
@@ -505,27 +510,27 @@
         "value": 7671,
         "previous": 5849,
         "yoy_change": 31.1,
-        "constant_currency_impact": -3.0,
+        "constant_currency_impact": -3,
         "constant_currency_growth": 34.1
       },
       "europe_middle_east_africa": {
         "value": 3067,
         "previous": 3014,
         "yoy_change": 1.8,
-        "constant_currency_impact": -3.0,
+        "constant_currency_impact": -3,
         "constant_currency_growth": 4.8
       },
       "asia_pacific": {
         "value": 1660,
         "previous": 1650,
         "yoy_change": 0.6,
-        "constant_currency_impact": -2.0,
+        "constant_currency_impact": -2,
         "constant_currency_growth": 2.6
       }
     },
     "key_metrics": {
       "operating_margin": {
-        "value": 26.0,
+        "value": 26,
         "description": "Operating Income as % of Revenue",
         "components": {
           "operating_income": 3260,
@@ -535,9 +540,9 @@
       "earnings_per_share": {
         "value": 0.68,
         "previous": 0.84,
-        "yoy_change": -19.0,
-        "constant_currency_impact": -5.0,
-        "constant_currency_growth": -14.0
+        "yoy_change": -19,
+        "constant_currency_impact": -5,
+        "constant_currency_growth": -14
       }
     }
   }

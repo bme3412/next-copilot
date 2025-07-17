@@ -101,7 +101,7 @@
         },
         "non_gaap": {
           "basic": 0.72,
-          "diluted": 0.70
+          "diluted": 0.7
         }
       }
     },
@@ -114,6 +114,11 @@
       "beginning_balance": 10662,
       "ending_balance": 9112,
       "billings_and_other": 3305
+    },
+    "cash_flow": {
+      "operating_cash_flow": 1859,
+      "capital_expenditures": -323,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -452,7 +457,7 @@
   "metrics": {
     "working_capital_metrics": {
       "days_sales_outstanding": {
-        "value": 57.0,
+        "value": 57,
         "description": "Average number of days to collect receivables",
         "calculation": "Accounts Receivable / (Revenue / 90 days)",
         "components": {
@@ -510,7 +515,7 @@
         }
       },
       "remaining_performance_obligation_coverage": {
-        "value": 6.0,
+        "value": 6,
         "description": "Years of revenue represented by RPO",
         "calculation": "Total RPO / Annualized Revenue",
         "components": {
@@ -545,7 +550,7 @@
         }
       },
       "recurring_revenue_percentage": {
-        "value": 94.0,
+        "value": 94,
         "description": "Subscription Revenue as % of Total Revenue",
         "components": {
           "subscription_revenue": 4575,

@@ -97,7 +97,7 @@
       "earnings_per_share": {
         "gaap": {
           "basic": 0.51,
-          "diluted": 0.50
+          "diluted": 0.5
         },
         "non_gaap": {
           "basic": 1.24,
@@ -112,6 +112,11 @@
         "europe": "17.0",
         "asia_pacific": "17.0"
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 3228,
+      "capital_expenditures": -171,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -459,7 +464,7 @@
         }
       },
       "days_payable_outstanding": {
-        "value": 199.0,
+        "value": 199,
         "description": "Average number of days to pay suppliers",
         "calculation": "Accounts Payable / (Cost of Revenue / 90 days)",
         "components": {

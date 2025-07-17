@@ -95,6 +95,11 @@
           "sequential_growth": "25.6"
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 3486,
+      "capital_expenditures": -101,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {

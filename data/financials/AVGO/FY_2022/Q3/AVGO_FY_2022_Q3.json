@@ -87,7 +87,7 @@
       },
       "earnings_per_share": {
         "basic": {
-          "value": 7.40,
+          "value": 7.4,
           "sequential_growth": "20.1"
         },
         "diluted": {
@@ -95,6 +95,11 @@
           "sequential_growth": "20.6"
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 4424,
+      "capital_expenditures": -116,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {

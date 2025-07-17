@@ -11,16 +11,24 @@ const QUICK_ACTIONS = [
       "Can you show Nvidia's cash flow trends for the past four quarters?",
       "What are Amazon's quarterly earnings highlights for 2023?",
       "How does Google's revenue breakdown by business segment?",
-      "What trends are visible in Meta's advertising revenue?"
+      "What trends are visible in Meta's advertising revenue?",
+      "How has Salesforce's subscription revenue growth trajectory?",
+      "What's Oracle's cloud revenue performance in recent quarters?",
+      "What's AMD's market share gains in the server CPU space?",
+      "How is Broadcom's semiconductor business performing?"
     ]
   },
   {
     icon: <Cpu className="w-4 h-4" />,
     text: "AI & Technology",
     examples: [
-      "What is Google's overall AI strategy in 2024?",
       "How is Microsoft partnering with OpenAI, and what are the results?",
       "What are Nvidia's most important AI initiatives this year?",
+      "How is AMD competing with Nvidia in AI chips?",
+      "How is Salesforce leveraging AI in its CRM platform?",
+      "What's Oracle's approach to AI in enterprise software?",
+      "What AI capabilities is Broadcom developing?",
+      "What is Google's overall AI strategy in 2024?",
       "How is Apple integrating AI into its products?",
       "What AI investments has Amazon made recently?",
       "What are Meta's main areas of AI research and development?"
@@ -30,22 +38,35 @@ const QUICK_ACTIONS = [
     icon: <TrendingUp className="w-4 h-4" />,
     text: "Market Analysis",
     examples: [
-      "What is Amazon's current market position in cloud computing?",
-      "How does Apple compare to Samsung in the smartphone market?",
+      "Compare the AI chip strategies of Nvidia, AMD, and Intel",
+      "How do cloud providers (AWS, Azure, GCP) differentiate themselves?",
+      "What's the impact of AI on enterprise software companies?",
+      "How are semiconductor companies adapting to AI demand?",
+      "What are the key trends in enterprise software consolidation?",
       "Can you analyze the cloud market share for major tech companies?",
       "How do Google and Microsoft compete in the cloud space?",
-      "Is Nvidia dominating the AI chip market?",
-      "What is Meta's competitive position in social media?"
+      "How does Salesforce compare to Oracle in enterprise software?",
+      "What's AMD's competitive position against Intel in CPUs?",
+      "How is Broadcom positioned in the networking chip market?"
     ]
   }
 ];
 
 const SAMPLE_QUESTIONS = [
-  "What's Apple's financial performance in Q1 2024?",
-  "How is Microsoft implementing AI across its products?",
-  "Compare Google and Microsoft's cloud strategies",
+  "Compare the AI chip strategies of Nvidia, AMD, and Intel",
+  "How do cloud providers (AWS, Azure, GCP) differentiate themselves?",
+  "What's the impact of AI on enterprise software companies?",
+  "How are semiconductor companies adapting to AI demand?",
+  "What are the key trends in enterprise software consolidation?",
+  "How is Microsoft partnering with OpenAI, and what are the results?",
+  "Can you analyze the cloud market share for major tech companies?",
+  "How does Salesforce compare to Oracle in enterprise software?",
+  "What's AMD's competitive position against Intel in CPUs?",
+  "How has Salesforce's subscription model evolved?",
+  "What's Oracle's cloud transformation progress?",
+  "What's Broadcom's strategy in the semiconductor consolidation?",
   "What are Nvidia's main growth drivers?",
-  "Analyze Amazon's competitive position in e-commerce",
+  "How is AMD gaining market share from Intel?",
   "What's Meta's AI investment strategy?"
 ];
 
@@ -91,7 +112,7 @@ export default function QueryInput({ value, onChange, onSubmit, disabled }) {
   };
 
   return (
-    <div className="w-full" ref={componentRef}>
+    <div className="w-full relative" ref={componentRef}>
       {/* Quick Actions Bar */}
       <div className="mb-4 flex flex-wrap gap-2">
         {QUICK_ACTIONS.map((action, idx) => (
@@ -108,27 +129,6 @@ export default function QueryInput({ value, onChange, onSubmit, disabled }) {
               <span>{action.text}</span>
               <ChevronDown className={`w-3 h-3 opacity-50 transition-opacity ${activeDropdown === action.text ? "opacity-100" : "group-hover:opacity-100"}`} />
             </button>
-            {activeDropdown === action.text && (
-              <div className="absolute z-50 w-80 mt-2 bg-gray-900/95 backdrop-blur-sm border border-gray-700 rounded-xl shadow-xl overflow-hidden">
-                <div className="p-4">
-                  <h3 className="text-sm font-bold text-blue-400 mb-3 flex items-center gap-2">
-                    {action.icon}
-                    {action.text} Example Queries
-                  </h3>
-                  <div className="space-y-2">
-                    {action.examples.map((example, i) => (
-                      <button
-                        key={i}
-                        onClick={() => handleSampleClick(example)}
-                        className="w-full text-left p-3 text-sm text-gray-300 hover:bg-gray-800/50 rounded-lg transition-colors border border-transparent hover:border-gray-600"
-                      >
-                        {example}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         ))}
         <button
@@ -186,28 +186,56 @@ export default function QueryInput({ value, onChange, onSubmit, disabled }) {
         </div>
       </form>
 
-      {/* Sample Questions Dropdown */}
-      {showSamples && (
-        <div className="absolute z-50 w-full mt-2 bg-gray-900/95 backdrop-blur-sm border border-gray-700 rounded-xl shadow-xl overflow-hidden">
-          <div className="p-4">
-            <h3 className="text-sm font-medium text-blue-400 mb-3 flex items-center gap-2">
-              <Lightbulb className="w-4 h-4" />
-              Sample Questions
-            </h3>
-            <div className="space-y-2">
-              {SAMPLE_QUESTIONS.map((question, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleSampleClick(question)}
-                  className="w-full text-left p-3 text-sm text-gray-300 hover:bg-gray-800/50 rounded-lg transition-colors border border-transparent hover:border-gray-600"
-                >
-                  {question}
-                </button>
-              ))}
+      {/* Dropdowns positioned below the input area */}
+      <div className="mt-4">
+        {/* Quick Action Dropdowns */}
+        {QUICK_ACTIONS.map((action, idx) => (
+          activeDropdown === action.text && (
+            <div key={action.text} className="mb-4 bg-gray-900/95 backdrop-blur-sm border border-gray-700 rounded-xl shadow-2xl overflow-hidden">
+              <div className="p-4">
+                <h3 className="text-sm font-bold text-blue-400 mb-3 flex items-center gap-2">
+                  {action.icon}
+                  {action.text} Example Queries
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-64 overflow-y-auto">
+                  {action.examples.map((example, i) => (
+                    <button
+                      key={i}
+                      onClick={() => handleSampleClick(example)}
+                      className="w-full text-left p-3 text-sm text-gray-300 hover:bg-gray-800/50 rounded-lg transition-colors border border-transparent hover:border-gray-600"
+                    >
+                      {example}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )
+        ))}
+
+        {/* Sample Questions Dropdown */}
+        {showSamples && (
+          <div className="bg-gray-900/95 backdrop-blur-sm border border-gray-700 rounded-xl shadow-2xl overflow-hidden">
+            <div className="p-4">
+              <h3 className="text-sm font-medium text-blue-400 mb-3 flex items-center gap-2">
+                <Lightbulb className="w-4 h-4" />
+                Sample Questions
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-64 overflow-y-auto">
+                {SAMPLE_QUESTIONS.map((question, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleSampleClick(question)}
+                    className="w-full text-left p-3 text-sm text-gray-300 hover:bg-gray-800/50 rounded-lg transition-colors border border-transparent hover:border-gray-600"
+                  >
+                    {question}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

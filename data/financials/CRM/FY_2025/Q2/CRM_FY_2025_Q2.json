@@ -125,7 +125,7 @@
     "additional_metrics": {
       "remaining_performance_obligation": {
         "current": 26.5,
-        "noncurrent": 27.0,
+        "noncurrent": 27,
         "total": 53.5
       },
       "free_cash_flow": {
@@ -133,6 +133,11 @@
         "capital_expenditures": 163,
         "total": 6084
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 0,
+      "capital_expenditures": 0,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {

@@ -91,10 +91,15 @@
           "sequential_growth": "12.0"
         },
         "diluted": {
-          "value": 8.80,
+          "value": 8.8,
           "sequential_growth": "12.4"
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 4036,
+      "capital_expenditures": 0,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -439,7 +444,7 @@
         "calculation": "Annualized COGS / Average Inventory"
       },
       "receivables_turnover": {
-        "value": 11.0,
+        "value": 11,
         "description": "Number of times receivables are collected annually",
         "calculation": "Annualized Revenue / Accounts Receivable"
       },

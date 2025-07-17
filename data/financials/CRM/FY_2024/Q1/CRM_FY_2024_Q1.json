@@ -101,8 +101,8 @@
       },
       "earnings_per_share": {
         "gaap": {
-          "basic": 0.20,
-          "diluted": 0.20
+          "basic": 0.2,
+          "diluted": 0.2
         },
         "non_gaap": {
           "basic": 1.71,
@@ -119,6 +119,11 @@
         "marketing_and_commerce": "10.0",
         "data": "20.0"
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 4491,
+      "capital_expenditures": -243,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {

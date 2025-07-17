@@ -137,6 +137,11 @@
           "yoy_growth": 28.8
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 20200,
+      "capital_expenditures": -3223,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -253,7 +258,7 @@
         "total_non_current_liabilities": {
           "value": 157806,
           "previous": 153157,
-          "change_pct": 3.0
+          "change_pct": 3
         }
       },
       "total_liabilities": {
@@ -392,7 +397,7 @@
         "term_debt_net": {
           "value": 10423,
           "previous": -4040,
-          "yoy_change": -358.0
+          "yoy_change": -358
         },
         "commercial_paper_net": {
           "value": 22,

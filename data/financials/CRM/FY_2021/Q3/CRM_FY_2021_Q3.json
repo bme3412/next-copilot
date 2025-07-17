@@ -76,7 +76,7 @@
           "diluted": 1.15
         },
         "non_gaap": {
-          "basic": 1.80,
+          "basic": 1.8,
           "diluted": 1.74
         }
       }
@@ -91,6 +91,11 @@
         "revenue_recognized_point_in_time": 316,
         "business_combinations": 4
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 339,
+      "capital_expenditures": -124,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {

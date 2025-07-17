@@ -76,6 +76,11 @@
           "diluted": 1.82
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 19335,
+      "capital_expenditures": -4907,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -498,55 +503,55 @@
       "productivity_and_business_processes": {
         "value": 12319,
         "previous": 11077,
-        "yoy_change": 11.0,
+        "yoy_change": 11,
         "constant_currency_impact": 32,
-        "constant_currency_growth": 11.0
+        "constant_currency_growth": 11
       },
       "intelligent_cloud": {
         "value": 12986,
         "previous": 10845,
-        "yoy_change": 20.0,
+        "yoy_change": 20,
         "constant_currency_impact": 42,
-        "constant_currency_growth": 19.0
+        "constant_currency_growth": 19
       },
       "more_personal_computing": {
         "value": 11849,
         "previous": 11133,
-        "yoy_change": 6.0,
+        "yoy_change": 6,
         "constant_currency_impact": 34,
-        "constant_currency_growth": 6.0
+        "constant_currency_growth": 6
       }
     },
     "product_performance": {
       "office_365_commercial": {
-        "yoy_change": 21.0,
-        "constant_currency_impact": -1.0,
-        "constant_currency_growth": 20.0
+        "yoy_change": 21,
+        "constant_currency_impact": -1,
+        "constant_currency_growth": 20
       },
       "dynamics_365": {
-        "yoy_change": 38.0,
-        "constant_currency_impact": -1.0,
-        "constant_currency_growth": 37.0
+        "yoy_change": 38,
+        "constant_currency_impact": -1,
+        "constant_currency_growth": 37
       },
       "azure": {
-        "yoy_change": 48.0,
-        "constant_currency_impact": -1.0,
-        "constant_currency_growth": 47.0
+        "yoy_change": 48,
+        "constant_currency_impact": -1,
+        "constant_currency_growth": 47
       },
       "windows_oem": {
-        "yoy_change": -5.0,
-        "constant_currency_impact": 0.0,
-        "constant_currency_growth": -5.0
+        "yoy_change": -5,
+        "constant_currency_impact": 0,
+        "constant_currency_growth": -5
       },
       "xbox_content_and_services": {
-        "yoy_change": 30.0,
-        "constant_currency_impact": 0.0,
-        "constant_currency_growth": 30.0
+        "yoy_change": 30,
+        "constant_currency_impact": 0,
+        "constant_currency_growth": 30
       },
       "surface": {
-        "yoy_change": 37.0,
-        "constant_currency_impact": -1.0,
-        "constant_currency_growth": 36.0
+        "yoy_change": 37,
+        "constant_currency_impact": -1,
+        "constant_currency_growth": 36
       }
     },
     "key_metrics": {
@@ -561,12 +566,12 @@
       "earnings_per_share": {
         "value": 1.82,
         "previous": 1.38,
-        "yoy_change": 32.0,
+        "yoy_change": 32,
         "constant_currency_impact": 0.03,
-        "constant_currency_growth": 30.0
+        "constant_currency_growth": 30
       },
       "operating_cash_flow_margin": {
-        "value": 52.0,
+        "value": 52,
         "description": "Operating Cash Flow as % of Revenue",
         "components": {
           "operating_cash_flow": 19335,
@@ -585,19 +590,19 @@
     "currency_impact_summary": {
       "total_company": {
         "revenue": {
-          "reported_growth": 12.0,
+          "reported_growth": 12,
           "constant_currency_impact": 108,
-          "constant_currency_growth": 12.0
+          "constant_currency_growth": 12
         },
         "operating_income": {
-          "reported_growth": 25.0,
+          "reported_growth": 25,
           "constant_currency_impact": 71,
-          "constant_currency_growth": 25.0
+          "constant_currency_growth": 25
         },
         "net_income": {
-          "reported_growth": 30.0,
+          "reported_growth": 30,
           "constant_currency_impact": 231,
-          "constant_currency_growth": 28.0
+          "constant_currency_growth": 28
         }
       }
     }

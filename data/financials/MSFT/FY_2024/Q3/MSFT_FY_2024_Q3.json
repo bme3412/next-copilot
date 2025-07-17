@@ -411,7 +411,7 @@
               },
               "earnings_per_share": {
                 "current": 2.94,
-                "previous": 2.20,
+                "previous": 2.2,
                 "yoy_change": 34,
                 "constant_currency_impact": 0.07,
                 "constant_currency_growth": 30,
@@ -575,6 +575,11 @@
           }
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 0,
+      "capital_expenditures": 0,
+      "free_cash_flow": 0
     }
   }
 }

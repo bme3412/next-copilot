@@ -91,10 +91,15 @@
           "diluted": 0.47
         },
         "non_gaap": {
-          "basic": 1.30,
+          "basic": 1.3,
           "diluted": 1.27
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 404,
+      "capital_expenditures": -166,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {

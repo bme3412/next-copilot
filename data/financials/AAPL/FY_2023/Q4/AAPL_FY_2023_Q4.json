@@ -83,7 +83,7 @@
       "earnings_per_share": {
         "basic": {
           "value": 1.47,
-          "yoy_growth": 14.0
+          "yoy_growth": 14
         },
         "diluted": {
           "value": 1.46,
@@ -164,7 +164,7 @@
           "inventories": {
             "value": 6331,
             "previous": 4946,
-            "change_pct": 28.0
+            "change_pct": 28
           },
           "vendor_non_trade_receivables": {
             "value": 31477,
@@ -296,142 +296,9 @@
       }
     },
     "cash_flow": {
-      "cash_flow_from_operations": {
-        "net_income": {
-          "value": 22956,
-          "previous": 20721,
-          "yoy_change": 10.8
-        },
-        "non_cash_adjustments": {
-          "depreciation_and_amortization": {
-            "value": 2653,
-            "previous": 2865,
-            "yoy_change": -7.4
-          },
-          "share_based_compensation": {
-            "value": 2625,
-            "previous": 2278,
-            "yoy_change": 15.2
-          }
-        },
-        "working_capital_changes": {
-          "accounts_receivable": {
-            "value": -9297,
-            "previous": -6384,
-            "yoy_change": null
-          },
-          "inventories": {
-            "value": 952,
-            "previous": 435,
-            "yoy_change": null
-          },
-          "vendor_receivables": {
-            "value": -11840,
-            "previous": -12309,
-            "yoy_change": null
-          },
-          "accounts_payable": {
-            "value": 14901,
-            "previous": 15556,
-            "yoy_change": null
-          },
-          "deferred_revenue": {
-            "value": -203,
-            "previous": -156,
-            "yoy_change": -30.1
-          },
-          "other_assets_and_liabilities": {
-            "value": 1229,
-            "previous": -2269,
-            "yoy_change": 154.2
-          }
-        },
-        "total_operating_cash_flow": {
-          "value": 21598,
-          "previous": 24127,
-          "yoy_change": -10.5
-        }
-      },
-      "cash_flow_from_investing": {
-        "marketable_securities": {
-          "purchases": {
-            "value": -8557,
-            "previous": -6745,
-            "yoy_change": -26.9
-          },
-          "maturities": {
-            "value": 11829,
-            "previous": 5714,
-            "yoy_change": 107.0
-          },
-          "sales": {
-            "value": 1869,
-            "previous": 3837,
-            "yoy_change": -51.3
-          }
-        },
-        "capital_expenditure": {
-          "value": -2163,
-          "previous": -3289,
-          "yoy_change": 34.2
-        },
-        "acquisitions": {
-          "value": -506,
-          "previous": -617,
-          "yoy_change": 18.0
-        },
-        "total_investing_cash_flow": {
-          "value": 2394,
-          "previous": -1217,
-          "yoy_change": 296.7
-        }
-      },
-      "cash_flow_from_financing": {
-        "dividends": {
-          "value": -3758,
-          "previous": -3703,
-          "yoy_change": -1.5
-        },
-        "share_repurchases": {
-          "value": -21003,
-          "previous": -24428,
-          "yoy_change": 14.0
-        },
-        "debt_changes": {
-          "term_debt_net": {
-            "value": 0,
-            "previous": 2672,
-            "yoy_change": null
-          },
-          "commercial_paper_net": {
-            "value": 1993,
-            "previous": -1015,
-            "yoy_change": null
-          }
-        },
-        "total_financing_cash_flow": {
-          "value": -23153,
-          "previous": -26794,
-          "yoy_change": 13.6
-        }
-      },
-      "cash_position": {
-        "beginning_balance": {
-          "value": 29898,
-          "previous": 28861,
-          "yoy_change": 3.6
-        },
-        "ending_balance": {
-          "value": 30737,
-          "previous": 24977,
-          "change_pct": 23.1
-        },
-        "net_change": {
-          "value": 839,
-          "previous": -3884,
-          "yoy_change": null
-        }
-      }
+      "operating_cash_flow": 0,
+      "capital_expenditures": 0,
+      "free_cash_flow": 0
     },
     "metrics": {
       "working_capital_metrics": {
@@ -458,7 +325,7 @@
       },
       "turnover_metrics": {
         "inventory_turnover": {
-          "value": 31.0,
+          "value": 31,
           "description": "Number of times inventory is sold and replaced annually",
           "calculation": "Annualized COGS / Average Inventory"
         },

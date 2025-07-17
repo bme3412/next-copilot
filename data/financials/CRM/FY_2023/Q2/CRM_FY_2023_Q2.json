@@ -109,12 +109,17 @@
     "constant_currency_growth": {
       "total": 21.8,
       "by_cloud": {
-        "sales": 19.0,
-        "service": 18.0,
-        "platform_and_other": 56.0,
-        "marketing_and_commerce": 22.0,
-        "data": 13.0
+        "sales": 19,
+        "service": 18,
+        "platform_and_other": 56,
+        "marketing_and_commerce": 22,
+        "data": 13
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 334,
+      "capital_expenditures": -203,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -298,7 +303,7 @@
       "ending_balance": {
         "value": 6931,
         "previous": 6299,
-        "yoy_change": 10.0
+        "yoy_change": 10
       },
       "net_change": {
         "value": 72,

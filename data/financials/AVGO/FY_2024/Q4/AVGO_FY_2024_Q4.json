@@ -91,10 +91,15 @@
           "sequential_growth": "330.0"
         },
         "diluted": {
-          "value": 0.90,
+          "value": 0.9,
           "sequential_growth": "325.0"
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 4963,
+      "capital_expenditures": 0,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {

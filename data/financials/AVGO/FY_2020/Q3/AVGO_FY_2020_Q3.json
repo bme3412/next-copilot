@@ -24,7 +24,7 @@
       "margins": {
         "gross_margin": {
           "gaap": {
-            "value": 57.0,
+            "value": 57,
             "gross_profit": 3316
           },
           "non_gaap": {
@@ -122,7 +122,7 @@
           "total_current_assets": {
             "value": 13681,
             "previous": 9917,
-            "change_pct": 38.0
+            "change_pct": 38
           }
         },
         "non_current_assets": {
@@ -149,7 +149,7 @@
           "total_non_current_assets": {
             "value": 65617,
             "previous": 57576,
-            "change_pct": 14.0
+            "change_pct": 14
           }
         },
         "total_assets": {
@@ -178,7 +178,7 @@
           "other_current_liabilities": {
             "value": 4056,
             "previous": 2616,
-            "change_pct": 55.0
+            "change_pct": 55
           },
           "total_current_liabilities": {
             "value": 6702,
@@ -190,7 +190,7 @@
           "long_term_debt": {
             "value": 43201,
             "previous": 30011,
-            "change_pct": 44.0
+            "change_pct": 44
           },
           "other_long_term_liabilities": {
             "value": 5810,
@@ -206,7 +206,7 @@
         "total_liabilities": {
           "value": 55713,
           "previous": 42523,
-          "change_pct": 31.0
+          "change_pct": 31
         }
       },
       "stockholders_equity": {
@@ -238,162 +238,9 @@
       }
     },
     "cash_flow": {
-      "cash_flow_from_operations": {
-        "net_income": {
-          "value": 688,
-          "previous": 563,
-          "change_pct": 22.2
-        },
-        "non_cash_adjustments": {
-          "amortization_of_intangible": {
-            "value": 1581,
-            "previous": 1583,
-            "change_pct": -0.1
-          },
-          "depreciation": {
-            "value": 138,
-            "previous": 147,
-            "change_pct": -6.1
-          },
-          "stock_based_compensation": {
-            "value": 465,
-            "previous": 517,
-            "change_pct": -10.1
-          },
-          "deferred_taxes": {
-            "value": -436,
-            "previous": -175,
-            "change_pct": 149.1
-          },
-          "non_cash_restructuring": {
-            "value": 15,
-            "previous": 6,
-            "change_pct": 150.0
-          },
-          "non_cash_interest": {
-            "value": 22,
-            "previous": 31,
-            "change_pct": -29.0
-          }
-        },
-        "working_capital_changes": {
-          "trade_accounts_receivable": {
-            "value": 542,
-            "previous": 440,
-            "change_pct": 23.2
-          },
-          "inventory": {
-            "value": -128,
-            "previous": -10,
-            "change_pct": null
-          },
-          "accounts_payable": {
-            "value": -123,
-            "previous": 233,
-            "change_pct": null
-          },
-          "employee_compensation": {
-            "value": 231,
-            "previous": 61,
-            "change_pct": 278.7
-          },
-          "other_current_items": {
-            "value": -2,
-            "previous": 118,
-            "change_pct": null
-          },
-          "other_long_term_items": {
-            "value": 184,
-            "previous": -386,
-            "change_pct": null
-          }
-        },
-        "total_operating_cash_flow": {
-          "value": 3178,
-          "previous": 3213,
-          "change_pct": -1.1
-        }
-      },
-      "cash_flow_from_investing": {
-        "acquisitions": {
-          "value": -2,
-          "previous": 0,
-          "change_pct": null
-        },
-        "capital_expenditure": {
-          "value": -105,
-          "previous": -148,
-          "change_pct": -29.1
-        },
-        "other_investing": {
-          "value": 61,
-          "previous": 172,
-          "change_pct": -64.5
-        },
-        "total_investing_cash_flow": {
-          "value": -46,
-          "previous": 24,
-          "change_pct": null
-        }
-      },
-      "cash_flow_from_financing": {
-        "debt_activities": {
-          "proceeds_long_term": {
-            "value": 7953,
-            "previous": 4468,
-            "change_pct": 78.0
-          },
-          "repayment_debt": {
-            "value": -6825,
-            "previous": -4452,
-            "change_pct": 53.3
-          },
-          "other_borrowings": {
-            "value": -3028,
-            "previous": 1025,
-            "change_pct": null
-          }
-        },
-        "equity_activities": {
-          "dividends": {
-            "value": -1386,
-            "previous": -1381,
-            "change_pct": 0.4
-          },
-          "share_repurchases": {
-            "value": -192,
-            "previous": -219,
-            "change_pct": -12.3
-          },
-          "stock_issuance": {
-            "value": 46,
-            "previous": 91,
-            "change_pct": -49.5
-          }
-        },
-        "total_financing_cash_flow": {
-          "value": -3482,
-          "previous": -474,
-          "change_pct": null
-        }
-      },
-      "cash_position": {
-        "beginning_balance": {
-          "value": 9207,
-          "previous": 6444,
-          "change_pct": 42.9
-        },
-        "ending_balance": {
-          "value": 8857,
-          "previous": 9207,
-          "change_pct": -3.8
-        },
-        "net_change": {
-          "value": -350,
-          "previous": 2763,
-          "change_pct": null
-        }
-      }
+      "operating_cash_flow": 0,
+      "capital_expenditures": 0,
+      "free_cash_flow": 0
     },
     "metrics": {
       "working_capital_metrics": {

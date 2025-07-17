@@ -95,6 +95,11 @@
           "sequential_growth": "-190.9"
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 4963,
+      "capital_expenditures": 0,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -473,7 +478,7 @@
     },
     "key_metrics": {
       "operating_cash_flow_margin": {
-        "value": 38.0,
+        "value": 38,
         "description": "Operating Cash Flow as % of Revenue"
       },
       "free_cash_flow": {

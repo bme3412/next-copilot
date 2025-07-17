@@ -95,6 +95,11 @@
           "diluted": 0.84
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 1982,
+      "capital_expenditures": -166,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -456,7 +461,7 @@
         }
       },
       "deferred_revenue_days": {
-        "value": 192.0,
+        "value": 192,
         "description": "Average number of days of prepaid revenue",
         "calculation": "Unearned Revenue / (Revenue / 90 days)",
         "components": {
@@ -467,7 +472,7 @@
     },
     "turnover_metrics": {
       "receivables_turnover": {
-        "value": 3.0,
+        "value": 3,
         "description": "Number of times receivables are collected annually (annualized)",
         "calculation": "Annualized Revenue / Average Accounts Receivable",
         "components": {

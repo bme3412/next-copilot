@@ -5,6 +5,7 @@ import {
 } from 'recharts';
 import { TrendingUp, DollarSign, BarChart2, AlertCircle, Info, Lightbulb, ChevronDown, ChevronUp, Table } from 'lucide-react';
 import FinancialChart from './FinancialChart';
+import StructuredFinancialTable from './StructuredFinancialTable';
 
 const formatQuarterlyData = (progression) => {
   if (!progression || !Array.isArray(progression)) return [];
@@ -17,17 +18,19 @@ const formatQuarterlyData = (progression) => {
 };
 
 const MetricCard = ({ title, value, trend, icon: Icon, subtitle }) => (
-  <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-4">
-    <div className="flex items-center gap-2 mb-2">
-      <Icon className="w-5 h-5 text-blue-400" />
-      <span className="text-sm text-gray-400">{title}</span>
+  <div className="bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:border-gray-600/70">
+    <div className="flex items-center gap-3 mb-3">
+      <div className="p-2 bg-blue-600/20 rounded-lg">
+        <Icon className="w-5 h-5 text-blue-400" />
+      </div>
+      <span className="text-sm text-gray-400 font-medium">{title}</span>
     </div>
-    <div className="text-2xl font-bold text-white mb-1">{value}</div>
+    <div className="text-3xl font-bold text-white mb-2">{value}</div>
     {subtitle && (
-      <div className="text-sm text-gray-500 mb-1">{subtitle}</div>
+      <div className="text-sm text-gray-500 mb-2">{subtitle}</div>
     )}
     {trend !== null && (
-      <div className={`text-sm ${trend > 0 ? 'text-green-400' : 'text-red-400'}`}>
+      <div className={`text-sm font-medium ${trend > 0 ? 'text-green-400' : 'text-red-400'}`}>
         {trend > 0 ? '↑' : '↓'} {Math.abs(trend)}% vs prev quarter
       </div>
     )}
@@ -56,10 +59,10 @@ const CollapsibleCitations = ({ citations }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="border-t border-gray-800 pt-4">
+    <div className="border-t border-gray-800/50 pt-4">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-gray-200 transition-colors w-full"
+        className="flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-gray-200 transition-colors w-full p-2 rounded-lg hover:bg-gray-800/30"
       >
         {isExpanded ? (
           <ChevronUp className="w-4 h-4 text-blue-400" />
@@ -72,11 +75,11 @@ const CollapsibleCitations = ({ citations }) => {
       <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
         isExpanded ? 'max-h-96 opacity-100 mt-3' : 'max-h-0 opacity-0'
       }`}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {citations.map((citation, index) => (
-            <div key={index} className="flex items-center gap-2 text-xs text-gray-400">
-              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-              <span>{citation.source}</span>
+            <div key={index} className="flex items-center gap-3 text-xs text-gray-400 p-2 rounded-lg bg-gray-800/30">
+              <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></span>
+              <span className="truncate">{citation.source}</span>
             </div>
           ))}
         </div>
@@ -87,15 +90,17 @@ const CollapsibleCitations = ({ citations }) => {
 
 const FinancialTableButton = ({ onGenerateTable, isGenerating = false }) => {
   return (
-    <div className="border-t border-gray-800 pt-6 mt-6">
-      <div className="flex items-center gap-2 mb-4">
-        <Table className="w-5 h-5 text-blue-400" />
+    <div className="border-t border-gray-800/50 pt-6 mt-6">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="p-2 bg-blue-600/20 rounded-lg">
+          <Table className="w-5 h-5 text-blue-400" />
+        </div>
         <h3 className="text-lg font-semibold text-gray-200">Financial Data</h3>
       </div>
       <button
         onClick={onGenerateTable}
         disabled={isGenerating}
-        className="w-full p-4 bg-gradient-to-r from-gray-800/60 to-gray-700/60 hover:from-blue-600/20 hover:to-blue-500/20 border border-gray-600 hover:border-blue-500/50 rounded-xl transition-all duration-300 cursor-pointer transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl hover:shadow-blue-500/10 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full p-4 bg-gradient-to-r from-gray-800/60 to-gray-700/60 hover:from-blue-600/20 hover:to-blue-500/20 border border-gray-600/50 hover:border-blue-500/50 rounded-xl transition-all duration-300 cursor-pointer transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl hover:shadow-blue-500/10 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <div className="flex items-center justify-center gap-3">
           {isGenerating ? (
@@ -119,10 +124,10 @@ const CollapsibleSources = ({ sources }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="border-t border-gray-800 pt-4">
+    <div className="border-t border-gray-800/50 pt-4">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-gray-200 transition-colors w-full"
+        className="flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-gray-200 transition-colors w-full p-2 rounded-lg hover:bg-gray-800/30"
       >
         {isExpanded ? (
           <ChevronUp className="w-4 h-4 text-blue-400" />
@@ -135,11 +140,11 @@ const CollapsibleSources = ({ sources }) => {
       <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
         isExpanded ? 'max-h-96 opacity-100 mt-3' : 'max-h-0 opacity-0'
       }`}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {sources.map((source, index) => (
-            <div key={index} className="flex items-center gap-2 text-xs text-gray-400">
-              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-              <span>{source}</span>
+            <div key={index} className="flex items-center gap-3 text-xs text-gray-400 p-2 rounded-lg bg-gray-800/30">
+              <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></span>
+              <span className="truncate">{source}</span>
             </div>
           ))}
         </div>
@@ -155,9 +160,11 @@ const FollowUpQuestions = ({ questions, onQuestionClick }) => {
   const displayQuestions = questions.slice(0, 3);
 
   return (
-    <div className="border-t border-gray-800 pt-6 mt-6">
-      <div className="flex items-center gap-2 mb-4">
-        <Lightbulb className="w-5 h-5 text-blue-400" />
+    <div className="border-t border-gray-800/50 pt-6 mt-6">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="p-2 bg-blue-600/20 rounded-lg">
+          <Lightbulb className="w-5 h-5 text-blue-400" />
+        </div>
         <h3 className="text-lg font-semibold text-gray-200">Follow-up Questions</h3>
       </div>
       <div className="space-y-3">
@@ -165,7 +172,7 @@ const FollowUpQuestions = ({ questions, onQuestionClick }) => {
           <button
             key={index}
             onClick={() => onQuestionClick(question)}
-            className="w-full text-left p-4 bg-gradient-to-r from-gray-800/60 to-gray-700/60 hover:from-blue-600/20 hover:to-blue-500/20 border border-gray-600 hover:border-blue-500/50 rounded-xl transition-all duration-300 group cursor-pointer transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl hover:shadow-blue-500/10"
+            className="w-full text-left p-4 bg-gradient-to-r from-gray-800/60 to-gray-700/60 hover:from-blue-600/20 hover:to-blue-500/20 border border-gray-600/50 hover:border-blue-500/50 rounded-xl transition-all duration-300 group cursor-pointer transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl hover:shadow-blue-500/10"
           >
             <div className="flex items-start gap-3">
               <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full mt-2 flex-shrink-0 group-hover:from-blue-300 group-hover:to-blue-400 transition-all duration-300 shadow-sm"></div>
@@ -176,829 +183,6 @@ const FollowUpQuestions = ({ questions, onQuestionClick }) => {
           </button>
         ))}
       </div>
-    </div>
-  );
-};
-
-// New component to parse and render ASCII tables as proper HTML tables
-const FinancialTableRenderer = ({ tableText }) => {
-  const [viewMode, setViewMode] = useState('table'); // 'table', 'cards', or 'dashboard'
-  
-  const parseAsciiTable = (text) => {
-    if (!text) return null;
-    
-    const lines = text.split('\n');
-    const sections = [];
-    let currentSection = null;
-    
-    for (const line of lines) {
-      // Check if this is a section header (all caps, no special chars)
-      if (/^[A-Z\s]+$/.test(line.trim()) && line.trim().length > 3) {
-        if (currentSection) {
-          sections.push(currentSection);
-        }
-        currentSection = {
-          title: line.trim(),
-          table: null
-        };
-        continue;
-      }
-      
-      // Check if this line contains table data (has | characters)
-      if (line.includes('|') && currentSection) {
-        if (!currentSection.table) {
-          currentSection.table = [];
-        }
-        currentSection.table.push(line);
-      }
-    }
-    
-    if (currentSection) {
-      sections.push(currentSection);
-    }
-    
-    return sections;
-  };
-  
-  const parseTableData = (tableLines) => {
-    if (!tableLines || tableLines.length < 3) return null;
-    
-    // Remove the separator lines (lines with only +, -, and |)
-    const dataLines = tableLines.filter(line => 
-      !/^[\s|+\-]+$/.test(line.trim())
-    );
-    
-    if (dataLines.length < 2) return null;
-    
-    // Parse headers (first data line)
-    const headerLine = dataLines[0];
-    const allHeaders = headerLine.split('|').map(cell => cell.trim());
-    
-    // Skip the first empty column, use the rest as headers
-    const headers = allHeaders.slice(1).filter(header => header && header.trim() !== '');
-    
-    // Parse data rows
-    const rows = dataLines.slice(1).map(line => {
-      const allCells = line.split('|').map(cell => cell.trim());
-      // Skip the first empty column, use the rest as data
-      return allCells.slice(1);
-    });
-    
-    console.log('Parsed table data:', { headers, rows });
-    
-    return { headers, rows };
-  };
-  
-  const formatCellValue = (value) => {
-    // Format numbers with commas
-    if (/^\d+$/.test(value)) {
-      return parseInt(value).toLocaleString();
-    }
-    // Format percentages
-    if (value.includes('%')) {
-      return value;
-    }
-    // Format currency (assuming values in millions)
-    if (/^\d+\.?\d*$/.test(value.replace(/[^\d.]/g, ''))) {
-      const num = parseFloat(value.replace(/[^\d.]/g, ''));
-      if (num >= 1000) {
-        return `$${(num / 1000).toFixed(1)}B`;
-      } else if (num >= 1) {
-        return `$${num.toFixed(1)}M`;
-      }
-    }
-    return value;
-  };
-  
-  const getNumericValue = (value) => {
-    if (!value || typeof value !== 'string') return 0;
-    
-    // Remove common financial formatting
-    let cleanedValue = value.trim();
-    
-    // Handle empty or dash values
-    if (cleanedValue === '' || cleanedValue === '-' || cleanedValue === 'N/A') {
-      return 0;
-    }
-    
-    // Handle percentage values
-    if (cleanedValue.includes('%')) {
-      const numMatch = cleanedValue.match(/([+-]?\d+\.?\d*)/);
-      return numMatch ? parseFloat(numMatch[1]) : 0;
-    }
-    
-    // Handle currency values (e.g., "$1,234.56B", "$1,234.56M", "$1,234.56K")
-    if (cleanedValue.includes('$')) {
-      // Remove $ and commas
-      cleanedValue = cleanedValue.replace(/[$,]/g, '');
-      
-      // Handle B (billions), M (millions), K (thousands)
-      if (cleanedValue.includes('B')) {
-        const numMatch = cleanedValue.match(/([+-]?\d+\.?\d*)/);
-        return numMatch ? parseFloat(numMatch[1]) * 1000 : 0; // Convert to millions
-      } else if (cleanedValue.includes('M')) {
-        const numMatch = cleanedValue.match(/([+-]?\d+\.?\d*)/);
-        return numMatch ? parseFloat(numMatch[1]) : 0;
-      } else if (cleanedValue.includes('K')) {
-        const numMatch = cleanedValue.match(/([+-]?\d+\.?\d*)/);
-        return numMatch ? parseFloat(numMatch[1]) / 1000 : 0; // Convert to millions
-      } else {
-        // Just a dollar amount
-        const numMatch = cleanedValue.match(/([+-]?\d+\.?\d*)/);
-        return numMatch ? parseFloat(numMatch[1]) / 1000000 : 0; // Convert to millions
-      }
-    }
-    
-    // Handle plain numbers with commas
-    cleanedValue = cleanedValue.replace(/,/g, '');
-    
-    // Extract numeric value for calculations
-    if (/^\d+$/.test(cleanedValue)) {
-      return parseInt(cleanedValue);
-    }
-    if (/^\d+\.?\d*$/.test(cleanedValue)) {
-      return parseFloat(cleanedValue);
-    }
-    
-    // Try to extract any number from the string
-    const numMatch = cleanedValue.match(/([+-]?\d+\.?\d*)/);
-    return numMatch ? parseFloat(numMatch[1]) : 0;
-  };
-  
-  const sections = parseAsciiTable(tableText);
-  
-  if (!sections || sections.length === 0) {
-    return (
-      <div className="text-sm text-gray-800 font-sans leading-relaxed whitespace-pre-wrap">
-        {tableText}
-      </div>
-    );
-  }
-  
-  const renderTableView = () => (
-    <div className="space-y-6">
-      {sections.map((section, sectionIndex) => {
-        const tableData = parseTableData(section.table);
-        
-        return (
-          <div key={sectionIndex} className="space-y-4">
-            {section.title && (
-              <h4 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
-                {section.title}
-              </h4>
-            )}
-            
-            {tableData ? (
-              <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 border-b border-gray-200">
-                        Metric
-                      </th>
-                      {tableData.headers.map((header, index) => (
-                        <th 
-                          key={index}
-                          className="px-4 py-3 text-left text-sm font-medium text-gray-700 border-b border-gray-200"
-                        >
-                          {header}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200">
-                    {tableData.rows.map((row, rowIndex) => (
-                      <tr key={rowIndex} className={rowIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                        <td className="px-4 py-3 text-sm font-medium text-gray-900 border-r border-gray-200">
-                          {row[0]}
-                        </td>
-                        {row.slice(1).map((cell, cellIndex) => (
-                          <td 
-                            key={cellIndex}
-                            className="px-4 py-3 text-sm text-gray-900"
-                          >
-                            {formatCellValue(cell)}
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              // Fallback for non-table content
-              <div className="text-sm text-gray-700 leading-relaxed">
-                {section.table?.join('\n')}
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );
-  
-  const renderCardView = () => (
-    <div className="space-y-6">
-      {sections.map((section, sectionIndex) => {
-        const tableData = parseTableData(section.table);
-        
-        return (
-          <div key={sectionIndex} className="space-y-4">
-            {section.title && (
-              <h4 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
-                {section.title}
-              </h4>
-            )}
-            
-            {tableData ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {tableData.rows.map((row, rowIndex) => {
-                  const metricName = row[0];
-                  const values = row.slice(1);
-                  
-                  return (
-                    <div key={rowIndex} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
-                      <h5 className="text-sm font-medium text-gray-700 mb-3">{metricName}</h5>
-                      <div className="space-y-2">
-                        {tableData.headers.map((header, headerIndex) => (
-                          <div key={headerIndex} className="flex justify-between items-center">
-                            <span className="text-xs text-gray-500">{header}</span>
-                            <span className="text-sm font-medium text-gray-900">
-                              {formatCellValue(values[headerIndex] || '')}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              // Fallback for non-table content
-              <div className="text-sm text-gray-700 leading-relaxed">
-                {section.table?.join('\n')}
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );
-  
-  const renderDashboardView = () => {
-    // Find the main performance section for dashboard metrics
-    const performanceSection = sections.find(section => 
-      section.title.includes('PERFORMANCE') || 
-      section.title.includes('SUMMARY') ||
-      section.title.includes('QUARTERLY') ||
-      section.title.includes('ANNUAL')
-    );
-    
-    console.log('Section detection:', {
-      allSections: sections.map(s => s.title),
-      selectedSection: performanceSection ? performanceSection.title : 'Not found'
-    });
-    
-    const tableData = performanceSection ? parseTableData(performanceSection.table) : null;
-    
-    if (!tableData) {
-      return renderCardView(); // Fallback to card view
-    }
-    
-    // Extract key metrics for dashboard - match actual table row names
-    const revenueRow = tableData.rows.find(row => 
-      row[0].toLowerCase().includes('revenue') ||
-      row[0].toLowerCase().includes('sales') ||
-      row[0].toLowerCase().includes('top line')
-    );
-    const profitRow = tableData.rows.find(row => 
-      row[0].toLowerCase().includes('op. income') ||
-      row[0].toLowerCase().includes('operating income') ||
-      row[0].toLowerCase().includes('op income') ||
-      row[0].toLowerCase().includes('operating') ||
-      row[0].toLowerCase().includes('income')
-    );
-    const marginRow = tableData.rows.find(row => 
-      row[0].toLowerCase().includes('op. margin') ||
-      row[0].toLowerCase().includes('operating margin') ||
-      row[0].toLowerCase().includes('op margin') ||
-      row[0].toLowerCase().includes('margin')
-    );
-    
-    // Also look for YoY Growth as a separate metric
-    const growthRow = tableData.rows.find(row => 
-      row[0].toLowerCase().includes('yoy growth') ||
-      row[0].toLowerCase().includes('growth')
-    );
-    
-    console.log('Row detection:', {
-      allRows: tableData.rows.map(row => row[0]),
-      revenueRow: revenueRow ? revenueRow[0] : 'Not found',
-      profitRow: profitRow ? profitRow[0] : 'Not found',
-      marginRow: marginRow ? marginRow[0] : 'Not found',
-      growthRow: growthRow ? growthRow[0] : 'Not found',
-      headers: tableData.headers,
-      fullTableData: tableData
-    });
-    
-    // Prepare chart data - headers are the quarters, data rows have metric names at index 0
-    const chartData = tableData.headers
-      .filter(header => header && header.trim() !== '') // Filter out empty headers
-      .map((header, index) => {
-        // Fix indexing: data starts at index 1, not index 0 (index 0 is the metric name)
-        const dataIndex = index + 1;
-        const revenueValue = revenueRow && revenueRow[dataIndex] ? getNumericValue(revenueRow[dataIndex]) : 0;
-        const profitValue = profitRow && profitRow[dataIndex] ? getNumericValue(profitRow[dataIndex]) : 0;
-        const marginValue = marginRow && marginRow[dataIndex] ? getNumericValue(marginRow[dataIndex]) : 0;
-        const growthValue = growthRow && growthRow[dataIndex] ? getNumericValue(growthRow[dataIndex]) : 0;
-        
-        console.log(`Data for ${header}:`, {
-          revenueValue,
-          profitValue,
-          marginValue,
-          growthValue,
-          revenueRaw: revenueRow ? revenueRow[dataIndex] : 'no row',
-          profitRaw: profitRow ? profitRow[dataIndex] : 'no row',
-          marginRaw: marginRow ? marginRow[dataIndex] : 'no row',
-          growthRaw: growthRow ? growthRow[dataIndex] : 'no row'
-        });
-        
-        return {
-          name: header, // Use 'name' instead of 'period' for Recharts
-          revenue: revenueValue,
-          profit: profitValue,
-          margin: marginValue,
-          growth: growthValue
-        };
-      }); // Remove the filter to see all data points
-    
-    // Don't filter out any quarters - show all quarters even if some have zero values
-    const filteredChartData = chartData;
-    
-    console.log('Chart data:', {
-      originalData: chartData,
-      filteredData: filteredChartData,
-      revenueRow: revenueRow ? revenueRow[0] : 'Not found',
-      profitRow: profitRow ? profitRow[0] : 'Not found',
-      marginRow: marginRow ? marginRow[0] : 'Not found',
-      headers: tableData.headers
-    });
-    
-    // Check if we have valid chart data
-    if (filteredChartData.length === 0) {
-      // Try to use any available data as fallback
-      const fallbackChartData = tableData.headers
-        .filter(header => header && header.trim() !== '')
-        .map((header, index) => {
-          // Fix indexing: data starts at index 1, not index 0 (index 0 is the metric name)
-          const dataIndex = index + 1;
-          // Use the first row with data as fallback
-          const firstRowWithData = tableData.rows.find(row => 
-            row[dataIndex] && row[dataIndex].trim() !== '' && row[dataIndex] !== '-'
-          );
-          
-          const value = firstRowWithData && firstRowWithData[dataIndex] 
-            ? getNumericValue(firstRowWithData[dataIndex]) 
-            : 0;
-          
-          return {
-            name: header,
-            revenue: value,
-            profit: value,
-            margin: value
-          };
-        })
-        ; // Don't filter - show all quarters
-      
-      if (fallbackChartData.length === 0) {
-        return (
-          <div className="space-y-8">
-            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-              <h4 className="text-lg font-semibold text-gray-900 mb-4">No Chart Data Available</h4>
-              <p className="text-gray-600">Unable to extract chart data from the financial table. Please try generating a different table format.</p>
-              <div className="mt-4 p-4 bg-gray-50 rounded-lg text-xs text-gray-600">
-                <strong>Debug Info:</strong><br/>
-                Original Data: {JSON.stringify(chartData, null, 2)}<br/>
-                Filtered Data: {JSON.stringify(filteredChartData, null, 2)}<br/>
-                Fallback Data: {JSON.stringify(fallbackChartData, null, 2)}<br/>
-                Revenue Row: {revenueRow ? revenueRow.join(', ') : 'Not found'}<br/>
-                Profit Row: {profitRow ? profitRow.join(', ') : 'Not found'}<br/>
-                Margin Row: {marginRow ? marginRow.join(', ') : 'Not found'}<br/>
-                Growth Row: {growthRow ? growthRow.join(', ') : 'Not found'}<br/>
-                All Rows: {tableData.rows.map(row => row[0]).join(', ')}
-              </div>
-            </div>
-            {renderCardView()}
-          </div>
-        );
-      }
-      
-      // Use fallback data
-      console.log('Using fallback chart data:', fallbackChartData);
-      return (
-        <div className="space-y-8">
-          
-          {/* Fallback Chart */}
-          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-            <h4 className="text-lg font-semibold text-gray-900 mb-6">Financial Performance Trend</h4>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={fallbackChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis 
-                    dataKey="name" 
-                    stroke="#6b7280"
-                    fontSize={12}
-                    tickLine={false}
-                  />
-                  <YAxis 
-                    stroke="#6b7280"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                    tickFormatter={(value) => `$${(value / 1000).toFixed(0)}B`}
-                    domain={[0, 'dataMax + 10000']}
-                  />
-                  <Tooltip 
-                    formatter={(value, name) => [
-                      `$${(value / 1000).toFixed(1)}B`,
-                      'Financial Metric'
-                    ]}
-                    labelStyle={{ color: '#374151' }}
-                    contentStyle={{
-                      backgroundColor: 'white',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '8px',
-                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-                    }}
-                  />
-                  <Bar 
-                    dataKey="revenue" 
-                    fill="#3b82f6" 
-                    radius={[4, 4, 0, 0]}
-                    name="Financial Metric"
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-          
-          {renderCardView()}
-        </div>
-      );
-    }
-    
-    return (
-      <div className="space-y-8">
-        {/* Key Metrics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {revenueRow && (
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-6 shadow-sm">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-blue-600 mb-1">Total Revenue</p>
-                  <p className="text-3xl font-bold text-blue-900">
-                    {formatCellValue(revenueRow[revenueRow.length - 1] || 'N/A')}
-                  </p>
-                  <p className="text-xs text-blue-600 mt-2">Latest Quarter</p>
-                </div>
-                <div className="w-14 h-14 bg-blue-200 rounded-xl flex items-center justify-center shadow-sm">
-                  <DollarSign className="w-7 h-7 text-blue-600" />
-                </div>
-              </div>
-            </div>
-          )}
-          
-          {profitRow && (
-            <div className="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-xl p-6 shadow-sm">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-green-600 mb-1">Operating Income</p>
-                  <p className="text-3xl font-bold text-green-900">
-                    {formatCellValue(profitRow[profitRow.length - 1] || 'N/A')}
-                  </p>
-                  <p className="text-xs text-green-600 mt-2">Latest Quarter</p>
-                </div>
-                <div className="w-14 h-14 bg-green-200 rounded-xl flex items-center justify-center shadow-sm">
-                  <TrendingUp className="w-7 h-7 text-green-600" />
-                </div>
-              </div>
-            </div>
-          )}
-          
-          {marginRow && (
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-xl p-6 shadow-sm">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-purple-600 mb-1">Operating Margin</p>
-                  <p className="text-3xl font-bold text-purple-900">
-                    {formatCellValue(marginRow[marginRow.length - 1] || 'N/A')}
-                  </p>
-                  <p className="text-xs text-purple-600 mt-2">Latest Quarter</p>
-                </div>
-                <div className="w-14 h-14 bg-purple-200 rounded-xl flex items-center justify-center shadow-sm">
-                  <BarChart2 className="w-7 h-7 text-purple-600" />
-                </div>
-              </div>
-            </div>
-          )}
-          
-          {growthRow && (
-            <div className="bg-gradient-to-br from-orange-50 to-orange-100 border border-orange-200 rounded-xl p-6 shadow-sm">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-orange-600 mb-1">YoY Growth</p>
-                  <p className="text-3xl font-bold text-orange-900">
-                    {formatCellValue(growthRow[growthRow.length - 1] || 'N/A')}
-                  </p>
-                  <p className="text-xs text-orange-600 mt-2">Latest Quarter</p>
-                </div>
-                <div className="w-14 h-14 bg-orange-200 rounded-xl flex items-center justify-center shadow-sm">
-                  <TrendingUp className="w-7 h-7 text-orange-600" />
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-        
-        {/* Revenue Performance Chart */}
-        {revenueRow && (
-          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-            <h4 className="text-lg font-semibold text-gray-900 mb-6">Revenue Performance</h4>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={filteredChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis 
-                    dataKey="name" 
-                    stroke="#6b7280"
-                    fontSize={12}
-                    tickLine={false}
-                  />
-                  <YAxis 
-                    stroke="#6b7280"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                    tickFormatter={(value) => `$${(value / 1000).toFixed(0)}B`}
-                    domain={[0, 'dataMax + 10000']}
-                  />
-                  <Tooltip 
-                    formatter={(value, name) => [
-                      `$${(value / 1000).toFixed(1)}B`,
-                      name === 'revenue' ? 'Revenue' : 'Operating Income'
-                    ]}
-                    labelStyle={{ color: '#374151' }}
-                    contentStyle={{
-                      backgroundColor: 'white',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '8px',
-                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-                    }}
-                  />
-                  <Legend />
-                  <Bar 
-                    dataKey="revenue" 
-                    fill="#3b82f6" 
-                    radius={[4, 4, 0, 0]}
-                    name="Revenue"
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-            {/* Debug info */}
-            <div className="mt-4 p-4 bg-gray-50 rounded-lg text-xs text-gray-600">
-              <strong>Debug Info:</strong><br/>
-              Original Data: {JSON.stringify(chartData, null, 2)}<br/>
-              Filtered Data: {JSON.stringify(filteredChartData, null, 2)}<br/>
-              Revenue Row: {revenueRow ? revenueRow.join(', ') : 'Not found'}
-            </div>
-          </div>
-        )}
-        
-        {/* Operating Income Chart */}
-        {profitRow && (
-          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-            <h4 className="text-lg font-semibold text-gray-900 mb-6">Operating Income Trend</h4>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={filteredChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis 
-                    dataKey="name" 
-                    stroke="#6b7280"
-                    fontSize={12}
-                    tickLine={false}
-                  />
-                  <YAxis 
-                    stroke="#6b7280"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                    tickFormatter={(value) => `$${(value / 1000).toFixed(0)}B`}
-                    domain={[0, 'dataMax + 2000']}
-                  />
-                  <Tooltip 
-                    formatter={(value, name) => [
-                      `$${(value / 1000).toFixed(1)}B`,
-                      'Operating Income'
-                    ]}
-                    labelStyle={{ color: '#374151' }}
-                    contentStyle={{
-                      backgroundColor: 'white',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '8px',
-                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-                    }}
-                  />
-                  <Bar 
-                    dataKey="profit" 
-                    fill="#10b981" 
-                    radius={[4, 4, 0, 0]}
-                    name="Operating Income"
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        )}
-        
-        {/* Margin Analysis Chart */}
-        {marginRow && (
-          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-            <h4 className="text-lg font-semibold text-gray-900 mb-6">Operating Margin Analysis</h4>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={filteredChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis 
-                    dataKey="name" 
-                    stroke="#6b7280"
-                    fontSize={12}
-                    tickLine={false}
-                  />
-                  <YAxis 
-                    stroke="#6b7280"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                    tickFormatter={(value) => `${value.toFixed(1)}%`}
-                    domain={[0, 'dataMax + 2']}
-                  />
-                  <Tooltip 
-                    formatter={(value, name) => [
-                      `${value.toFixed(1)}%`,
-                      'Operating Margin'
-                    ]}
-                    labelStyle={{ color: '#374151' }}
-                    contentStyle={{
-                      backgroundColor: 'white',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '8px',
-                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-                    }}
-                  />
-                  <Bar 
-                    dataKey="margin" 
-                    fill="#8b5cf6" 
-                    radius={[4, 4, 0, 0]}
-                    name="Operating Margin"
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        )}
-        
-        {/* Growth Analysis Chart */}
-        {growthRow && (
-          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-            <h4 className="text-lg font-semibold text-gray-900 mb-6">Year-over-Year Growth</h4>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={filteredChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis 
-                    dataKey="name" 
-                    stroke="#6b7280"
-                    fontSize={12}
-                    tickLine={false}
-                  />
-                  <YAxis 
-                    stroke="#6b7280"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                    tickFormatter={(value) => `${value.toFixed(1)}%`}
-                    domain={[0, 'dataMax + 5']}
-                  />
-                  <Tooltip 
-                    formatter={(value, name) => [
-                      `${value.toFixed(1)}%`,
-                      'YoY Growth'
-                    ]}
-                    labelStyle={{ color: '#374151' }}
-                    contentStyle={{
-                      backgroundColor: 'white',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '8px',
-                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-                    }}
-                  />
-                  <Bar 
-                    dataKey="growth" 
-                    fill="#f59e0b" 
-                    radius={[4, 4, 0, 0]}
-                    name="YoY Growth"
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        )}
-        
-        {/* Detailed Data Table */}
-        <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-          <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
-            <h4 className="text-lg font-semibold text-gray-900">Detailed Quarterly Data</h4>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="min-w-full">
-              <thead className="bg-gray-50">
-                <tr>
-                  {tableData.headers.map((header, index) => (
-                    <th 
-                      key={index}
-                      className="px-6 py-4 text-left text-sm font-semibold text-gray-700 border-b border-gray-200"
-                    >
-                      {header}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {tableData.rows.map((row, rowIndex) => (
-                  <tr key={rowIndex} className={rowIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                    {row.map((cell, cellIndex) => (
-                      <td 
-                        key={cellIndex}
-                        className="px-6 py-4 text-sm text-gray-900"
-                      >
-                        {formatCellValue(cell)}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    );
-  };
-  
-  return (
-    <div>
-      {/* View Mode Toggle */}
-      <div className="flex justify-end mb-4">
-        <div className="inline-flex bg-gray-100 rounded-lg p-1">
-          <button
-            onClick={() => setViewMode('table')}
-            className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
-              viewMode === 'table'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            Table
-          </button>
-          <button
-            onClick={() => setViewMode('cards')}
-            className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
-              viewMode === 'cards'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            Cards
-          </button>
-          <button
-            onClick={() => setViewMode('dashboard')}
-            className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
-              viewMode === 'dashboard'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            Dashboard
-          </button>
-        </div>
-      </div>
-      
-      {/* Render based on view mode */}
-      {viewMode === 'table' && renderTableView()}
-      {viewMode === 'cards' && renderCardView()}
-      {viewMode === 'dashboard' && renderDashboardView()}
     </div>
   );
 };
@@ -1060,12 +244,12 @@ export function AnalysisDisplay({ analysis, isStreaming = false, onQuestionClick
       )}
 
       {/* Main Analysis */}
-      <div className="bg-gray-900/30 backdrop-blur-sm border border-gray-800 rounded-xl shadow-lg overflow-hidden">
+      <div className="bg-gradient-to-br from-gray-900/40 to-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl shadow-xl overflow-hidden">
         <div className="p-6">
           {isStreaming && (
             <div className="flex items-center gap-2 mb-4 text-blue-400">
               <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-              <span className="text-sm">Streaming response...</span>
+              <span className="text-sm font-medium">Streaming response...</span>
             </div>
           )}
           
@@ -1074,7 +258,7 @@ export function AnalysisDisplay({ analysis, isStreaming = false, onQuestionClick
               {paragraphs.map((paragraph, idx) => (
                 <p 
                   key={idx} 
-                  className="text-gray-200 leading-relaxed"
+                  className="text-gray-200 leading-relaxed text-base"
                 >
                   {paragraph}
                   {isStreaming && idx === paragraphs.length - 1 && (
@@ -1107,7 +291,8 @@ export function AnalysisDisplay({ analysis, isStreaming = false, onQuestionClick
                 </h3>
               </div>
               <div className="p-6">
-                <FinancialTableRenderer tableText={analysis.metadata.financialTable} />
+                {/* Use structured financial table for consistent rendering */}
+                <StructuredFinancialTable data={analysis.metadata.financialTable} />
               </div>
             </div>
           </div>
@@ -1134,27 +319,29 @@ export function AnalysisDisplay({ analysis, isStreaming = false, onQuestionClick
 
       {/* Analysis Metadata - Simplified */}
       {analysis.metadata && (
-        <div className="flex flex-wrap gap-4 text-sm text-gray-400 border-t border-gray-800 pt-4">
+        <div className="flex flex-wrap gap-4 text-sm text-gray-400 border-t border-gray-800/50 pt-4">
           {analysis.metadata.time_periods && (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-gray-800/30">
               <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
               <span>Time Range: {analysis.metadata.time_periods}</span>
             </div>
           )}
           {analysis.metadata.topics_covered?.length > 0 && (
             <div className="flex flex-wrap items-center gap-2">
-              <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-              <span>Topics:</span>
+              <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-gray-800/30">
+                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                <span>Topics:</span>
+              </div>
               {analysis.metadata.topics_covered.slice(0, 3).map(topic => (
                 <span 
                   key={topic}
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400"
+                  className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20"
                 >
                   {topic}
                 </span>
               ))}
               {analysis.metadata.topics_covered.length > 3 && (
-                <span className="text-gray-500">+{analysis.metadata.topics_covered.length - 3} more</span>
+                <span className="text-gray-500 px-2">+{analysis.metadata.topics_covered.length - 3} more</span>
               )}
             </div>
           )}
@@ -1162,4 +349,4 @@ export function AnalysisDisplay({ analysis, isStreaming = false, onQuestionClick
       )}
     </div>
   );
-}
+} 

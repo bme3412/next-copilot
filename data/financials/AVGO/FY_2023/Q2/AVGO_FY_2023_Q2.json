@@ -95,6 +95,11 @@
           "sequential_growth": "-7.4"
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 4502,
+      "capital_expenditures": 0,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -434,7 +439,7 @@
         "calculation": "Accounts Payable / (COGS / 90 days)"
       },
       "days_inventory_outstanding": {
-        "value": 78.0,
+        "value": 78,
         "description": "Average number of days to sell inventory",
         "calculation": "Inventory / (COGS / 90 days)"
       },

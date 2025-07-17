@@ -125,16 +125,22 @@ const HelpTips = ({ isVisible, onClose }) => {
             </h3>
             <div className="space-y-2 text-sm">
               <div className="text-gray-300">
-                • "What's Apple's revenue growth in Q1 2024?"
+                • "Compare the AI chip strategies of Nvidia, AMD, and Intel"
               </div>
               <div className="text-gray-300">
-                • "How is Microsoft implementing AI across products?"
+                • "How do cloud providers (AWS, Azure, GCP) differentiate themselves?"
               </div>
               <div className="text-gray-300">
-                • "Compare Google and Amazon's cloud strategies"
+                • "What's the impact of AI on enterprise software companies?"
               </div>
               <div className="text-gray-300">
-                • "What are Nvidia's main growth drivers?"
+                • "How has Salesforce's subscription model evolved?"
+              </div>
+              <div className="text-gray-300">
+                • "What's AMD's competitive position against Intel?"
+              </div>
+              <div className="text-gray-300">
+                • "How is Microsoft partnering with OpenAI?"
               </div>
             </div>
           </div>

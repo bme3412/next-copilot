@@ -96,7 +96,7 @@
       },
       "earnings_per_share": {
         "gaap": {
-          "basic": 2.90,
+          "basic": 2.9,
           "diluted": 2.85
         },
         "non_gaap": {
@@ -120,6 +120,11 @@
         "revenue_recognized_point_in_time": 304,
         "business_combinations": 64
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 429,
+      "capital_expenditures": -114,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -476,7 +481,7 @@
         }
       },
       "deferred_revenue_days": {
-        "value": 152.0,
+        "value": 152,
         "description": "Average number of days of prepaid revenue",
         "calculation": "Unearned Revenue / (Revenue / 90 days)",
         "components": {
@@ -487,7 +492,7 @@
     },
     "turnover_metrics": {
       "receivables_turnover": {
-        "value": 6.0,
+        "value": 6,
         "description": "Number of times receivables are collected annually (annualized)",
         "calculation": "Annualized Revenue / Average Accounts Receivable",
         "components": {
@@ -551,7 +556,7 @@
         }
       },
       "recurring_revenue_percentage": {
-        "value": 94.0,
+        "value": 94,
         "description": "Subscription Revenue as % of Total Revenue",
         "components": {
           "subscription_revenue": 4840,

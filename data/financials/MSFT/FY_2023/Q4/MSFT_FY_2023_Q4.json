@@ -55,13 +55,18 @@
       "provision_for_income_taxes": 4646,
       "net_income": 20081,
       "earnings_per_share": {
-        "basic": 2.70,
+        "basic": 2.7,
         "diluted": 2.69,
         "weighted_average_shares": {
           "basic": 7434,
           "diluted": 7467
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 28770,
+      "capital_expenditures": -8943,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -486,21 +491,21 @@
           "previous": 17516,
           "yoy_change": 4.7,
           "constant_currency_impact": -322,
-          "constant_currency_growth": 12.0
+          "constant_currency_growth": 12
         },
         "intelligent_cloud": {
           "current": 23993,
           "previous": 22081,
           "yoy_change": 8.4,
           "constant_currency_impact": -303,
-          "constant_currency_growth": 17.0
+          "constant_currency_growth": 17
         },
         "more_personal_computing": {
           "current": 13905,
           "previous": 13260,
           "yoy_change": 4.3,
           "constant_currency_impact": -130,
-          "constant_currency_growth": -7.0
+          "constant_currency_growth": -7
         }
       },
       "product_performance": {

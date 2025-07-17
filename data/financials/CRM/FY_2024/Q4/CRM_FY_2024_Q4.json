@@ -121,6 +121,11 @@
         "marketing_and_commerce": "7.0",
         "data": "21.0"
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 0,
+      "capital_expenditures": 0,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -393,7 +398,7 @@
         "sales": {
           "value": 394,
           "previous_year": 379,
-          "yoy_change_percent": 4.0
+          "yoy_change_percent": 4
         },
         "maturities": {
           "value": 319,
@@ -409,7 +414,7 @@
       "total_investing_cash_flow": {
         "value": -468,
         "previous_year": 312,
-        "yoy_change_percent": -250.0
+        "yoy_change_percent": -250
       }
     },
     "financing_activities": {
@@ -434,7 +439,7 @@
         "debt_repayments": {
           "value": 0,
           "previous_year": -1,
-          "yoy_change_percent": -100.0
+          "yoy_change_percent": -100
         }
       },
       "total_financing_cash_flow": {

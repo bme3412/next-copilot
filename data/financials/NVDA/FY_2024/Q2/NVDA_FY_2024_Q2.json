@@ -111,11 +111,6 @@
         }
       }
     },
-    "free_cash_flow": {
-      "value": 6048,
-      "qoq_growth": "129",
-      "yoy_growth": "634"
-    },
     "revenue_by_segments": {
       "compute_and_networking": {
         "value": 10402,
@@ -154,6 +149,11 @@
         "qoq_growth": "-14",
         "yoy_growth": "-53"
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 6348,
+      "capital_expenditures": -289,
+      "free_cash_flow": 6048
     }
   },
   "balance_sheet": {

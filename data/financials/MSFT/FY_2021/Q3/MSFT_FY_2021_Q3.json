@@ -76,6 +76,11 @@
           "diluted": 2.03
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 22179,
+      "capital_expenditures": -5089,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -565,7 +570,7 @@
       },
       "earnings_per_share": {
         "value": 2.03,
-        "previous": 1.40,
+        "previous": 1.4,
         "yoy_change": 45,
         "constant_currency_impact": 0.08,
         "constant_currency_growth": 34

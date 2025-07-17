@@ -537,6 +537,11 @@
           }
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 0,
+      "capital_expenditures": 0,
+      "free_cash_flow": 0
     }
   }
 }

@@ -7,7 +7,7 @@ import QueryInput from './Query';
 import WelcomeGuide from './WelcomeGuide';
 import AnalysisProgress from './AnalysisProgress';
 import HelpTips from './HelpTips';
-import { AlertCircle, Loader2, Bot, User, Sparkles, ArrowDown, HelpCircle } from 'lucide-react';
+import { AlertCircle, Loader2, Bot, User, Sparkles, ArrowDown, HelpCircle, MessageSquare } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function Chatbox() {
@@ -263,28 +263,31 @@ export default function Chatbox() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-6 space-y-6">
+    <div className="max-w-6xl mx-auto p-6 space-y-6">
       {/* Header */}
       <div className="text-center mb-8 relative">
         <div className="absolute top-0 right-0">
           <button
             onClick={() => setShowHelp(true)}
-            className="p-2 text-gray-400 hover:text-blue-400 transition-colors"
+            className="p-2 text-gray-400 hover:text-blue-400 transition-colors rounded-lg hover:bg-gray-800/50"
             title="Help & Tips"
           >
             <HelpCircle className="w-5 h-5" />
           </button>
         </div>
-        <h1 className="text-3xl font-bold text-white mb-2">
+        <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl mb-4 shadow-lg">
+          <MessageSquare className="w-8 h-8 text-white" />
+        </div>
+        <h1 className="text-3xl font-bold text-white mb-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
           Generative-AI Investment CoPilot
         </h1>
-        <p className="text-gray-400">
+        <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
           Ask detailed questions about Big Tech company performance and strategies
         </p>
       </div>
 
-      {/* Input Section - Fixed positioning instead of sticky */}
-      <div className="bg-gradient-to-b from-gray-900 via-gray-900 to-gray-900/80 pt-4 pb-6 -mx-6 px-6 backdrop-blur-sm border-b border-gray-800">
+      {/* Input Section - Enhanced styling */}
+      <div className="bg-gradient-to-b from-gray-900/95 via-gray-900/90 to-gray-900/80 pt-6 pb-8 -mx-6 px-6 backdrop-blur-xl border-b border-gray-800/50 shadow-xl">
         <QueryInput
           value={query}
           onChange={handleQueryChange}
@@ -294,7 +297,7 @@ export default function Chatbox() {
       </div>
 
       {/* Main Content Area */}
-      <div className="pt-4">
+      <div className="pt-6">
         {/* Error Display */}
         {error && (
           <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-xl backdrop-blur-sm animate-fadeIn">
@@ -314,14 +317,14 @@ export default function Chatbox() {
 
         {/* Welcome State */}
         {isFirstQuery && conversationHistory.length === 0 && !loading && (
-          <div className="mt-12 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600/20 rounded-full mb-4">
-              <Sparkles className="w-8 h-8 text-blue-400" />
+          <div className="mt-16 text-center">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-600/20 to-blue-700/20 rounded-3xl mb-6 shadow-lg border border-blue-500/20">
+              <Sparkles className="w-10 h-10 text-blue-400" />
             </div>
-            <h2 className="text-xl font-semibold text-white mb-2">
+            <h2 className="text-2xl font-semibold text-white mb-3">
               Ready to analyze
             </h2>
-            <p className="text-gray-400 max-w-md mx-auto">
+            <p className="text-gray-400 max-w-lg mx-auto text-lg leading-relaxed">
               Start by asking about any tech company's performance, strategies, or market position. 
               Try the quick actions above for guided examples.
             </p>
@@ -330,12 +333,12 @@ export default function Chatbox() {
 
         {/* Conversation History */}
         {conversationHistory.length > 0 && (
-          <div className="space-y-6 min-h-0 conversation-container">
+          <div className="space-y-8 min-h-0 conversation-container">
             {/* Clear Conversation Button */}
             <div className="flex justify-end">
               <button
                 onClick={clearConversation}
-                className="text-sm text-gray-500 hover:text-gray-400 transition-colors"
+                className="text-sm text-gray-500 hover:text-gray-400 transition-colors px-3 py-1 rounded-lg hover:bg-gray-800/50"
               >
                 Clear conversation
               </button>
@@ -350,41 +353,34 @@ export default function Chatbox() {
                 }`}
               >
                 {/* Avatar */}
-                <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+                <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center shadow-lg ${
                   item.type === 'query' 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-gray-700 text-gray-300'
+                    ? 'bg-gradient-to-br from-blue-600 to-blue-700 text-white' 
+                    : 'bg-gradient-to-br from-gray-700 to-gray-800 text-gray-300 border border-gray-600'
                 }`}>
                   {item.type === 'query' ? (
-                    <User className="w-4 h-4" />
+                    <User className="w-5 h-5" />
                   ) : (
-                    <Bot className="w-4 h-4" />
+                    <Bot className="w-5 h-5" />
                   )}
                 </div>
 
                 {/* Message Content */}
-                <div className={`max-w-3xl ${
+                <div className={`max-w-4xl ${
                   item.type === 'query' ? 'order-first' : 'order-last'
                 }`}>
-                  <div className={`p-4 rounded-xl ${
+                  <div className={`p-6 rounded-2xl shadow-lg backdrop-blur-sm ${
                     item.type === 'query'
-                      ? 'bg-blue-500/10 border border-blue-500/20'
-                      : 'bg-gray-800/50 border border-gray-700'
+                      ? 'bg-gradient-to-br from-blue-600/20 to-blue-700/20 border border-blue-500/30'
+                      : 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50'
                   }`}>
-                    <div className="text-sm text-gray-400 mb-2 flex items-center gap-2">
-                      {item.type === 'query' ? 'Your Question' : 'Analysis'}
-                      {item.isStreaming && (
-                        <div className="flex items-center gap-1 text-blue-400">
-                          <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                          <span className="text-xs">Streaming...</span>
-                        </div>
-                      )}
-                    </div>
                     <div className={
-                      item.type === 'query' ? 'text-blue-400' : 'text-white'
+                      item.type === 'query' ? 'text-blue-300' : 'text-white'
                     }>
                       {item.type === 'query' ? (
-                        item.content
+                        <div className="text-lg leading-relaxed font-medium">
+                          {item.content}
+                        </div>
                       ) : (
                         <AnalysisDisplay 
                           analysis={item.content} 

@@ -76,6 +76,11 @@
           "diluted": 2.35
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 23198,
+      "capital_expenditures": -6283,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {

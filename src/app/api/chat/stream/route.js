@@ -46,6 +46,7 @@ class StreamingRAGPipeline {
     this.baseDir = baseDir;
     this.embeddingCache = new Map(); // Simple in-memory cache for embeddings
     this.financialProcessor = new FinancialDataProcessor(path.join(process.cwd(), 'data', 'financials'));
+    this.chartCache = new Map(); // Add chart caching
   }
 
   detectCompany(companyName) {
@@ -323,6 +324,15 @@ If your output is not valid JSON, it will break the system.
       const queryLower = query.toLowerCase();
       const charts = [];
 
+      // Use cached data for better performance
+      const cacheKey = `charts_${ticker}_${queryLower.replace(/\s+/g, '_')}`;
+      
+      // Check if we have cached chart data
+      if (this.chartCache && this.chartCache.has(cacheKey)) {
+        console.log(`[generateFinancialCharts] Using cached charts for ${ticker}`);
+        return this.chartCache.get(cacheKey);
+      }
+
       // Only generate charts for specific financial queries to reduce processing time
       if (queryLower.includes('revenue') || queryLower.includes('growth') || queryLower.includes('performance')) {
         const revenueData = await this.financialProcessor.getTimeSeriesData(ticker, ['revenue', 'netIncome'], 6);
@@ -345,6 +355,12 @@ If your output is not valid JSON, it will break the system.
             config: this.financialProcessor.generateChartConfig(cashFlowData, 'line', `${ticker} Cash Flow Trends`)
           });
         }
+      }
+
+      // Cache the results for 2 minutes
+      if (this.chartCache) {
+        this.chartCache.set(cacheKey, charts);
+        setTimeout(() => this.chartCache.delete(cacheKey), 2 * 60 * 1000);
       }
 
       return charts;
@@ -447,72 +463,75 @@ Provide a direct, focused answer to the user's specific question. Avoid generic 
     return stream;
   }
 
-  extractFollowUpQuestions(fullResponse, query, intent, ticker) {
-    // Generate contextually relevant questions based on the actual response content
-    return this.generateContextualFollowUpQuestions(fullResponse, query, intent, ticker);
+  async extractFollowUpQuestions(fullResponse, query, intent, ticker) {
+    // Use AI to generate contextually relevant follow-up questions
+    return await this.generateAIBasedFollowUpQuestions(fullResponse, query, intent, ticker);
   }
 
-  generateContextualFollowUpQuestions(fullResponse, query, intent, ticker) {
+  async generateAIBasedFollowUpQuestions(fullResponse, query, intent, ticker) {
     const companyName = this.getCompanyDisplayName(ticker);
-    const questions = [];
     
-    // Extract key themes and topics from the response
-    const responseLower = fullResponse.toLowerCase();
-    const queryLower = query.toLowerCase();
-    
-    // Detect specific themes mentioned in the response
-    const hasCloudMention = /cloud|aws|azure|google cloud/i.test(responseLower);
-    const hasRevenueMention = /revenue|growth|financial|earnings/i.test(responseLower);
-    const hasPartnershipMention = /partnership|alliance|collaboration|accenture|deloitte/i.test(responseLower);
-    const hasTalentMention = /talent|training|upskilling|workforce|professionals/i.test(responseLower);
-    const hasCompetitiveMention = /competitive|microsoft|amazon|aws|azure|rival/i.test(responseLower);
-    const hasProductMention = /product|workspace|generative ai|ai features/i.test(responseLower);
-    const hasInvestmentMention = /investment|r&d|research|development|expense/i.test(responseLower);
-    const hasMarginMention = /margin|profitability|operating income|cost optimization/i.test(responseLower);
-    const hasQuarterlyMention = /quarterly|q1|q2|q3|q4|quarter/i.test(responseLower);
-    
-    // Generate questions based on the actual company and themes in the response
-    if (hasMarginMention && hasQuarterlyMention) {
-      questions.push(
-        `How has ${companyName}'s margin expansion strategy evolved over the past few quarters?`,
-        `What specific cost optimization initiatives has ${companyName} implemented to improve profitability?`,
-        `How does ${companyName}'s operating income growth compare to its competitors?`
-      );
-    } else if (hasCloudMention && hasRevenueMention) {
-      questions.push(
-        `How has ${companyName}'s cloud business performance impacted overall revenue growth?`,
-        `What are the key drivers behind ${companyName}'s cloud service adoption?`,
-        `How does ${companyName} compare to competitors in the cloud market?`
-      );
-    } else if (hasRevenueMention && hasQuarterlyMention) {
-      questions.push(
-        `What are the main factors driving ${companyName}'s quarterly revenue performance?`,
-        `How has ${companyName}'s revenue growth trended across different business segments?`,
-        `What challenges is ${companyName} facing in maintaining revenue growth?`
-      );
-    } else if (hasCompetitiveMention) {
-      questions.push(
-        `What is ${companyName}'s competitive position in its main markets?`,
-        `How is ${companyName} responding to competitive pressures?`,
-        `What strategic advantages does ${companyName} have over its rivals?`
-      );
-    } else if (hasInvestmentMention) {
-      questions.push(
-        `What are ${companyName}'s key investment priorities for the coming year?`,
-        `How is ${companyName} balancing investment in growth with profitability?`,
-        `What ROI has ${companyName} seen from its recent investments?`
-      );
-    } else {
-      // Fallback to general questions about the specific company
-      questions.push(
-        `What are ${companyName}'s main growth opportunities in the current market?`,
-        `How is ${companyName} adapting to changing market conditions?`,
-        `What are the biggest challenges ${companyName} faces in the next 12 months?`
-      );
+    const systemPrompt = `
+You are an expert financial analyst assistant. Your task is to generate 3 highly specific, contextual follow-up questions based on the user's original query and the detailed response provided.
+
+Guidelines for generating follow-up questions:
+1. Questions should be SPECIFIC to the actual content and insights mentioned in the response
+2. Questions should build upon the specific metrics, trends, or themes discussed
+3. Questions should explore deeper aspects of what was mentioned, not generic topics
+4. Questions should be actionable and lead to valuable insights
+5. Questions should reference specific time periods, metrics, or developments mentioned in the response
+6. Avoid generic questions that could apply to any company
+
+For example:
+- If the response mentions "Q4 revenue grew 14% to $170B", ask about specific drivers or segment performance
+- If the response mentions "operating margin improved from 3.8% to 7.8%", ask about cost optimization strategies
+- If the response mentions "AWS growth of 13%", ask about cloud market positioning or competitive dynamics
+- If the response mentions "international expansion", ask about specific markets or challenges
+
+Return exactly 3 questions, each on a new line, without numbering or bullet points.
+`;
+
+    const userPrompt = `
+Original User Query: "${query}"
+Company: ${companyName} (${ticker})
+Analysis Type: ${intent.analysis_type}
+Topics: ${intent.topics.join(', ')}
+Timeframe: ${intent.timeframe}
+
+Detailed Response:
+${fullResponse}
+
+Generate 3 specific follow-up questions that build upon the insights and data mentioned in this response. Focus on the most interesting or important aspects that deserve deeper exploration.
+`;
+
+    try {
+      const response = await this.openai.chat.completions.create({
+        model: 'gpt-4.1-2025-04-14',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt }
+        ],
+        temperature: 0.7,
+        max_tokens: 300
+      });
+
+      const questionsText = response.choices[0].message.content.trim();
+      const questions = questionsText.split('\n').filter(q => q.trim().length > 0).slice(0, 3);
+      
+      // Ensure we have exactly 3 questions, fallback to default if needed
+      if (questions.length < 3) {
+        const defaultQuestions = this.generateDefaultFollowUpQuestions(query, intent, ticker);
+        while (questions.length < 3) {
+          questions.push(defaultQuestions[questions.length] || `What are ${companyName}'s key strategic priorities for the coming year?`);
+        }
+      }
+      
+      return questions;
+    } catch (error) {
+      console.error('Error generating AI-based follow-up questions:', error);
+      // Fallback to default questions if AI generation fails
+      return this.generateDefaultFollowUpQuestions(query, intent, ticker);
     }
-    
-    // Ensure we have exactly 3 questions
-    return questions.slice(0, 3);
   }
 
   generateDefaultFollowUpQuestions(query, intent, ticker) {
@@ -526,19 +545,46 @@ Provide a direct, focused answer to the user's specific question. Avoid generic 
     const isStrategyQuery = /strategy|strategic|initiative|plan|approach/i.test(queryLower);
     const isCompetitiveQuery = /competitive|competition|market share|positioning/i.test(queryLower);
     const isProductQuery = /product|service|feature|development|launch/i.test(queryLower);
+    const isMarginQuery = /margin|profitability|operating income|cost optimization/i.test(queryLower);
+    const isQuarterlyQuery = /quarterly|q1|q2|q3|q4|quarter/i.test(queryLower);
+    const isCloudQuery = /cloud|aws|azure|google cloud/i.test(queryLower);
     
-    // Generate contextually relevant questions
-    if (isAIQuery) {
+    // Generate contextually relevant questions based on query type
+    if (isMarginQuery && isQuarterlyQuery) {
+      questions.push(
+        `What specific cost optimization initiatives has ${companyName} implemented to achieve margin expansion?`,
+        `How has ${companyName}'s margin performance compared to industry peers over the same period?`,
+        `What are the key drivers behind ${companyName}'s margin improvement across different business segments?`
+      );
+    } else if (isMarginQuery) {
+      questions.push(
+        `What are the main factors driving ${companyName}'s profitability trends?`,
+        `How is ${companyName} balancing margin expansion with growth investments?`,
+        `What cost structure changes has ${companyName} made to improve operating efficiency?`
+      );
+    } else if (isAIQuery) {
       questions.push(
         `What specific AI technologies is ${companyName} developing that differentiate it from competitors?`,
         `How is ${companyName} measuring the success and adoption of its AI initiatives?`,
         `What challenges is ${companyName} facing in scaling its AI capabilities across different markets?`
+      );
+    } else if (isFinancialQuery && isQuarterlyQuery) {
+      questions.push(
+        `What are the key factors driving ${companyName}'s quarterly performance trends?`,
+        `How has ${companyName}'s revenue growth varied across different business segments?`,
+        `What challenges is ${companyName} facing in maintaining consistent quarterly growth?`
       );
     } else if (isFinancialQuery) {
       questions.push(
         `What are the key factors driving ${companyName}'s recent financial performance trends?`,
         `How is ${companyName} managing costs while investing in growth initiatives?`,
         `What new revenue opportunities is ${companyName} exploring in its core markets?`
+      );
+    } else if (isCloudQuery) {
+      questions.push(
+        `How has ${companyName}'s cloud business performance impacted overall company metrics?`,
+        `What are the key drivers behind ${companyName}'s cloud service adoption and growth?`,
+        `How does ${companyName} compare to competitors in the cloud market landscape?`
       );
     } else if (isStrategyQuery) {
       questions.push(
@@ -799,7 +845,7 @@ export async function POST(req) {
             }
 
             // Extract follow-up questions from the full response
-            const followUpQuestions = streamingPipeline.extractFollowUpQuestions(fullResponse, query, intent, ticker);
+            const followUpQuestions = await streamingPipeline.extractFollowUpQuestions(fullResponse, query, intent, ticker);
 
             // Send follow-up questions as metadata
             controller.enqueue(

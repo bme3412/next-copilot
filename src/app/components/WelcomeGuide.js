@@ -10,9 +10,10 @@ const WelcomeGuide = ({ onStartAnalysis }) => {
       title: "Welcome to Clarity 2.0",
       description: "Your AI-powered investment analysis assistant for Big Tech companies.",
       examples: [
-        "What's Apple's revenue growth in Q1 2024?",
-        "How is Microsoft implementing AI?",
-        "Compare Google and Amazon's cloud strategies"
+        "Compare the AI chip strategies of Nvidia, AMD, and Intel",
+        "How do cloud providers (AWS, Azure, GCP) differentiate themselves?",
+        "What's the impact of AI on enterprise software companies?",
+        "How are semiconductor companies adapting to AI demand?"
       ]
     },
     {
@@ -20,9 +21,10 @@ const WelcomeGuide = ({ onStartAnalysis }) => {
       title: "Financial Analysis",
       description: "Get detailed insights into revenue, profits, margins, and cash flow trends.",
       examples: [
-        "Show me Nvidia's profit margins over the past year",
-        "What's Microsoft's revenue breakdown by segment?",
-        "Analyze Apple's cash flow trends"
+        "What was Apple's revenue growth in Q1 2024?",
+        "How have Microsoft's profit margins changed over the last year?",
+        "Can you show Nvidia's cash flow trends for the past four quarters?",
+        "What are Amazon's quarterly earnings highlights for 2023?"
       ]
     },
     {
@@ -30,9 +32,10 @@ const WelcomeGuide = ({ onStartAnalysis }) => {
       title: "AI & Technology",
       description: "Understand AI strategies, partnerships, and technological investments.",
       examples: [
-        "What are Google's main AI initiatives?",
-        "How does Microsoft's OpenAI partnership work?",
-        "Explain Meta's AI investment strategy"
+        "How is Microsoft partnering with OpenAI, and what are the results?",
+        "What are Nvidia's most important AI initiatives this year?",
+        "How is AMD competing with Nvidia in AI chips?",
+        "How is Salesforce leveraging AI in its CRM platform?"
       ]
     },
     {
@@ -40,9 +43,10 @@ const WelcomeGuide = ({ onStartAnalysis }) => {
       title: "Market Analysis",
       description: "Compare competitive positions, market share, and industry trends.",
       examples: [
-        "How does Apple compare to Samsung in smartphones?",
-        "What's Amazon's position in cloud computing?",
-        "Analyze the AI chip market competition"
+        "Can you analyze the cloud market share for major tech companies?",
+        "How do Google and Microsoft compete in the cloud space?",
+        "How does Salesforce compare to Oracle in enterprise software?",
+        "What's AMD's competitive position against Intel in CPUs?"
       ]
     }
   ];

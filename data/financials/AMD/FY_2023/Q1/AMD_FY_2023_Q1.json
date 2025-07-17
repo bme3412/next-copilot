@@ -342,7 +342,7 @@
         },
         "non_gaap": {
           "value": 970,
-          "earnings_per_share": 0.60
+          "earnings_per_share": 0.6
         }
       },
       "share_information": {
@@ -353,180 +353,9 @@
       }
     },
     "cash_flow": {
-      "cash_flow_from_operations": {
-        "net_income": {
-          "value": -139,
-          "previous": 786,
-          "yoy_change": "-117.7"
-        },
-        "non_cash_adjustments": {
-          "depreciation_and_amortization": {
-            "value": 982,
-            "previous": 609,
-            "yoy_change": "61.2"
-          },
-          "share_based_compensation": {
-            "value": 309,
-            "previous": 199,
-            "yoy_change": "55.3"
-          },
-          "operating_lease_amortization": {
-            "value": 24,
-            "previous": 19,
-            "yoy_change": "26.3"
-          },
-          "loss_on_property_disposal": {
-            "value": 6,
-            "previous": 15,
-            "yoy_change": "-60.0"
-          },
-          "other_adjustments": {
-            "value": -309,
-            "previous": -211,
-            "yoy_change": "46.4"
-          }
-        },
-        "working_capital_changes": {
-          "accounts_receivable": {
-            "value": 86,
-            "previous": -672,
-            "yoy_change": "-112.8"
-          },
-          "inventories": {
-            "value": -464,
-            "previous": -26,
-            "yoy_change": "1684.6"
-          },
-          "prepayment_related_parties": {
-            "value": 0,
-            "previous": -1,
-            "yoy_change": "-100.0"
-          },
-          "prepaid_expenses_other_assets": {
-            "value": -191,
-            "previous": -260,
-            "yoy_change": "-26.5"
-          },
-          "accounts_payable_and_accrued": {
-            "value": 291,
-            "previous": 416,
-            "yoy_change": "-30.0"
-          },
-          "other_assets_and_liabilities": {
-            "payables_related_parties": {
-              "value": -109,
-              "previous": 121,
-              "yoy_change": "-190.1"
-            }
-          }
-        },
-        "total_operating_cash_flow": {
-          "value": 486,
-          "previous": 995,
-          "yoy_change": "-51.2"
-        }
-      },
-      "cash_flow_from_investing": {
-        "capital_expenditure": {
-          "value": -158,
-          "previous": -71,
-          "yoy_change": "122.5"
-        },
-        "marketable_securities": {
-          "purchases": {
-            "value": -1703,
-            "previous": -100,
-            "yoy_change": "1603.0"
-          },
-          "maturities": {
-            "value": 473,
-            "previous": 963,
-            "yoy_change": "-50.9"
-          },
-          "sales": {
-            "value": 145,
-            "previous": 1,
-            "yoy_change": "14400.0"
-          }
-        },
-        "xilinx_acquisition_cash": {
-          "value": 0,
-          "previous": 2366,
-          "yoy_change": -100
-        },
-        "other_investing": {
-          "value": 6,
-          "previous": -1,
-          "yoy_change": "-700.0"
-        },
-        "total_investing_cash_flow": {
-          "value": -1237,
-          "previous": 3158,
-          "yoy_change": "-139.2"
-        }
-      },
-      "cash_flow_from_financing": {
-        "share_repurchases": {
-          "employee_stock_plans": {
-            "value": 3,
-            "previous": 2,
-            "yoy_change": "50.0"
-          },
-          "common_stock_repurchase": {
-            "value": -241,
-            "previous": -1914,
-            "yoy_change": "-87.4"
-          },
-          "tax_withholding": {
-            "value": -21,
-            "previous": -35,
-            "yoy_change": "-40.0"
-          }
-        },
-        "total_financing_cash_flow": {
-          "value": -259,
-          "previous": -1948,
-          "yoy_change": "-86.7"
-        }
-      },
-      "cash_position": {
-        "beginning_balance": {
-          "value": 4835,
-          "previous": 2535,
-          "yoy_change": "90.7"
-        },
-        "ending_balance": {
-          "value": 3825,
-          "previous": 4740,
-          "yoy_change": "-19.3"
-        },
-        "net_change": {
-          "value": -1010,
-          "previous": 2205,
-          "yoy_change": "-145.8"
-        }
-      },
-      "supplemental_information": {
-        "non_cash_activities": {
-          "property_equipment_accrued": {
-            "value": 69,
-            "previous": 67,
-            "yoy_change": "3.0"
-          },
-          "xilinx_acquisition": {
-            "common_stock_issued": {
-              "value": 0,
-              "previous": 48514,
-              "yoy_change": -100
-            },
-            "replacement_share_awards": {
-              "value": 0,
-              "previous": 275,
-              "yoy_change": -100
-            }
-          }
-        }
-      }
+      "operating_cash_flow": 0,
+      "capital_expenditures": 0,
+      "free_cash_flow": 0
     },
     "metrics": {
       "working_capital_metrics": {
@@ -578,11 +407,10 @@
           "description": "Operating Cash Flow minus Capex"
         },
         "capex_to_revenue": {
-          "value": 3.0,
+          "value": 3,
           "description": "Capital Expenditure as % of Revenue"
         }
       }
     }
   }
 }
-

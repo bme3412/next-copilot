@@ -49,7 +49,7 @@
           "net_income": 24667,
           "earnings_per_share": {
             "basic": 3.32,
-            "diluted": 3.30,
+            "diluted": 3.3,
             "weighted_average_shares": {
               "basic": 7433,
               "diluted": 7470
@@ -392,7 +392,7 @@
                 "constant_currency_growth": 10
               },
               "diluted_earnings_per_share": {
-                "current": 3.30,
+                "current": 3.3,
                 "previous": 2.99,
                 "yoy_change": 10,
                 "constant_currency_impact": 0.01,
@@ -541,6 +541,11 @@
           }
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 0,
+      "capital_expenditures": 0,
+      "free_cash_flow": 0
     }
   }
 }

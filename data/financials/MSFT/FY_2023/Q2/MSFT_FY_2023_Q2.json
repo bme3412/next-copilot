@@ -55,8 +55,8 @@
       "provision_for_income_taxes": 3914,
       "net_income": 16425,
       "earnings_per_share": {
-        "basic": 2.20,
-        "diluted": 2.20,
+        "basic": 2.2,
+        "diluted": 2.2,
         "weighted_average_shares": {
           "basic": 7451,
           "diluted": 7473
@@ -248,184 +248,9 @@
       }
     },
     "cash_flow": {
-      "cash_position": {
-        "beginning_balance": {
-          "value": 13931,
-          "previous": 14224,
-          "yoy_change": "-2.1"
-        },
-        "ending_balance": {
-          "value": 15646,
-          "previous": 20604,
-          "yoy_change": "-24.1"
-        },
-        "net_change": {
-          "value": 1715,
-          "previous": 6380,
-          "yoy_change": "-73.1"
-        }
-      },
-      "cash_flow_from_operations": {
-        "net_income": {
-          "value": 33981,
-          "previous": 39270,
-          "yoy_change": "-13.5"
-        },
-        "non_cash_adjustments": {
-          "depreciation_amortization_and_other": {
-            "value": 6438,
-            "previous": 6708,
-            "yoy_change": "-4.0"
-          },
-          "stock_based_compensation": {
-            "value": 4730,
-            "previous": 3599,
-            "yoy_change": "31.4"
-          },
-          "investment_and_derivative_gains_losses": {
-            "value": 192,
-            "previous": -671,
-            "yoy_change": "-128.6"
-          },
-          "deferred_income_taxes": {
-            "value": -2496,
-            "previous": -5787,
-            "yoy_change": "-56.9"
-          }
-        },
-        "working_capital_changes": {
-          "accounts_receivable": {
-            "value": 8565,
-            "previous": 4943,
-            "yoy_change": "73.3"
-          },
-          "inventories": {
-            "value": 762,
-            "previous": -383,
-            "yoy_change": "-298.9"
-          },
-          "other_current_assets": {
-            "value": -724,
-            "previous": 1770,
-            "yoy_change": "-140.9"
-          },
-          "other_long_term_assets": {
-            "value": -731,
-            "previous": -1506,
-            "yoy_change": "-51.5"
-          },
-          "accounts_payable": {
-            "value": -3625,
-            "previous": -236,
-            "yoy_change": "1436.0"
-          },
-          "unearned_revenue": {
-            "value": -8508,
-            "previous": -7228,
-            "yoy_change": "17.7"
-          },
-          "income_taxes": {
-            "value": -2453,
-            "previous": 596,
-            "yoy_change": "-511.6"
-          },
-          "other_current_liabilities": {
-            "value": -2205,
-            "previous": -2398,
-            "yoy_change": "-8.0"
-          },
-          "other_long_term_liabilities": {
-            "value": 445,
-            "previous": 343,
-            "yoy_change": "29.7"
-          }
-        },
-        "total_operating_cash_flow": {
-          "value": 34371,
-          "previous": 39020,
-          "yoy_change": "-11.9"
-        }
-      },
-      "cash_flow_from_investing": {
-        "capital_expenditure": {
-          "value": -12557,
-          "previous": -11675,
-          "yoy_change": "7.6"
-        },
-        "business_combinations": {
-          "value": -1028,
-          "previous": -2056,
-          "yoy_change": "-50.0"
-        },
-        "investments": {
-          "purchases": {
-            "value": -16612,
-            "previous": -12814,
-            "yoy_change": "29.6"
-          },
-          "maturities": {
-            "value": 13590,
-            "previous": 14115,
-            "yoy_change": "-3.7"
-          },
-          "sales": {
-            "value": 7486,
-            "previous": 8525,
-            "yoy_change": "-12.2"
-          }
-        },
-        "other_investing": {
-          "value": -1161,
-          "previous": -506,
-          "yoy_change": "129.4"
-        },
-        "total_investing_cash_flow": {
-          "value": -10282,
-          "previous": -4411,
-          "yoy_change": "133.1"
-        }
-      },
-      "cash_flow_from_financing": {
-        "debt_activities": {
-          "repayments": {
-            "value": -1750,
-            "previous": -4826,
-            "yoy_change": "-63.7"
-          }
-        },
-        "equity_activities": {
-          "common_stock_issued": {
-            "value": 818,
-            "previous": 903,
-            "yoy_change": "-9.4"
-          },
-          "common_stock_repurchased": {
-            "value": -11032,
-            "previous": -15117,
-            "yoy_change": "-27.0"
-          },
-          "common_stock_dividends": {
-            "value": -9687,
-            "previous": -8858,
-            "yoy_change": "9.4"
-          }
-        },
-        "other_financing": {
-          "value": -581,
-          "previous": -364,
-          "yoy_change": "59.6"
-        },
-        "total_financing_cash_flow": {
-          "value": -22232,
-          "previous": -28262,
-          "yoy_change": "-21.3"
-        }
-      },
-      "effect_of_exchange_rate": {
-        "value": -142,
-        "previous": 33,
-        "yoy_change": "-530.3"
-      }
+      "operating_cash_flow": 0,
+      "capital_expenditures": 0,
+      "free_cash_flow": 0
     },
     "metrics": {
       "financial_performance_reconciliation": {
@@ -467,7 +292,7 @@
             }
           },
           "earnings_per_share": {
-            "current": 2.20,
+            "current": 2.2,
             "previous": 2.48,
             "yoy_change": -11,
             "constant_currency_impact": -0.21,

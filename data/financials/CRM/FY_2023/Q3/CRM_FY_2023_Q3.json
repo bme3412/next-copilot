@@ -101,8 +101,8 @@
           "diluted": 0.21
         },
         "non_gaap": {
-          "basic": 1.40,
-          "diluted": 1.40
+          "basic": 1.4,
+          "diluted": 1.4
         }
       }
     },
@@ -115,6 +115,11 @@
         "marketing_and_commerce": "18.0",
         "data": "16.0"
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 313,
+      "capital_expenditures": -198,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -537,7 +542,7 @@
     },
     "key_metrics": {
       "operating_cash_flow_margin": {
-        "value": 4.0,
+        "value": 4,
         "description": "Operating Cash Flow as % of Revenue",
         "components": {
           "operating_cash_flow": 313,

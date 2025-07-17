@@ -72,10 +72,15 @@
       },
       "earnings_per_share": {
         "gaap": {
-          "basic": 2.50,
+          "basic": 2.5,
           "diluted": 2.48
         }
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 14480,
+      "capital_expenditures": -5865,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
@@ -597,7 +602,7 @@
         "value": 2.48,
         "previous": 2.03,
         "yoy_change": 22,
-        "constant_currency_impact": 0.00,
+        "constant_currency_impact": 0,
         "constant_currency_growth": 22
       },
       "operating_cash_flow_margin": {

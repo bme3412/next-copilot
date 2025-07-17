@@ -91,6 +91,11 @@
         "revenue_recognized_point_in_time": 456,
         "business_combinations": 0
       }
+    },
+    "cash_flow": {
+      "operating_cash_flow": 2174,
+      "capital_expenditures": -149,
+      "free_cash_flow": 0
     }
   },
   "balance_sheet": {
