@@ -108,7 +108,9 @@ class FinancialDataCache {
       
       // Extract operating income - handle different structures
       let profit = 0;
-      if (incomeStatement.operating_income?.value) {
+      if (incomeStatement.operating_income?.total) {
+        profit = incomeStatement.operating_income.total;
+      } else if (incomeStatement.operating_income?.value) {
         profit = incomeStatement.operating_income.value;
       } else if (incomeStatement.operating_income?.gaap?.value) {
         profit = incomeStatement.operating_income.gaap.value;
@@ -124,7 +126,9 @@ class FinancialDataCache {
       
       // Extract margin - handle different structures
       let margin = 0;
-      if (incomeStatement.margins?.operating_margin?.current_value) {
+      if (incomeStatement.operating_income?.margin_percentage) {
+        margin = parseFloat(incomeStatement.operating_income.margin_percentage);
+      } else if (incomeStatement.margins?.operating_margin?.current_value) {
         margin = incomeStatement.margins.operating_margin.current_value;
       } else if (incomeStatement.margins?.operating_margin?.gaap?.value) {
         margin = parseFloat(incomeStatement.margins.operating_margin.gaap.value);
@@ -261,4 +265,7 @@ class FinancialDataCache {
 }
 
 // Export singleton instance
-export const financialDataCache = new FinancialDataCache(); 
+export const financialDataCache = new FinancialDataCache();
+
+// Clear cache on module load to ensure fresh data extraction
+financialDataCache.clear(); 

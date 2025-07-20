@@ -10,6 +10,9 @@ const StructuredFinancialTable = ({ data }) => {
   }
 
   const { tableData, highlights, trends, summary } = data;
+  
+  // Detect if this is a cash flow analysis based on the table title
+  const isCashFlowAnalysis = tableData.title.toLowerCase().includes('cash flow');
 
   const formatValue = (value, isPercentage = false) => {
     if (value === null || value === undefined || value === 0) {
@@ -21,10 +24,14 @@ const StructuredFinancialTable = ({ data }) => {
     }
     
     // Format as currency in millions/billions
-    if (value >= 1000) {
-      return `$${(value / 1000).toFixed(1)}B`;
+    // Since the data is stored in millions, we need to handle the scaling properly
+    const absValue = Math.abs(value);
+    if (absValue >= 1000) {
+      // Value is in millions, convert to billions
+      return `${value < 0 ? '-' : ''}$${(absValue / 1000).toFixed(1)}B`;
     } else {
-      return `$${value.toFixed(0)}M`;
+      // Value is in millions, keep as millions
+      return `${value < 0 ? '-' : ''}$${absValue.toFixed(0)}M`;
     }
   };
 
@@ -32,6 +39,19 @@ const StructuredFinancialTable = ({ data }) => {
     return metric.toLowerCase().includes('margin') || 
            metric.toLowerCase().includes('growth') ||
            metric.toLowerCase().includes('%');
+  };
+
+  const isYoYChangeColumn = (columnIndex, headers) => {
+    const result = headers && headers[columnIndex] && headers[columnIndex].toLowerCase().includes('yoy change');
+    console.log(`isYoYChangeColumn(${columnIndex}, [${headers}]) = ${result}`);
+    console.log(`Headers: ${JSON.stringify(headers)}`);
+    console.log(`Column ${columnIndex}: ${headers?.[columnIndex]}`);
+    return result;
+  };
+
+  const isChangeColumn = (columnIndex, headers) => {
+    const result = headers && headers[columnIndex] && headers[columnIndex].toLowerCase() === 'change';
+    return result;
   };
 
   return (
@@ -74,7 +94,24 @@ const StructuredFinancialTable = ({ data }) => {
                       <span className={`font-medium ${
                         value === null || value === 0 ? 'text-gray-500' : 'text-gray-900'
                       }`}>
-                        {formatValue(value, isPercentageMetric(row.metric))}
+                        {(() => {
+                          // Adjust column index: cellIndex 0 = Q1 2024, cellIndex 1 = Q1 2023, cellIndex 2 = Change
+                          // So Change is at header index cellIndex + 1
+                          const headerIndex = cellIndex + 1;
+                          const isChangeCol = isChangeColumn(headerIndex, tableData.headers);
+                          const isYoYChangeCol = isYoYChangeColumn(headerIndex, tableData.headers);
+                          
+                          // For "Change" column: use percentage for margins, currency for revenue/income
+                          let isPercentage = isPercentageMetric(row.metric);
+                          if (isChangeCol) {
+                            isPercentage = row.metric.toLowerCase().includes('margin');
+                          } else if (isYoYChangeCol) {
+                            isPercentage = true; // YoY Change columns are always percentages
+                          }
+                          
+                          console.log(`formatValue for ${row.metric} at column ${cellIndex} (header ${headerIndex}): value=${value}, isPercentage=${isPercentage}, isChangeCol=${isChangeCol}`);
+                          return formatValue(value, isPercentage);
+                        })()}
                       </span>
                     </td>
                   ))}
@@ -116,9 +153,19 @@ const StructuredFinancialTable = ({ data }) => {
               <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <span className="font-medium text-gray-700">{trend.quarter}:</span>
                 <div className="text-sm text-gray-600">
-                  <span className="mr-4">Revenue: {formatValue(trend.revenue)}</span>
-                  <span className="mr-4">Profit: {formatValue(trend.profit)}</span>
-                  <span>Margin: {formatValue(trend.margin, true)}</span>
+                  {isCashFlowAnalysis ? (
+                    <>
+                      <span className="mr-4">Op. Cash Flow: {formatValue(trend.revenue)}</span>
+                      <span className="mr-4">Free Cash Flow: {formatValue(trend.profit)}</span>
+                      <span>Cash Flow Margin: {formatValue(trend.margin, true)}</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="mr-4">Revenue: {formatValue(trend.revenue)}</span>
+                      <span className="mr-4">Profit: {formatValue(trend.profit)}</span>
+                      <span>Margin: {formatValue(trend.margin, true)}</span>
+                    </>
+                  )}
                 </div>
               </div>
             ))}
